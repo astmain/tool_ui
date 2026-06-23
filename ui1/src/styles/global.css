@@ -1,0 +1,124 @@
+/* Global styles for UI1 Component Library */
+
+/* CSS Reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: var(--ui-font-family);
+  font-size: 16px;
+  color: var(--ui-text-primary);
+  background: var(--ui-bg-page);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  min-height: 100vh;
+  background: var(--ui-bg);
+}
+
+#root {
+  min-height: 100vh;
+}
+
+/* Element Plus-inspired theme CSS variables */
+:root {
+  /* Primary color */
+  --ui-primary: #409eff;
+  --ui-primary-light-3: #79bbff;
+  --ui-primary-light-5: #a0cfff;
+  --ui-primary-light-7: #c6e2ff;
+  --ui-primary-light-8: #d9ecff;
+  --ui-primary-light-9: #ecf5ff;
+  --ui-primary-dark-2: #337ecc;
+
+  /* Success / Warning / Danger / Info */
+  --ui-success: #67c23a;
+  --ui-warning: #e6a23c;
+  --ui-danger: #f56c6c;
+  --ui-info: #909399;
+
+  /* Background */
+  --ui-bg: #ffffff;
+  --ui-bg-page: #f5f7fa;
+  --ui-bg-overlay: #ffffff;
+
+  /* Text */
+  --ui-text-primary: #303133;
+  --ui-text: var(--ui-text-primary);
+  --ui-text-regular: #606266;
+  --ui-text-secondary: #909399;
+  --ui-text-placeholder: #c0c4cc;
+  --ui-text-disabled: #c0c4cc;
+
+  /* Border */
+  --ui-border: #dcdfe6;
+  --ui-border-light: #e4e7ed;
+  --ui-border-lighter: #ebeef5;
+  --ui-border-extra-light: #f2f6fc;
+  --ui-border-dark: #d4d7de;
+  --ui-border-darker: #b1b5bc;
+
+  /* Border radius */
+  --ui-radius-sm: 4px;
+  --ui-radius: 8px;
+  --ui-radius-lg: 12px;
+  --ui-radius-round: 20px;
+  --ui-radius-circle: 50%;
+
+  /* Box shadow */
+  --ui-shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);
+  --ui-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  --ui-shadow-lg: 0 12px 32px 4px rgba(0, 0, 0, 0.16);
+  --ui-shadow-light: 0 0 12px rgba(0, 0, 0, 0.12);
+  --ui-shadow-lighter: 0 0 6px rgba(0, 0, 0, 0.08);
+
+  /* Font */
+  --ui-font-family: "'PingFang SC', 'Helvetica Neue', Helvetica, 'Microsoft YaHei', Arial, sans-serif";
+  --ui-font-size-xs: 12px;
+  --ui-font-size-sm: 14px;
+  --ui-font-size-base: 16px;
+  --ui-font-size-lg: 18px;
+  --ui-font-size-xl: 20px;
+
+  /* Transition */
+  --ui-transition-duration: 0.3s;
+  --ui-transition-function: cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+
+/* Dark mode */
+[data-theme="dark"] {
+  --ui-primary: #409eff;
+  --ui-bg: #1d1f23;
+  --ui-bg-page: #15171a;
+  --ui-bg-overlay: #23262b;
+  --ui-text-primary: #e4e7ed;
+  --ui-text-regular: #c8ccd0;
+  --ui-text-secondary: #90949a;
+  --ui-text-placeholder: #62656b;
+  --ui-border: #3a3d41;
+  --ui-border-light: #2e3136;
+  --ui-border-lighter: #272a2e;
+
+  /* Semantic colors - dark mode */
+  --ui-success: #4a9e2f;
+  --ui-warning: #c68a2e;
+  --ui-danger: #d45b5b;
+  --ui-info: #7a7d85;
+
+  /* Border radius - dark mode (same as light - Element Plus consistent) */
+  --ui-radius-sm: 4px;
+  --ui-radius: 8px;
+  --ui-radius-lg: 12px;
+
+  /* Shadows - dark mode (darker) */
+  --ui-shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.3), 0 0 6px rgba(0, 0, 0, 0.2);
+  --ui-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --ui-shadow-lg: 0 12px 32px 4px rgba(0, 0, 0, 0.5);
+  --ui-shadow-light: 0 0 12px rgba(0, 0, 0, 0.3);
+  --ui-shadow-lighter: 0 0 6px rgba(0, 0, 0, 0.2);
+}

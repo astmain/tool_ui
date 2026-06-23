@@ -1,0 +1,122 @@
+.message {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  border-radius: var(--ui-radius);
+  background: var(--ui-bg-overlay);
+  box-shadow: var(--ui-shadow);
+  border: 1px solid var(--ui-border-light);
+  min-width: 280px;
+  max-width: 480px;
+  animation: slideIn 0.3s var(--ui-transition-function);
+  position: relative;
+}
+
+.message.leaving {
+  animation: slideOut 0.3s var(--ui-transition-function) forwards;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.content {
+  flex: 1;
+  font-size: var(--ui-font-size-sm);
+  color: var(--ui-text-primary);
+  line-height: 1.5;
+}
+
+.closeBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: var(--ui-text-secondary);
+  border-radius: var(--ui-radius-sm);
+  transition: color 0.2s, background-color 0.2s;
+  flex-shrink: 0;
+}
+
+.closeBtn:hover {
+  color: var(--ui-text-primary);
+  background-color: var(--ui-border-lighter);
+}
+
+.closeBtn svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* Type variants */
+.success {
+  background-color: var(--ui-success-light-9, #f0f9eb);
+  border-color: var(--ui-success-light-7, #e1f3d8);
+}
+
+.success .icon {
+  color: var(--ui-success);
+}
+
+.warning {
+  background-color: var(--ui-warning-light-9, #fdf6ec);
+  border-color: var(--ui-warning-light-7, #faecd8);
+}
+
+.warning .icon {
+  color: var(--ui-warning);
+}
+
+.error {
+  background-color: var(--ui-danger-light-9, #fef0f0);
+  border-color: var(--ui-danger-light-7, #fde2e2);
+}
+
+.error .icon {
+  color: var(--ui-danger);
+}
+
+.info {
+  background-color: var(--ui-info-light-9, #f4f4f5);
+  border-color: var(--ui-info-light-7, #e9e9eb);
+}
+
+.info .icon {
+  color: var(--ui-info);
+}

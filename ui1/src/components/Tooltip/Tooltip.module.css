@@ -1,0 +1,134 @@
+/* Tooltip Component Styles */
+
+.tooltipWrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip {
+  position: fixed;
+  z-index: 2000;
+  padding: 8px 12px;
+  background-color: var(--ui-primary, #409eff);
+  color: #ffffff;
+  font-size: var(--ui-font-size-sm, 14px);
+  line-height: 1.4;
+  border-radius: var(--ui-radius-sm, 4px);
+  box-shadow: var(--ui-shadow, 0 4px 12px rgba(0, 0, 0, 0.15));
+  max-width: 300px;
+  word-wrap: break-word;
+  pointer-events: none;
+}
+
+/* Arrow */
+.tooltipArrow {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background-color: inherit;
+  transform: rotate(45deg);
+}
+
+/* Placement: Top */
+.tooltip[data-placement^="top"] {
+  transform-origin: bottom center;
+}
+
+.tooltip[data-placement^="top"] .tooltipArrow {
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+}
+
+/* Placement: Bottom */
+.tooltip[data-placement^="bottom"] {
+  transform-origin: top center;
+}
+
+.tooltip[data-placement^="bottom"] .tooltipArrow {
+  top: -4px;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+}
+
+/* Placement: Left */
+.tooltip[data-placement^="left"] {
+  transform-origin: right center;
+}
+
+.tooltip[data-placement^="left"] .tooltipArrow {
+  right: -4px;
+  top: 50%;
+  transform: translateY(-50%) rotate(45deg);
+}
+
+/* Placement: Right */
+.tooltip[data-placement^="right"] {
+  transform-origin: left center;
+}
+
+.tooltip[data-placement^="right"] .tooltipArrow {
+  left: -4px;
+  top: 50%;
+  transform: translateY(-50%) rotate(45deg);
+}
+
+/* Start/End alignment */
+.tooltip[data-placement="top-start"] .tooltipArrow,
+.tooltip[data-placement="bottom-start"] .tooltipArrow {
+  left: 16px;
+  transform: translateX(0) rotate(45deg);
+}
+
+.tooltip[data-placement="top-end"] .tooltipArrow,
+.tooltip[data-placement="bottom-end"] .tooltipArrow {
+  left: auto;
+  right: 16px;
+  transform: translateX(0) rotate(45deg);
+}
+
+.tooltip[data-placement="left-start"] .tooltipArrow,
+.tooltip[data-placement="right-start"] .tooltipArrow {
+  top: 16px;
+  transform: translateY(0) rotate(45deg);
+}
+
+.tooltip[data-placement="left-end"] .tooltipArrow,
+.tooltip[data-placement="right-end"] .tooltipArrow {
+  top: auto;
+  bottom: 16px;
+  transform: translateY(0) rotate(45deg);
+}
+
+/* Fade animation */
+.tooltipEnter {
+  opacity: 0;
+  transform: scale(0.95);
+}
+
+.tooltipEnterActive {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 150ms ease-out, transform 150ms ease-out;
+}
+
+.tooltipExit {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.tooltipExitActive {
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 150ms ease-in, transform 150ms ease-in;
+}
+
+/* Trigger element */
+.trigger {
+  display: inline-block;
+}
+
+/* Popper container for enterable */
+.popper {
+  pointer-events: auto;
+}

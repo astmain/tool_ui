@@ -1,0 +1,131 @@
+/* Table Component Styles */
+.tableWrapper {
+  width: 100%;
+  overflow-x: auto;
+  font-family: var(--ui-font-family);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  background: var(--ui-bg);
+  font-size: var(--ui-font-size-sm);
+  color: var(--ui-text-primary);
+}
+
+/* Header */
+.thead {
+  background: var(--ui-bg-page);
+}
+
+.th {
+  padding: 12px 16px;
+  text-align: left;
+  font-weight: 600;
+  color: var(--ui-text-primary);
+  border-bottom: 1px solid var(--ui-border);
+  white-space: nowrap;
+  box-sizing: border-box;
+  background: var(--ui-bg-page);
+}
+
+/* Body */
+.tbody {
+  background: var(--ui-bg);
+}
+
+.row {
+  transition: background-color 0.15s ease;
+}
+
+.td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--ui-border-lighter);
+  color: var(--ui-text-primary);
+  box-sizing: border-box;
+  background: inherit;
+}
+
+/* Bordered */
+.bordered .th,
+.bordered .td {
+  border: 1px solid var(--ui-border);
+}
+
+.bordered .thead .th {
+  border-bottom-width: 2px;
+}
+
+/* Striped */
+.striped .tbody .row:nth-child(even) .td {
+  background: var(--ui-bg-page);
+}
+
+/* Hoverable */
+.hoverable .tbody .row:hover .td {
+  background: var(--ui-primary-light-9);
+}
+
+/* Compact */
+.compact .th,
+.compact .td {
+  padding: 8px 12px;
+}
+
+/* Fixed columns */
+.fixedLeft {
+  position: sticky;
+  left: 0;
+  z-index: 2;
+  background: inherit;
+}
+
+.fixedRight {
+  position: sticky;
+  right: 0;
+  z-index: 2;
+  background: inherit;
+}
+
+/* Header fixed column backgrounds */
+.thead .th.fixedLeft,
+.thead .th.fixedRight {
+  background: var(--ui-bg-page);
+}
+
+/* Empty state */
+.emptyRow {
+  padding: 48px 16px;
+  text-align: center;
+  color: var(--ui-text-secondary);
+  font-size: var(--ui-font-size-sm);
+  border-bottom: 1px solid var(--ui-border-lighter);
+}
+
+/* Scrollbar styling */
+.tableWrapper::-webkit-scrollbar {
+  height: 8px;
+}
+
+.tableWrapper::-webkit-scrollbar-track {
+  background: var(--ui-bg-page);
+}
+
+.tableWrapper::-webkit-scrollbar-thumb {
+  background: var(--ui-border);
+  border-radius: 4px;
+}
+
+.tableWrapper::-webkit-scrollbar-thumb:hover {
+  background: var(--ui-border-dark);
+}
+
+/* Shadow indicators for fixed columns */
+.tableWrapper:has(.fixedLeft)::-webkit-scrollbar {
+  margin-left: 0;
+}
+
+.table:has(.fixedRight) {
+  position: relative;
+}

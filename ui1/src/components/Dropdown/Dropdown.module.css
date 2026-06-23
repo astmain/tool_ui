@@ -1,0 +1,188 @@
+/* Dropdown Component Styles */
+
+.dropdown {
+  display: inline-block;
+  position: relative;
+}
+
+.dropdown.visible .triggerWrapper {
+  /* Visual feedback when open */
+}
+
+/* Trigger wrapper */
+.triggerWrapper {
+  display: inline-block;
+  cursor: pointer;
+  outline: none;
+}
+
+.triggerWrapper:focus-visible {
+  outline: 2px solid var(--ui-primary, #409eff);
+  outline-offset: 2px;
+  border-radius: var(--ui-radius-sm, 4px);
+}
+
+/* Portal container */
+.portal {
+  position: fixed;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+}
+
+/* Menu container */
+.menu {
+  position: fixed;
+  background: var(--ui-bg-overlay, #ffffff);
+  border: 1px solid var(--ui-border-light, #e4e7ed);
+  border-radius: var(--ui-radius, 8px);
+  box-shadow: var(--ui-shadow, 0 4px 12px rgba(0, 0, 0, 0.15));
+  padding: 4px 0;
+  min-width: 160px;
+  z-index: 10000;
+  opacity: 0;
+  transform: scale(0.95);
+  transform-origin: top left;
+  transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+  pointer-events: none;
+}
+
+.menuVisible {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+}
+
+/* Placement modifiers */
+.placementBottom {
+  transform-origin: top left;
+}
+
+.placementTop {
+  transform-origin: bottom left;
+}
+
+.placementLeft {
+  transform-origin: top right;
+}
+
+.placementRight {
+  transform-origin: top left;
+}
+
+/* Align modifiers */
+.alignStart .menuInner {
+  text-align: left;
+}
+
+.alignEnd .menuInner {
+  text-align: right;
+}
+
+/* Menu inner wrapper */
+.menuInner {
+  position: relative;
+}
+
+/* Menu item */
+.menuItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 16px;
+  font-size: var(--ui-font-size-sm, 14px);
+  color: var(--ui-text-primary, #303133);
+  cursor: pointer;
+  outline: none;
+  transition: background-color 0.15s ease, color 0.15s ease;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.menuItem:focus-visible {
+  outline: 2px solid var(--ui-primary, #409eff);
+  outline-offset: -2px;
+  background-color: var(--ui-primary-light-9, #ecf5ff);
+}
+
+.menuItem:not(.itemDisabled):hover {
+  background-color: var(--ui-primary-light-9, #ecf5ff);
+  color: var(--ui-primary, #409eff);
+}
+
+.menuItem:not(.itemDisabled):active {
+  background-color: var(--ui-primary-light-8, #d9ecff);
+}
+
+/* Disabled item */
+.itemDisabled {
+  color: var(--ui-text-placeholder, #c0c4cc);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Divided modifier */
+.divided {
+  /* margin-top is handled by the divider element */
+}
+
+/* Divider */
+.divider {
+  height: 1px;
+  background-color: var(--ui-border-lighter, #ebeef5);
+  margin: 4px 0;
+}
+
+/* Menu item label */
+.menuItemLabel {
+  flex: 1;
+}
+
+/* Sub-menu arrow */
+.subMenuArrow {
+  display: flex;
+  align-items: center;
+  margin-left: 12px;
+  color: var(--ui-text-secondary, #909399);
+  transition: color 0.15s ease;
+}
+
+.menuItem:hover .subMenuArrow {
+  color: var(--ui-primary, #409eff);
+}
+
+/* Dark mode support */
+[data-theme="dark"] .menu {
+  background: var(--ui-bg-overlay, #23262b);
+  border-color: var(--ui-border, #3a3d41);
+  box-shadow: var(--ui-shadow, 0 4px 12px rgba(0, 0, 0, 0.4));
+}
+
+[data-theme="dark"] .menuItem {
+  color: var(--ui-text-primary, #e4e7ed);
+}
+
+[data-theme="dark"] .menuItem:focus-visible {
+  background-color: rgba(64, 158, 255, 0.15);
+}
+
+[data-theme="dark"] .menuItem:not(.itemDisabled):hover {
+  background-color: rgba(64, 158, 255, 0.15);
+  color: var(--ui-primary, #409eff);
+}
+
+[data-theme="dark"] .menuItem:not(.itemDisabled):active {
+  background-color: rgba(64, 158, 255, 0.2);
+}
+
+[data-theme="dark"] .divider {
+  background-color: var(--ui-border, #3a3d41);
+}
+
+[data-theme="dark"] .subMenuArrow {
+  color: var(--ui-text-secondary, #90949a);
+}
+
+[data-theme="dark"] .menuItem:hover .subMenuArrow {
+  color: var(--ui-primary, #409eff);
+}

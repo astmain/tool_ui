@@ -1,0 +1,51 @@
+{
+  "editor.tokenColorCustomizations": {
+    "textMateRules": [
+      {
+        "scope": "heading.1.markdown entity.name.section.markdown",
+        "settings": {
+          "foreground": "#1A478C",
+          "fontStyle": "bold"
+        }
+      },
+      {
+        "scope": "heading.2.markdown entity.name.section.markdown",
+        "settings": {
+          "foreground": "#2CD163",
+          "fontStyle": "bold"
+        }
+      },
+      {
+        "scope": "heading.3.markdown entity.name.section.markdown",
+        "settings": {
+          "foreground": "#0075FF",
+          "fontStyle": "bold"
+        }
+      },
+      {
+        "scope": "heading.4.markdown entity.name.section.markdown",
+        "settings": {
+          "foreground": "#00BBAA",
+          "fontStyle": "bold"
+        }
+      },
+      {
+        "scope": "heading.5.markdown entity.name.section.markdown",
+        "settings": {
+          "foreground": "#006633",
+          "fontStyle": "bold"
+        }
+      },
+      {
+        "scope": "heading.6.markdown entity.name.section.markdown",
+        "settings": {
+          "foreground": "#ABB2BF",
+          "fontStyle": "bold"
+        }
+      }
+    ]
+  },
+  "markdown.styles": [
+    "./.vscode/format-markdown-preview.css"
+  ]
+}

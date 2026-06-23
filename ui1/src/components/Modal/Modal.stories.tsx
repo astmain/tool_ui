@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import React, { useState, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import Modal from './Modal';
 
 const meta: Meta<typeof Modal> = {

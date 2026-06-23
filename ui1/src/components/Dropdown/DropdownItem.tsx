@@ -1,4 +1,4 @@
-import React, { forwardRef, useCallback } from 'react';
+import { forwardRef, useCallback } from 'react';
 import type { ReactNode, KeyboardEvent } from 'react';
 import styles from './Dropdown.module.css';
 

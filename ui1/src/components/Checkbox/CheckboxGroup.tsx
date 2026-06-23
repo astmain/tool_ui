@@ -1,6 +1,6 @@
 import React, { useCallback, useId } from 'react';
 import styles from './CheckboxGroup.module.css';
-import Checkbox, { CheckboxProps } from './Checkbox';
+import Checkbox from './Checkbox';
 
 export interface CheckboxGroupProps {
   value?: string[];

@@ -62,16 +62,6 @@ const menuWithDisabled: MenuItem[] = [
   { key: 'action4', label: '操作四（禁用）', disabled: true },
 ];
 
-const menuWithSubMenu: MenuItem[] = [
-  { key: 'email', label: '邮件' },
-  { key: 'tasks', label: '任务', children: [
-    { key: 'task1', label: '已完成' },
-    { key: 'task2', label: '进行中' },
-    { key: 'task3', label: '待处理' },
-  ]},
-  { key: 'settings', label: '设置' },
-];
-
 export const Default: Story = {
   args: {
     trigger: 'click',

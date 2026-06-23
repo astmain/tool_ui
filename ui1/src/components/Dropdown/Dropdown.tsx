@@ -59,20 +59,8 @@ export interface DropdownRef {
   hide: () => void;
 }
 
-type Placement = NonNullable<DropdownProps['placement']>;
-type Align = NonNullable<DropdownProps['align']>;
-
-const placementPositionMap: Record<Placement, 'top' | 'bottom'> = {
-  top: 'bottom',
-  bottom: 'top',
-  left: 'bottom',
-  right: 'bottom',
-};
-
-const placementAlignMap: Record<Align, 'left' | 'right'> = {
-  start: 'left',
-  end: 'right',
-};
+export type Placement = NonNullable<DropdownProps['placement']>;
+export type Align = NonNullable<DropdownProps['align']>;
 
 function getMenuPosition(
   triggerRect: DOMRect,

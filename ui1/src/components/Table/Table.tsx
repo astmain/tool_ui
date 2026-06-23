@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import type { ReactNode } from 'react';
 import styles from './Table.module.css';
 
@@ -44,16 +44,6 @@ const Table: React.FC<TableProps> = ({
   ]
     .filter(Boolean)
     .join(' ');
-
-  const hasFixedLeft = useMemo(
-    () => columns.some((col) => col.fixed === 'left'),
-    [columns]
-  );
-
-  const hasFixedRight = useMemo(
-    () => columns.some((col) => col.fixed === 'right'),
-    [columns]
-  );
 
   const getColumnStyle = (col: TableColumn): React.CSSProperties => {
     const style: React.CSSProperties = {};

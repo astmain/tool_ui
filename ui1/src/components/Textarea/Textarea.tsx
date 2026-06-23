@@ -82,7 +82,6 @@ const Textarea = forwardRef<TextareaRef, TextareaProps>((props, ref) => {
   const [isFocused, setIsFocused] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const mirrorRef = useRef<HTMLTextAreaElement>(null);
-  const hiddenTextareaRef = useRef<HTMLTextAreaElement>(null);
 
   const value = valueProp ?? internalValue;
   const currentLength = value.length;
@@ -109,8 +108,6 @@ const Textarea = forwardRef<TextareaRef, TextareaProps>((props, ref) => {
       const lineHeight = parseFloat(computedStyle.lineHeight);
       const paddingTop = parseFloat(computedStyle.paddingTop);
       const paddingBottom = parseFloat(computedStyle.paddingBottom);
-      const borderTop = parseFloat(computedStyle.borderTopWidth);
-      const borderBottom = parseFloat(computedStyle.borderBottomWidth);
 
       const minRows = autosizeOption.minRows ?? rows;
       const maxRows = autosizeOption.maxRows ?? Infinity;

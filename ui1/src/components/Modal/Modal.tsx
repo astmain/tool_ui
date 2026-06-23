@@ -14,6 +14,7 @@ export interface ModalProps {
   title?: ReactNode;
   content?: ReactNode;
   footer?: ReactNode;
+  children?: ReactNode;
   width?: string | number;
   closeOnOverlay?: boolean;
   closeOnEsc?: boolean;
@@ -31,6 +32,7 @@ const Modal: React.FC<ModalProps> = ({
   title,
   content,
   footer,
+  children,
   width = 520,
   closeOnOverlay = true,
   closeOnEsc = true,
@@ -227,6 +229,10 @@ const Modal: React.FC<ModalProps> = ({
           >
             {content}
           </div>
+        )}
+
+        {children && (
+          <div className={styles.body}>{children}</div>
         )}
 
         {footer !== undefined ? (

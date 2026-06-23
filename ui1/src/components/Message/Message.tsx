@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import styles from './Message.module.css';
 
@@ -58,22 +58,20 @@ const Message: React.FC<MessageProps> = ({
   const [visible, setVisible] = useState(true);
   const [leaving, setLeaving] = useState(false);
 
-  useEffect(() => {
-    if (duration > 0) {
-      const timer = setTimeout(() => {
-        handleClose();
-      }, duration);
-      return () => clearTimeout(timer);
-    }
-  }, [duration]);
-
-  const handleClose = () => {
+  const handleClose = useCallback(() => {
     setLeaving(true);
     setTimeout(() => {
       setVisible(false);
       onClose?.();
     }, 300);
-  };
+  }, [onClose]);
+
+  useEffect(() => {
+    if (duration > 0) {
+      const timer = setTimeout(handleClose, duration);
+      return () => clearTimeout(timer);
+    }
+  }, [duration, handleClose]);
 
   if (!visible) return null;
 

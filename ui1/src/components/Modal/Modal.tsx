@@ -58,40 +58,33 @@ const Modal: React.FC<ModalProps> = ({
     }
   }, [onClose]);
 
-  const handleEnter = useCallback(() => {
-    previousActiveElement.current = document.activeElement;
-    setIsVisible(true);
-    requestAnimationFrame(() => {
-      setIsAnimating(true);
-      if (modalRef.current) {
-        modalRef.current.focus();
-      }
-    });
-  }, []);
-
-  const handleLeave = useCallback(() => {
-    setIsAnimating(false);
-    setTimeout(() => {
-      setIsVisible(false);
-      if (previousActiveElement.current instanceof HTMLElement) {
-        previousActiveElement.current.focus();
-      }
-    }, 300);
-  }, []);
-
   useEffect(() => {
     if (open) {
-      handleEnter();
+      previousActiveElement.current = document.activeElement;
       document.body.style.overflow = 'hidden';
+      setIsVisible(true);
+      requestAnimationFrame(() => setIsAnimating(true));
     } else if (isVisible) {
-      handleLeave();
+      setIsAnimating(false);
+      setTimeout(() => {
+        setIsVisible(false);
+        if (previousActiveElement.current instanceof HTMLElement) {
+          previousActiveElement.current.focus();
+        }
+      }, 300);
       document.body.style.overflow = '';
     }
 
     return () => {
       document.body.style.overflow = '';
     };
-  }, [open, isVisible, handleEnter, handleLeave]);
+  }, [open, isVisible]);
+
+  useEffect(() => {
+    if (isAnimating && modalRef.current) {
+      modalRef.current.focus();
+    }
+  }, [isAnimating]);
 
   useEffect(() => {
     if (!closeOnEsc || !open) return;

@@ -5,6 +5,7 @@ import React, {
   ReactNode,
   useCallback,
   useEffect,
+  useMemo,
   useRef,
   useState,
 } from 'react';
@@ -302,12 +303,16 @@ export const Tooltip: FC<TooltipProps> = ({
     </div>
   );
 
-  const childElement = isValidElement(children)
-    ? cloneElement(children as React.ReactElement<Record<string, any>>, {
-        ...triggerEventHandlers,
-        ref: triggerRef,
-      })
-    : children;
+  const childElement = useMemo(
+    () =>
+      isValidElement(children)
+        ? cloneElement(children as React.ReactElement<Record<string, unknown>>, {
+            ...triggerEventHandlers,
+            ref: triggerRef,
+          })
+        : children,
+    [children, triggerEventHandlers, triggerRef]
+  );
 
   return (
     <>

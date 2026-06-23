@@ -1,4 +1,5 @@
 @use 'sass:color';
+@use 'variables';
 
 *,
 *::before,
@@ -14,20 +15,20 @@ html {
 }
 
 body {
-  font-family: $font-family;
-  font-size: $font-size-base;
-  color: $color-text-primary;
-  background-color: $color-bg-base;
+  font-family: variables.$font-family;
+  font-size: variables.$font-size-base;
+  color: variables.$color-text-primary;
+  background-color: variables.$color-bg-base;
   line-height: 1.5;
 }
 
 a {
-  color: $color-primary;
+  color: variables.$color-primary;
   text-decoration: none;
-  transition: color $transition-fast;
+  transition: color variables.$transition-fast;
 
   &:hover {
-    color: color.adjust($color-primary, $lightness: -10%);
+    color: color.adjust(variables.$color-primary, $lightness: -10%);
   }
 }
 

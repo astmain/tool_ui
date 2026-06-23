@@ -8,11 +8,15 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        lazy: () => import('./pages/Home'),
+        lazy: async () => ({
+          Component: (await import('./pages/Home/index')).default,
+        }),
       },
       {
         path: 'about',
-        lazy: () => import('./pages/About'),
+        lazy: async () => ({
+          Component: (await import('./pages/About/index')).default,
+        }),
       },
     ],
   },

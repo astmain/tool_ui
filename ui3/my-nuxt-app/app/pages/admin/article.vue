@@ -1,41 +1,63 @@
 <template>
   <div class="p-4 flex flex-col gap-2">
-    <Com1Card :config="{ left: h('h1', { class: 'text-base font-bold' }, '文章管理'), right: h('div', { class: 'flex gap-2' }, [h(Com1Button, { text: '添加分类', variant: 'secondary', onClick: () => { editCatId = null; catForm = { name: '', sort: 0, remark: '' }; showCat = true } }), h(Com1Button, { text: '添加文章', onClick: () => { editArtId = null; artForm = { title: '', content: '', categoryId: 0, sort: 0 }; showArt = true } })]) }" />
-    <div class="border rounded-lg overflow-hidden">
-      <div class="bg-gray-50 px-4 py-3 border-b font-medium text-sm text-gray-700">文章分类</div>
-      <div class="divide-y">
-        <div v-if="categories.length === 0" class="px-4 py-6 text-center text-gray-400 text-sm">暂无分类</div>
-        <div v-for="cat in categories" :key="cat.id" class="px-4 py-3 flex items-center justify-between hover:bg-gray-50">
-          <div class="flex items-center gap-3"><span class="text-sm font-medium text-gray-800">{{ cat.name }}</span><span class="text-xs text-gray-400">排序: {{ cat.sort }}</span></div>
-          <div class="flex gap-2"><Com1Button text="编辑" variant="primary" size="mini" @click="openEditCat(cat)" /><Com1Button text="删除" variant="danger" size="mini" @click="deleteCat(cat.id)" /></div>
+    <div class="bg-white rounded-lg border border-gray-200 shadow-sm">
+      <div class="px-4 py-3 border-b border-gray-200 flex items-center justify-between">
+        <h1 class="text-base font-bold">{{ "文章管理" }}</h1>
+        <div class="flex gap-2">
+          <button class="px-3 py-1 bg-gray-100 text-gray-700 rounded text-sm" @click="openCat">{{ "添加分类" }}</button>
+          <button class="px-3 py-1 bg-blue-500 text-white rounded text-sm" @click="openArt">{{ "添加文章" }}</button>
+        </div>
+      </div>
+      <div class="p-4">
+        <div class="mb-4">
+          <div class="text-sm font-medium text-gray-700 mb-2">{{ "文章分类" }}</div>
+          <div class="flex flex-wrap gap-2 mb-3">
+            <div v-if="cats.length === 0" class="text-sm text-gray-400">{{ "暂无分类" }}</div>
+            <div v-for="cat in cats" :key="cat.id" class="flex items-center gap-2 bg-gray-50 px-3 py-1 rounded text-sm">
+              <span>{{ cat.name }}</span>
+              <button class="text-blue-500 text-xs" @click="editCat(cat)">{{ "编" }}</button>
+              <button class="text-red-500 text-xs" @click="delCat(cat.id)">{{ "删" }}</button>
+            </div>
+          </div>
+          <div class="flex gap-2">
+            <input v-model="catName" class="border px-2 py-1 rounded text-sm flex-1" placeholder="分类名称" />
+            <button class="px-3 py-1 bg-blue-500 text-white rounded text-sm" @click="saveCat">{{ "保存" }}</button>
+          </div>
+        </div>
+        <div class="border-t pt-4 mt-4">
+          <div class="text-sm font-medium text-gray-700 mb-2">{{ "文章列表" }}</div>
+          <div v-if="arts.length === 0" class="text-sm text-gray-400 py-4 text-center">{{ "暂无文章" }}</div>
+          <div class="space-y-2">
+            <div v-for="a in arts" :key="a.id" class="flex items-center justify-between bg-gray-50 px-3 py-2 rounded">
+              <div class="flex items-center gap-3 min-w-0">
+                <span class="text-sm truncate">{{ a.title }}</span>
+                <span class="text-xs bg-gray-200 px-2 py-0.5 rounded shrink-0">{{ a.category ? a.category.name : '' }}</span>
+              </div>
+              <div class="flex gap-2 shrink-0 ml-4">
+                <button class="text-blue-500 text-xs" @click="editArt(a)">{{ "编" }}</button>
+                <button class="text-red-500 text-xs" @click="delArt(a.id)">{{ "删" }}</button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-    <Com1Dialog :open="showCat" :title="editCatId ? '编辑分类' : '添加分类'" :confirm-text="editCatId ? '保存' : '添加'" :on-confirm="handleCatSubmit" :confirm-disabled="!catForm.name" @close="showCat = false">
-      <div class="flex flex-col gap-3">
-        <Com1Input :value="catForm.name" config-text="分类名称" placeholder="请输入分类名称" @change="(v: string) => catForm.name = v" />
-        <Com1Input :value="String(catForm.sort)" config-text="排序值" type="number" @change="(v: string) => catForm.sort = Number(v)" />
-        <Com1Input :value="catForm.remark" config-text="描述" placeholder="可选" @change="(v: string) => catForm.remark = v" />
-      </div>
-    </Com1Dialog>
-    <div class="border rounded-lg overflow-hidden">
-      <div class="bg-gray-50 px-4 py-3 border-b font-medium text-sm text-gray-700">文章列表</div>
-      <div class="divide-y">
-        <div v-if="articles.length === 0" class="px-4 py-6 text-center text-gray-400 text-sm">暂无文章</div>
-        <div v-for="article in articles" :key="article.id" class="px-4 py-3 flex items-center justify-between hover:bg-gray-50">
-          <div class="flex items-center gap-3 min-w-0"><span class="text-sm font-medium text-gray-800 truncate">{{ article.title }}</span><span class="text-xs bg-gray-100 text-gray-500 px-2 py-0.5 rounded shrink-0">{{ article.category?.name }}</span></div>
-          <div class="flex gap-2 shrink-0 ml-4"><Com1Button text="编辑" variant="primary" size="mini" @click="openEditArt(article)" /><Com1Button text="删除" variant="danger" size="mini" @click="deleteArt(article.id)" /></div>
+    <Com1Dialog :open="showDialog" :title="dialogTitle" confirm-text="确定" :on-confirm="handleSubmit" @close="showDialog = false">
+      <div class="space-y-3">
+        <div>
+          <label class="text-sm text-gray-600">{{ "标题" }}</label>
+          <input v-model="form.title" class="w-full border px-3 py-2 rounded mt-1" />
         </div>
-      </div>
-    </div>
-    <Com1Dialog :open="showArt" :title="editArtId ? '编辑文章' : '添加文章'" :confirm-text="editArtId ? '保存' : '添加'" :on-confirm="handleArtSubmit" :confirm-disabled="!artForm.title || !artForm.content || !artForm.categoryId" @close="showArt = false">
-      <div class="flex flex-col gap-3">
-        <Com1Input :value="artForm.title" config-text="标题" placeholder="请输入文章标题" @change="(v: string) => artForm.title = v" />
-        <Com1Select :value="String(artForm.categoryId)" :options="categories.map((c) => ({ value: String(c.id), label: c.name }))" config-text="分类" @change="(v: string) => artForm.categoryId = Number(v)" />
-        <Com1Input :value="String(artForm.sort)" config-text="排序值" type="number" @change="(v: string) => artForm.sort = Number(v)" />
-        <div class="flex items-start gap-3">
-          <label class="w-20 text-right pt-2 text-sm font-medium text-gray-700 shrink-0">内容</label>
-          <textarea v-model="artForm.content" rows="6" class="flex-1 border border-gray-300 px-3 py-2 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="请输入文章内容" />
+        <div>
+          <label class="text-sm text-gray-600">{{ "分类" }}</label>
+          <select v-model="form.categoryId" class="w-full border px-3 py-2 rounded mt-1">
+            <option value="0">{{ "请选择" }}</option>
+            <option v-for="c in cats" :key="c.id" :value="c.id">{{ c.name }}</option>
+          </select>
+        </div>
+        <div>
+          <label class="text-sm text-gray-600">{{ "内容" }}</label>
+          <textarea v-model="form.content" rows="5" class="w-full border px-3 py-2 rounded mt-1"></textarea>
         </div>
       </div>
     </Com1Dialog>
@@ -43,47 +65,52 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, h } from 'vue'
-interface Article { id: number; title: string; content: string; sort: number; categoryId: number; category: { id: number; name: string } }
-interface Category { id: number; name: string; sort: number; remark?: string }
-
-const articles = ref<Article[]>([])
-const categories = ref<Category[]>([])
-const showCat = ref(false)
-const showArt = ref(false)
-const editCatId = ref<number | null>(null)
-const editArtId = ref<number | null>(null)
-const catForm = ref({ name: '', sort: 0, remark: '' })
-const artForm = ref({ title: '', content: '', categoryId: 0, sort: 0 })
+const arts = ref<any[]>([])
+const cats = ref<any[]>([])
+const showDialog = ref(false)
+const dialogTitle = ref('')
+const catName = ref('')
+const form = ref<any>({ id: null, title: '', content: '', categoryId: 0 })
 
 async function fetchAll() {
-  const [ar, cr] = await Promise.all([$fetch<any>('/api/admin/article'), $fetch<any>('/api/admin/article?resource=category')])
-  if (ar.code === 200) articles.value = ar.data
-  if (cr.code === 200) categories.value = cr.data
+  const [r1, r2] = await Promise.all([
+    $fetch<any>('/api/admin/article'),
+    $fetch<any>('/api/admin/article?resource=category')
+  ])
+  if (r1.code === 200) arts.value = r1.data
+  if (r2.code === 200) cats.value = r2.data
 }
 
-function openEditCat(cat: Category) { editCatId.value = cat.id; catForm.value = { name: cat.name, sort: cat.sort, remark: cat.remark ?? '' }; showCat.value = true }
-async function handleCatSubmit() {
-  const body: any = { resource: 'category', ...catForm.value }
-  if (editCatId.value) body.id = editCatId.value
-  const res = await $fetch<any>('/api/admin/article', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body })
-  if (res.code === 200) { showCat.value = false; fetchAll() } else alert(res.message ?? '操作失败')
+function openCat() { form.value = { id: null, title: '', content: '', categoryId: 0 }; dialogTitle.value = '添加分类'; showDialog.value = true }
+function openArt() { form.value = { id: null, title: '', content: '', categoryId: 0 }; dialogTitle.value = '添加文章'; showDialog.value = true }
+function editCat(c: any) { form.value = { id: c.id, title: c.name, content: '', categoryId: 0 }; dialogTitle.value = '编辑分类'; showDialog.value = true }
+function editArt(a: any) { form.value = { id: a.id, title: a.title, content: a.content, categoryId: a.categoryId }; dialogTitle.value = '编辑文章'; showDialog.value = true }
+
+async function handleSubmit() {
+  if (form.value.content === '') {
+    const body: any = { resource: 'category', name: form.value.title }
+    if (form.value.id) body.id = form.value.id
+    const r = await $fetch<any>('/api/admin/article', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body })
+    if (r.code !== 200) alert(r.message)
+  } else {
+    const body: any = { title: form.value.title, content: form.value.content, categoryId: form.value.categoryId }
+    if (form.value.id) body.id = form.value.id
+    const r = await $fetch<any>('/api/admin/article', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body })
+    if (r.code !== 200) alert(r.message)
+  }
+  showDialog.value = false
+  fetchAll()
 }
-async function deleteCat(id: number) {
-  const res = await $fetch<any>(`/api/admin/article?resource=category&id=${id}`, { method: 'DELETE' })
-  if (res.code === 200) { fetchAll() } else { alert(res.message ?? '删除失败') }
+
+async function saveCat() {
+  if (!catName.value.trim()) return
+  const r = await $fetch<any>('/api/admin/article', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: { resource: 'category', name: catName.value } })
+  if (r.code === 200) { catName.value = ''; fetchAll() }
+  else alert(r.message)
 }
-function openEditArt(art: Article) { editArtId.value = art.id; artForm.value = { title: art.title, content: art.content, categoryId: art.categoryId, sort: art.sort }; showArt.value = true }
-async function handleArtSubmit() {
-  const body: any = { ...artForm.value }
-  if (editArtId.value) body.id = editArtId.value
-  const res = await $fetch<any>('/api/admin/article', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body })
-  if (res.code === 200) { showArt.value = false; fetchAll() } else alert(res.message ?? '操作失败')
-}
-async function deleteArt(id: number) {
-  const res = await $fetch<any>(`/api/admin/article?id=${id}`, { method: 'DELETE' })
-  if (res.code === 200) { fetchAll() } else { alert(res.message ?? '删除失败') }
-}
+
+async function delCat(id: number) { if (confirm('确定删除？')) { await $fetch<any>('/api/admin/article?resource=category&id=' + id, { method: 'DELETE' }); fetchAll() } }
+async function delArt(id: number) { if (confirm('确定删除？')) { await $fetch<any>('/api/admin/article?id=' + id, { method: 'DELETE' }); fetchAll() } }
 
 onMounted(fetchAll)
 </script>

@@ -15,9 +15,6 @@ export default defineNuxtConfig({
   future: {
     compatibilityVersion: 4,
   },
-  pages: {
-    dir: 'pages',
-  },
   css: [
     `${appDir}/assets/styles/main.scss`,
     `${appDir}/assets/css/tailwind.css`,

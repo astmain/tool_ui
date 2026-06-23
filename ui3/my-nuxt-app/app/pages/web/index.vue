@@ -11,7 +11,7 @@
     </div>
     <div class="max-w-6xl mx-auto px-6 py-12">
       <div class="bg-white rounded-2xl p-8 shadow-sm">
-        <h1 class="text-3xl font-bold text-gray-800 mb-4">{{ greeting }}，欢迎回来！</h1>
+        <h1 class="text-3xl font-bold text-gray-800 mb-4">{{ greeting }}，{{ nickname || '游客' }}！</h1>
         <p class="text-gray-500 mb-8">这是一个基于 Nuxt + Drizzle + Tailwind 构建的工具管理平台。</p>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div class="p-6 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl"><div class="text-lg font-bold text-blue-600 mb-2">RBAC 权限</div><div class="text-gray-600 text-sm">基于角色的访问控制，灵活管理用户权限</div></div>
@@ -26,12 +26,20 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 const greeting = ref('')
-onMounted(() => {
+const nickname = ref('')
+
+onMounted(async () => {
   const h = new Date().getHours()
   greeting.value = h < 12 ? '早上好' : h < 18 ? '下午好' : '晚上好'
+  try {
+    const res = await $fetch<any>('/api/auth/profile')
+    if (res.code === 200) {
+      nickname.value = res.data.nickname
+    }
+  } catch {}
 })
 async function handleLogout() {
-  await $fetch('/api/auth/logout', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: { role: 'admin' } }).catch(() => {})
+  await $fetch('/api/auth/logout', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: {} }).catch(() => {})
   window.location.href = '/web/login'
 }
 </script>

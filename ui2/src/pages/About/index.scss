@@ -1,0 +1,34 @@
+.about {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: $spacing-xl 0;
+}
+
+.about-title {
+  font-size: $font-size-heading;
+  font-weight: 700;
+  margin-bottom: $spacing-lg;
+}
+
+.about-desc {
+  font-size: $font-size-lg;
+  color: $color-text-secondary;
+  margin-bottom: $spacing-xl;
+  line-height: 1.8;
+}
+
+.about-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+
+  li {
+    padding: $spacing-sm $spacing-md;
+    background: $color-bg-layout;
+    border-radius: $radius-sm;
+    font-size: $font-size-base;
+    color: $color-text-primary;
+    border-left: 3px solid $color-primary;
+  }
+}

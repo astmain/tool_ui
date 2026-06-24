@@ -41,4 +41,21 @@ describe('U1Select', () => {
     expect(wrapper.text()).toContain('请选择')
     expect(wrapper.classes()).toContain('is-disabled')
   })
+
+  it('preserves numeric option values when emitting updates', async () => {
+    const wrapper = mount(U1Select, {
+      props: {
+        modelValue: 1,
+        options: [
+          { label: 'One', value: 1 },
+          { label: 'Two', value: 2 }
+        ]
+      }
+    })
+
+    await wrapper.get('select').setValue('2')
+
+    expect(wrapper.emitted('update:modelValue')?.[0]).toEqual([2])
+    expect(wrapper.emitted('change')?.[0]).toEqual([2])
+  })
 })

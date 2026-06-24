@@ -9,16 +9,18 @@ const basicValue = ref('')
 const passwordValue = ref('u1design')
 </script>
 
+## 基础用法
+
 <div class="u1-demo">
-  <p class="u1-demo-title">基础用法</p>
   <div class="u1-demo-row">
     <U1Input v-model="basicValue" placeholder="请输入内容" clearable />
     <span>当前值: {{ basicValue || '空' }}</span>
   </div>
 </div>
 
+## 状态
+
 <div class="u1-demo">
-  <p class="u1-demo-title">状态</p>
   <div class="u1-demo-row">
     <U1Input v-model="passwordValue" show-password />
     <U1Input model-value="Disabled" disabled />

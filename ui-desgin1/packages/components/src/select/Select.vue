@@ -16,7 +16,7 @@ defineOptions({
 
 type SelectValue = string | number
 
-defineProps<{
+const props = defineProps<{
   modelValue?: SelectValue
   options: Array<{
     label: string
@@ -27,12 +27,14 @@ defineProps<{
 }>()
 
 const emit = defineEmits<{
-  'update:modelValue': [value: string]
-  change: [value: string]
+  'update:modelValue': [value: SelectValue]
+  change: [value: SelectValue]
 }>()
 
 function handleChange(event: Event) {
-  const value = (event.target as HTMLSelectElement).value
+  const rawValue = (event.target as HTMLSelectElement).value
+  const selectedOption = props.options.find((option) => String(option.value) === rawValue)
+  const value = selectedOption ? selectedOption.value : rawValue
 
   emit('update:modelValue', value)
   emit('change', value)

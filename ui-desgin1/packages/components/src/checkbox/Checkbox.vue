@@ -8,7 +8,15 @@
     }"
   >
     <span class="u1-checkbox__input">
-      <input class="u1-checkbox__original" type="checkbox" :checked="checked" :disabled="mergedDisabled" @change="handleChange" />
+      <input
+        ref="inputRef"
+        class="u1-checkbox__original"
+        type="checkbox"
+        :checked="checked"
+        :disabled="mergedDisabled"
+        :aria-checked="ariaChecked"
+        @change="handleChange"
+      />
       <span class="u1-checkbox__inner"></span>
     </span>
     <span class="u1-checkbox__label">
@@ -18,7 +26,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, inject } from 'vue'
+import { computed, inject, onMounted, ref, watch } from 'vue'
 import { checkboxGroupKey, type U1CheckboxValue } from './context'
 
 defineOptions({
@@ -50,6 +58,7 @@ const emit = defineEmits<{
 }>()
 
 const group = inject(checkboxGroupKey, undefined)
+const inputRef = ref<HTMLInputElement>()
 
 const checked = computed(() => {
   if (group) {
@@ -60,6 +69,16 @@ const checked = computed(() => {
 })
 
 const mergedDisabled = computed(() => props.disabled || group?.disabled.value === true)
+const ariaChecked = computed(() => (props.indeterminate ? 'mixed' : checked.value ? 'true' : 'false'))
+
+function syncIndeterminateState() {
+  if (inputRef.value) {
+    inputRef.value.indeterminate = props.indeterminate
+  }
+}
+
+onMounted(syncIndeterminateState)
+watch(() => props.indeterminate, syncIndeterminateState)
 
 function handleChange(event: Event) {
   if (mergedDisabled.value) {

@@ -50,4 +50,20 @@ describe('U1Dialog', () => {
 
     expect(wrapper.emitted('update:modelValue')).toBeUndefined()
   })
+
+  it('renders dialog semantics and accessible close button', () => {
+    const wrapper = mount(U1Dialog, {
+      props: {
+        modelValue: true,
+        title: 'Settings'
+      }
+    })
+
+    const dialog = wrapper.find('.u1-dialog')
+
+    expect(dialog.attributes('role')).toBe('dialog')
+    expect(dialog.attributes('aria-modal')).toBe('true')
+    expect(dialog.attributes('aria-label')).toBe('Settings')
+    expect(wrapper.find('.u1-dialog__close').attributes('aria-label')).toBe('Close dialog')
+  })
 })

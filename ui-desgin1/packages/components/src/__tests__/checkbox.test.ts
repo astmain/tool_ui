@@ -46,6 +46,8 @@ describe('U1Checkbox', () => {
     expect(wrapper.get('input').attributes('disabled')).toBeDefined()
     expect(wrapper.classes()).toContain('is-disabled')
     expect(wrapper.classes()).toContain('is-indeterminate')
+    expect((wrapper.get('input').element as HTMLInputElement).indeterminate).toBe(true)
+    expect(wrapper.get('input').attributes('aria-checked')).toBe('mixed')
   })
 })
 

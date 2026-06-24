@@ -32,4 +32,21 @@ describe('U1Avatar', () => {
     expect(wrapper.classes()).toContain('u1-avatar--large')
     expect(wrapper.classes()).toContain('u1-avatar--square')
   })
+
+  it('shows fallback slot when the image fails to load', async () => {
+    const wrapper = mount(U1Avatar, {
+      props: {
+        src: 'missing.png',
+        alt: 'Missing user'
+      },
+      slots: {
+        default: 'MU'
+      }
+    })
+
+    await wrapper.find('img').trigger('error')
+
+    expect(wrapper.find('img').exists()).toBe(false)
+    expect(wrapper.text()).toContain('MU')
+  })
 })

@@ -27,6 +27,8 @@ describe('U1Switch', () => {
 
     expect(wrapper.classes()).toContain('is-checked')
     expect(wrapper.text()).toContain('开')
+    expect(wrapper.attributes('role')).toBe('switch')
+    expect(wrapper.attributes('aria-checked')).toBe('true')
   })
 
   it('does not emit while disabled', async () => {

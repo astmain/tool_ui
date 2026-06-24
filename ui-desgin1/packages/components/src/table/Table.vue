@@ -9,7 +9,7 @@
         </tr>
       </thead>
       <tbody v-if="data.length">
-        <tr v-for="(row, rowIndex) in data" :key="rowIndex">
+        <tr v-for="(row, rowIndex) in data" :key="getRowKey(row, rowIndex)">
           <td v-for="column in columns" :key="column.prop" class="u1-table__cell">
             {{ row[column.prop] }}
           </td>
@@ -30,17 +30,20 @@ export interface U1TableColumn {
   label: string
 }
 
+type U1TableRowKey = string | ((row: Record<string, unknown>, index: number) => string | number)
+
 defineOptions({
   name: 'U1Table'
 })
 
-withDefaults(
+const props = withDefaults(
   defineProps<{
     columns: U1TableColumn[]
     data: Array<Record<string, unknown>>
     border?: boolean
     stripe?: boolean
     emptyText?: string
+    rowKey?: U1TableRowKey
   }>(),
   {
     border: false,
@@ -48,4 +51,17 @@ withDefaults(
     emptyText: 'No data'
   }
 )
+
+function getRowKey(row: Record<string, unknown>, index: number) {
+  if (typeof props.rowKey === 'function') {
+    return props.rowKey(row, index)
+  }
+
+  if (props.rowKey) {
+    const value = row[props.rowKey]
+    return typeof value === 'string' || typeof value === 'number' ? value : index
+  }
+
+  return index
+}
 </script>

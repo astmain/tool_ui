@@ -8,8 +8,9 @@ import { ref } from 'vue'
 const city = ref('shanghai')
 </script>
 
+## 单选组
+
 <div class="u1-demo">
-  <p class="u1-demo-title">单选组</p>
   <U1RadioGroup v-model="city">
     <U1Radio label="shanghai">上海</U1Radio>
     <U1Radio label="beijing">北京</U1Radio>
@@ -18,8 +19,9 @@ const city = ref('shanghai')
   <span>当前值: {{ city }}</span>
 </div>
 
+## 禁用状态
+
 <div class="u1-demo">
-  <p class="u1-demo-title">禁用状态</p>
   <div class="u1-demo-row">
     <U1Radio model-value="a" label="a" disabled>禁用已选</U1Radio>
     <U1Radio model-value="a" label="b" disabled>禁用未选</U1Radio>

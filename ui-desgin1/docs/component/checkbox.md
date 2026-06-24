@@ -9,16 +9,18 @@ const checked = ref(false)
 const cities = ref(['shanghai'])
 </script>
 
+## 基础用法
+
 <div class="u1-demo">
-  <p class="u1-demo-title">基础用法</p>
   <div class="u1-demo-row">
     <U1Checkbox v-model="checked">同意协议</U1Checkbox>
     <span>当前值: {{ checked }}</span>
   </div>
 </div>
 
+## 多选框组
+
 <div class="u1-demo">
-  <p class="u1-demo-title">多选框组</p>
   <div class="u1-demo-row">
     <U1CheckboxGroup v-model="cities">
       <U1Checkbox label="shanghai">上海</U1Checkbox>
@@ -31,8 +33,9 @@ const cities = ref(['shanghai'])
   </div>
 </div>
 
+## 状态
+
 <div class="u1-demo">
-  <p class="u1-demo-title">状态</p>
   <div class="u1-demo-row">
     <U1Checkbox model-value disabled>禁用</U1Checkbox>
     <U1Checkbox indeterminate>半选</U1Checkbox>

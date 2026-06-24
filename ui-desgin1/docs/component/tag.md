@@ -2,8 +2,9 @@
 
 用于标记和分类信息. 支持类型, 主题和关闭按钮.
 
+## 基础用法
+
 <div class="u1-demo">
-  <p class="u1-demo-title">基础用法</p>
   <div class="u1-demo-row">
     <U1Tag>Primary</U1Tag>
     <U1Tag type="success">Success</U1Tag>
@@ -13,8 +14,9 @@
   </div>
 </div>
 
+## 主题和关闭
+
 <div class="u1-demo">
-  <p class="u1-demo-title">主题和关闭</p>
   <div class="u1-demo-row">
     <U1Tag effect="dark">Dark</U1Tag>
     <U1Tag effect="plain">Plain</U1Tag>

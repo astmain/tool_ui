@@ -1,11 +1,11 @@
 <template>
   <div v-if="modelValue" class="u1-dialog__overlay" @click="handleOverlayClick">
-    <section class="u1-dialog" :style="{ width }" role="dialog" aria-modal="true" @click.stop>
+    <section class="u1-dialog" :style="{ width }" role="dialog" aria-modal="true" :aria-label="title" @click.stop>
       <header class="u1-dialog__header">
         <slot name="header">
           <span class="u1-dialog__title">{{ title }}</span>
         </slot>
-        <button class="u1-dialog__close" type="button" aria-label="close" @click="close">x</button>
+        <button class="u1-dialog__close" type="button" aria-label="Close dialog" @click="close">x</button>
       </header>
       <div class="u1-dialog__body">
         <slot />

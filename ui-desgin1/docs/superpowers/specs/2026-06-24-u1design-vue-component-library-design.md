@@ -1,125 +1,150 @@
-# U1Design Vue Component Library Design
+# U1Design Vue Component Library Productization Design
 
 ## Goal
 
-Build U1Design as a Vue ecosystem component library and documentation site.
+Complete U1Design as a usable Vue 3 component library product, not only as a buildable code sample. The work should improve the component package and the VitePress documentation site together.
 
-The package name is `@u1design/vue`. The first usable components are `U1Button`, `U1Input`, `U1Radio`, and `U1Card`. Other planned components are listed in the documentation site as not developed.
+The package name remains `@u1design/vue`. The current source already contains these public components:
 
-## Reference
+- `U1Avatar`
+- `U1Button`
+- `U1Card`
+- `U1Checkbox`
+- `U1CheckboxGroup`
+- `U1Dialog`
+- `U1Input`
+- `U1Menu`
+- `U1Message`
+- `U1Radio`
+- `U1RadioGroup`
+- `U1Select`
+- `U1Switch`
+- `U1Table`
+- `U1Tag`
 
-The documentation experience should follow the structure and visual language of Element Plus component docs.
+## Product Direction
 
-- Top navigation for brand and site level actions.
-- Left sidebar for component categories and component links.
-- Main content area for overview pages, component demos, API tables, and code examples.
-- Component overview grouped into common UI library categories.
+U1Design should feel like a small Element Plus style component library with clear Chinese documentation, predictable Vue APIs, and working examples. The visual language should remain restrained, practical, and documentation first.
 
-The implementation should use U1Design names, component prefixes, and CSS class prefixes instead of Element Plus naming.
+The product should not become a custom app builder or a marketing landing page in this phase. The first screen stays a documentation entry point. Component demos and API references are the main product experience.
 
 ## Technical Approach
 
-Use Vite, Vue 3, TypeScript, and VitePress.
+Use the existing monorepo structure.
 
-- `packages/components` stores Vue component source, styles, and library entry files.
-- `docs` stores the VitePress documentation site.
-- The docs app imports the local component package directly during development.
-- The component package can be built as `@u1design/vue` for Vue projects.
+- `packages/components` owns Vue component source, shared styles, package exports, tests, and build config.
+- `docs` owns the VitePress documentation site.
+- The docs app imports `@u1design/vue` from the workspace package.
+- The component package builds library output under `packages/components/dist`.
 
-## Component Naming
+The implementation should continue to use Vue 3, TypeScript, Vite, VitePress, Vitest, and Vue Test Utils.
 
-- Package name: `@u1design/vue`
-- Components: `U1Button`, `U1Input`, `U1Radio`, `U1Card`
-- CSS classes: `.u1-button`, `.u1-input`, `.u1-radio`, `.u1-card`
+## Component Standards
 
-## First Components
+Every public component should satisfy the same baseline.
 
-### Button
+- Has a stable `name` for plugin registration.
+- Exports from its local `index.ts`.
+- Exports from `packages/components/src/index.ts`.
+- Uses the `u1-` CSS class prefix.
+- Supports disabled state when the control is interactive.
+- Emits Vue model updates consistently for model driven controls.
+- Has tests for primary rendering, state, events, and disabled behavior.
+- Has a documentation page with demos and an API table.
 
-`U1Button` supports common button states and variants.
+## Component Scope
 
-- Variants: default, primary, success, warning, danger, info
-- Sizes: large, default, small
-- States: disabled, loading
-- Shapes: plain, round, circle
+### Basic Components
 
-### Input
+`U1Button` should support type, size, disabled, loading, plain, round, circle, dashed, text, link, background text, icon, and button group usage.
 
-`U1Input` supports basic form input use.
+`U1Input` should support `v-model`, placeholder, disabled, clearable, password visibility, and emitted clear events.
 
-- `v-model` value binding
-- Placeholder
-- Disabled state
-- Clearable input
-- Password input
+`U1Radio` and `U1RadioGroup` should support standalone selection, grouped selection, disabled state, and labels.
 
-### Radio
+`U1Checkbox` and `U1CheckboxGroup` should support boolean mode, value mode, grouped selection, disabled state, indeterminate state, and custom true or false values.
 
-`U1Radio` supports single option and grouped radio use.
+`U1Select` should support `v-model`, option lists, placeholder, disabled state, and empty option state.
 
-- `v-model` value binding
-- Disabled state
-- Label based selection
-- `U1RadioGroup` for option groups
+`U1Switch` should support `v-model`, disabled state, active text, and inactive text.
 
-### Card
+`U1Avatar` should support image source, alt text, size, shape, fallback slot, and missing image fallback.
 
-`U1Card` supports common content container use.
+`U1Tag` should support type, effect, close button, close event, and slot content.
 
-- Header slot
-- Default content slot
-- Footer slot
-- Shadow modes
+### Feedback And Data Components
 
-## Documentation Pages
+`U1Message` should support type, message content, close button, and close event. It can remain an inline component in this phase. Programmatic message service is out of scope.
 
-The first documentation set includes these pages.
+`U1Dialog` should support `v-model`, title, width, close button, overlay click close behavior, default slot, footer slot, and accessible dialog semantics.
 
-- Home page with U1Design introduction and quick install.
-- Component overview page with developed and not developed tags.
-- Button page with demos and API.
-- Input page with demos and API.
-- Radio page with demos and API.
-- Card page with demos and API.
+`U1Table` should support column definitions, row data, empty state, bordered style, striped style, and stable key rendering.
 
-## Not Developed Components
+`U1Menu` should support vertical and horizontal display, active item, disabled item, item click events, and basic keyboard focus behavior.
 
-The component overview and sidebar list planned components with a not developed tag.
+`U1Card` should support header, default body, footer, and shadow modes.
 
-- Basic: Icon, Link, Text, Scrollbar
-- Layout: Layout, Container, Grid, Space, Divider
-- Form: Checkbox, Select, Switch, DatePicker, TimePicker, Upload, Form
-- Data: Table, Tag, Progress, Tree, Pagination, Badge, Avatar
-- Navigation: Menu, Tabs, Breadcrumb, Dropdown, Steps
-- Feedback: Dialog, Drawer, Message, Notification, Tooltip, Popover, Popconfirm
-- Others: Carousel, Collapse, Calendar, Backtop, InfiniteScroll
+## Documentation Standards
 
-## Interactivity
+The documentation site should be the source of truth for the component library.
 
-The docs site should be interactive.
+- Home page explains what U1Design is, how to install it, and how to use it.
+- Component overview lists only real component pages as developed.
+- Sidebar labels are readable Chinese text.
+- Each component page includes at least one interactive demo when the component has user input.
+- Each component page includes an API table for props, events, and slots where applicable.
+- Code examples should match the current component APIs.
+- The docs should avoid stale status text from the earlier four component version.
 
-- Sidebar navigation changes pages.
-- Developed component demos use real Vue state.
-- Inputs and radios demonstrate `v-model`.
-- Disabled and loading states are visible.
-- Not developed components are visible but not linked to real docs unless a placeholder page is added later.
+## Visual And UX Standards
+
+The documentation experience should remain close to Element Plus style without copying its internals.
+
+- Use a clean documentation layout with top navigation, left sidebar, main content, and page outline.
+- Keep component demos framed and scannable.
+- Use flex layouts with `gap` for demo rows and component grids.
+- Avoid card nesting in documentation sections.
+- Keep typography practical and readable.
+- Keep light and dark mode readable.
+- Keep mobile pages free from horizontal overflow.
+
+## Accessibility Standards
+
+Interactive components should support the basics.
+
+- Native controls should keep native semantics where possible.
+- Disabled controls should set semantic disabled attributes.
+- Dialog should expose role and modal state.
+- Close buttons should have accessible labels.
+- Menu items should be focusable buttons and mark disabled items.
+- Form controls should remain keyboard operable.
 
 ## Testing
 
-Add tests around the reusable component behavior before implementation.
+Tests should keep the current successful baseline and expand where behavior is missing.
 
-- Button renders text, variant class, disabled state, and loading state.
-- Input emits model updates, clears value, and supports disabled state.
-- Radio and RadioGroup update model values.
-- Card renders header, default, footer, and shadow class.
+- Component unit tests use Vitest and Vue Test Utils.
+- New or changed behavior must have a failing test before implementation.
+- Documentation build is part of final verification.
+- Browser verification should cover the docs home, overview, and representative component pages.
 
 ## Build And Verification
 
 The implementation is complete when these checks pass.
 
-- TypeScript typecheck succeeds.
-- Component tests pass.
-- Component library build succeeds.
-- Documentation site build succeeds.
-- Local documentation site renders the overview and the four developed component pages.
+- `pnpm test`
+- `pnpm typecheck`
+- `pnpm build`
+- Local documentation site renders and component demos are interactive.
+- Browser check confirms desktop and narrow viewport layouts do not overlap or overflow.
 
+## Out Of Scope
+
+The following work is intentionally excluded from this phase.
+
+- Programmatic global message service.
+- Popper based dropdown positioning.
+- Form validation framework.
+- Tree, pagination, tabs, drawer, tooltip, upload, date picker, and other new component families.
+- Theme generator or design token editor.
+- Publishing to npm.

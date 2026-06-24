@@ -50,4 +50,20 @@ describe('U1Menu', () => {
     expect(wrapper.findAll('.u1-menu__item')[2].classes()).toContain('is-disabled')
     expect(wrapper.emitted('select')).toBeUndefined()
   })
+
+  it('activates enabled menu items with Enter and Space', async () => {
+    const wrapper = mount(U1Menu, {
+      props: {
+        active: 'dashboard',
+        items
+      }
+    })
+
+    const settings = wrapper.findAll('.u1-menu__item')[1]
+
+    await settings.trigger('keydown', { key: 'Enter' })
+    await settings.trigger('keydown', { key: ' ' })
+
+    expect(wrapper.emitted('select')).toEqual([['settings'], ['settings']])
+  })
 })

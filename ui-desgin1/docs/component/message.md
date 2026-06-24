@@ -2,16 +2,18 @@
 
 用于页面中的轻量级反馈提示. 支持类型, 内容和关闭按钮.
 
+## 基础用法
+
 <div class="u1-demo">
-  <p class="u1-demo-title">基础用法</p>
   <div class="u1-demo-row">
     <U1Message message="这是一条提示消息" />
     <U1Message type="success" message="保存成功" />
   </div>
 </div>
 
+## 不同类型
+
 <div class="u1-demo">
-  <p class="u1-demo-title">不同类型</p>
   <div class="u1-demo-row">
     <U1Message type="success" message="成功提示" />
     <U1Message type="warning" message="警告提示" />

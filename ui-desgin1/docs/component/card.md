@@ -2,8 +2,9 @@
 
 用于承载一组信息, 支持头部, 主体, 底部和阴影模式.
 
+## 基础卡片
+
 <div class="u1-demo">
-  <p class="u1-demo-title">基础卡片</p>
   <U1Card style="max-width: 360px">
     <template #header>卡片标题</template>
     U1Card 用于展示成组内容, 适合文档示例, 信息摘要和操作区域.
@@ -11,8 +12,9 @@
   </U1Card>
 </div>
 
+## 阴影模式
+
 <div class="u1-demo">
-  <p class="u1-demo-title">阴影模式</p>
   <div class="u1-card-grid">
     <U1Card shadow="always" style="width: 220px">Always</U1Card>
     <U1Card shadow="hover" style="width: 220px">Hover</U1Card>

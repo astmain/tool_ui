@@ -13,16 +13,18 @@ const options = [
 ]
 </script>
 
+## 基础用法
+
 <div class="u1-demo">
-  <p class="u1-demo-title">基础用法</p>
   <div class="u1-demo-row">
     <U1Select v-model="city" :options="options" placeholder="请选择城市" />
     <span>当前值: {{ city || '空' }}</span>
   </div>
 </div>
 
+## 禁用状态
+
 <div class="u1-demo">
-  <p class="u1-demo-title">禁用状态</p>
   <div class="u1-demo-row">
     <U1Select model-value="shanghai" :options="options" disabled />
   </div>

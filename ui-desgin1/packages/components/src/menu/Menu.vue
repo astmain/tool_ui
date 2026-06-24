@@ -11,6 +11,8 @@
       type="button"
       :disabled="item.disabled"
       @click="selectItem(item)"
+      @keydown.enter.prevent="selectItem(item)"
+      @keydown.space.prevent="selectItem(item)"
     >
       {{ item.label }}
     </button>

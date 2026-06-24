@@ -6,6 +6,8 @@
       'is-disabled': disabled
     }"
     type="button"
+    role="switch"
+    :aria-checked="modelValue ? 'true' : 'false'"
     :disabled="disabled"
     @click="handleClick"
   >

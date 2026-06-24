@@ -20,6 +20,26 @@ const options = [
     <U1Select v-model="city" :options="options" placeholder="请选择城市" />
     <span>当前值: {{ city || '空' }}</span>
   </div>
+  <details class="u1-demo__footer">
+    <summary>Show code</summary>
+
+```vue
+<script setup>
+import { ref } from 'vue'
+
+const city = ref('')
+const options = [
+  { label: '上海', value: 'shanghai' },
+  { label: '北京', value: 'beijing' },
+  { label: '深圳', value: 'shenzhen' }
+]
+</script>
+
+<U1Select v-model="city" :options="options" placeholder="请选择城市" />
+<span>当前值: {{ city || '空' }}</span>
+```
+
+  </details>
 </div>
 
 ## 禁用状态
@@ -28,6 +48,14 @@ const options = [
   <div class="u1-demo-row">
     <U1Select model-value="shanghai" :options="options" disabled />
   </div>
+  <details class="u1-demo__footer">
+    <summary>Show code</summary>
+
+```vue
+<U1Select model-value="shanghai" :options="options" disabled />
+```
+
+  </details>
 </div>
 
 ## API

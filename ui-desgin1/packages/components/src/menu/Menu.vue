@@ -10,6 +10,7 @@
       }"
       type="button"
       :disabled="item.disabled"
+      :aria-current="item.index === active ? 'page' : undefined"
       @click="selectItem(item)"
       @keydown.enter.prevent="selectItem(item)"
       @keydown.space.prevent="selectItem(item)"

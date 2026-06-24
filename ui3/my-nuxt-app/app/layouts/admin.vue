@@ -6,7 +6,10 @@
         <span v-if="!collapsed" class="font-bold">{{ userInfo?.nickname ?? '加载中...' }}</span>
       </div>
       <nav class="flex-1 overflow-y-auto py-2">
-        <div v-if="loading" class="px-4 py-3 text-gray-500 text-sm">{{ collapsed ? '...' : '加载中...' }}</div>
+        <template v-if="authError">
+          <div class="px-4 py-3 text-red-400 text-sm">未登录或登录已过期</div>
+        </template>
+        <div v-else-if="loading" class="px-4 py-3 text-gray-500 text-sm">{{ collapsed ? '...' : '加载中...' }}</div>
         <template v-else>
           <NuxtLink to="/admin" class="flex items-center gap-3 mx-2 my-0.5 px-3 py-2 rounded text-sm transition" :class="route.path === '/admin' ? 'bg-blue-600 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'" :title="collapsed ? '首页' : ''">
             <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>
@@ -63,18 +66,11 @@ const editAvatarOpen = ref(false)
 const userInfo = ref<UserInfo | null>(null)
 const menus = ref<MenuItem[]>([])
 const loading = ref(true)
+const authError = ref(false)
 
 function isActive(path: string | null) {
   if (!path) return false
   return route.path === path || route.path.startsWith(path + '/')
-}
-
-function openEdit(type: 'nickname' | 'email' | 'password' | 'avatar') {
-  showProfile.value = false
-  if (type === 'nickname') editNicknameOpen.value = true
-  if (type === 'email') editEmailOpen.value = true
-  if (type === 'password') editPasswordOpen.value = true
-  if (type === 'avatar') editAvatarOpen.value = true
 }
 
 async function handleLogout() {
@@ -89,25 +85,37 @@ function handleUpdateSuccess(data: Partial<UserInfo>) {
 async function fetchUserInfo() {
   try {
     const res = await $fetch<any>('/api/admin/user?self=1')
-    if (res.code === 200) userInfo.value = { ...res.data, roleKeys: res.data.roles.map((r: Role) => r.key), roleIds: res.data.roles.map((r: Role) => r.id) }
-  } catch {}
-  loading.value = false
+    if (res.code === 200) {
+      userInfo.value = { ...res.data, roleKeys: res.data.roles.map((r: Role) => r.key), roleIds: res.data.roles.map((r: Role) => r.id) }
+    }
+  } catch (err: any) {
+    if (err?.status === 401 || err?.statusCode === 401) {
+      authError.value = true
+    }
+  } finally {
+    loading.value = false
+  }
 }
 
 async function fetchMenus() {
   if (!userInfo.value || !userInfo.value.roleIds?.length) return
   const allSets: MenuItem[][] = []
   for (const roleId of userInfo.value.roleIds) {
-    const res = await $fetch<any>(`/api/admin/role/${roleId}/menu-permission`)
-    if (res.code === 200) {
-      const flat: MenuItem[] = res.data.permissions
-      allSets.push(flat.filter((m: MenuItem) => m.permission?.canAccess !== false && m.group === 'admin'))
-    }
+    try {
+      const res = await $fetch<any>(`/api/admin/role/${roleId}/menu-permission`)
+      if (res.code === 200) {
+        const flat: MenuItem[] = res.data.permissions
+        allSets.push(flat.filter((m: MenuItem) => m.permission?.canAccess !== false && m.group === 'admin'))
+      }
+    } catch {}
   }
   const map = new Map<number, MenuItem>()
   for (const set of allSets) for (const item of set) if (!map.has(item.id)) map.set(item.id, { ...item })
   menus.value = Array.from(map.values()).sort((a, b) => b.orderNum - a.orderNum)
 }
 
-onMounted(async () => { await fetchUserInfo(); await fetchMenus() })
+onMounted(async () => {
+  await fetchUserInfo()
+  if (userInfo.value) await fetchMenus()
+})
 </script>

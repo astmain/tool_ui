@@ -5,6 +5,7 @@
       'is-checked': checked,
       'is-disabled': mergedDisabled
     }"
+    @click="selectRadio"
   >
     <span class="u1-radio__input">
       <input
@@ -44,6 +45,7 @@ const props = withDefaults(
 
 const emit = defineEmits<{
   'update:modelValue': [value: string | number | boolean]
+  change: [value: string | number | boolean]
 }>()
 
 const group = inject(radioGroupKey, undefined)
@@ -65,5 +67,6 @@ function selectRadio() {
   }
 
   emit('update:modelValue', props.label)
+  emit('change', props.label)
 }
 </script>

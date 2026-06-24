@@ -1,6 +1,6 @@
 # 组件总览
 
-U1Design 的组件文档按基础组件和高级组件组织. 当前只展示已经开发完成的组件.
+U1Design 的组件文档按基础组件, 高级组件和风格设计组织. 当前只展示已经开发完成的组件和可执行的设计规范.
 
 <section class="u1-overview-section">
   <h2>基础组件</h2>
@@ -14,6 +14,14 @@ U1Design 的组件文档按基础组件和高级组件组织. 当前只展示已
     <a class="u1-component-item" href="/component/avatar"><strong>Avatar 头像</strong><span class="u1-tag">已开发</span></a>
     <a class="u1-component-item" href="/component/tag"><strong>Tag 标签</strong><span class="u1-tag">已开发</span></a>
     <a class="u1-component-item" href="/component/message"><strong>Message 消息提示</strong><span class="u1-tag">已开发</span></a>
+  </div>
+</section>
+
+<section class="u1-overview-section">
+  <h2>风格设计</h2>
+  <div class="u1-component-grid">
+    <a class="u1-component-item" href="/component/design/colors"><strong>颜色方案</strong><span class="u1-tag">已整理</span></a>
+    <a class="u1-component-item" href="/component/design/icons"><strong>图标体系</strong><span class="u1-tag">已整理</span></a>
   </div>
 </section>
 

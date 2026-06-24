@@ -33,6 +33,34 @@ describe('U1Input', () => {
     expect(wrapper.emitted('clear')).toBeTruthy()
   })
 
+  it('emits change when input value is committed', async () => {
+    const wrapper = mount(U1Input, {
+      props: {
+        modelValue: 'old'
+      }
+    })
+
+    await wrapper.get('input').setValue('new')
+    await wrapper.get('input').trigger('change')
+
+    expect(wrapper.emitted('change')?.[0]).toEqual(['new'])
+  })
+
+  it('toggles password visibility when requested', async () => {
+    const wrapper = mount(U1Input, {
+      props: {
+        modelValue: 'secret',
+        showPassword: true
+      }
+    })
+
+    expect(wrapper.get('input').attributes('type')).toBe('password')
+
+    await wrapper.get('button.u1-input__password').trigger('click')
+
+    expect(wrapper.get('input').attributes('type')).toBe('text')
+  })
+
   it('supports password and disabled states', () => {
     const wrapper = mount(U1Input, {
       props: {

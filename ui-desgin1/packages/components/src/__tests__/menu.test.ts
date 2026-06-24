@@ -66,4 +66,18 @@ describe('U1Menu', () => {
 
     expect(wrapper.emitted('select')).toEqual([['settings'], ['settings']])
   })
+
+  it('marks the active item for assistive technology', () => {
+    const wrapper = mount(U1Menu, {
+      props: {
+        items,
+        active: 'settings'
+      }
+    })
+
+    const [dashboard, settings] = wrapper.findAll('.u1-menu__item')
+
+    expect(dashboard.attributes('aria-current')).toBeUndefined()
+    expect(settings.attributes('aria-current')).toBe('page')
+  })
 })

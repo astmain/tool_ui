@@ -1,6 +1,6 @@
 # Button 按钮
 
-常用的操作按钮, 支持类型, 尺寸, 禁用, 朴素, 文本, 链接, 图标, 按钮组和加载状态.
+常用的操作按钮, 支持类型, 尺寸, 禁用, 朴素, 文本, 链接, 图标和加载状态.
 
 ## 基础用法
 <p class="u1-demo-desc">使用 <code>type</code>, <code>plain</code>, <code>round</code>, <code>dashed</code> 和 <code>circle</code> 来定义按钮的样式.</p>
@@ -102,9 +102,9 @@
     <summary>Show code</summary>
 
 ```vue
-<U1Button text>Text button</U1Button>
-<U1Button text bg>Text with background</U1Button>
-<U1Button text disabled>Disabled text</U1Button>
+<U1Button disabled>Disabled</U1Button>
+<U1Button type="primary" disabled>Primary</U1Button>
+<U1Button plain disabled>Plain</U1Button>
 ```
 
   </details>
@@ -124,10 +124,9 @@
     <summary>Show code</summary>
 
 ```vue
-<U1Button link type="primary">Primary link</U1Button>
-<U1Button link type="success">Success link</U1Button>
-<U1Button link type="danger">Danger link</U1Button>
-<U1Button tag="a" href="/component/overview" link type="primary">Native anchor</U1Button>
+<U1Button text>Text button</U1Button>
+<U1Button text bg>Text with background</U1Button>
+<U1Button text disabled>Disabled text</U1Button>
 ```
 
   </details>
@@ -148,19 +147,10 @@
     <summary>Show code</summary>
 
 ```vue
-<U1Button type="primary">
-  <template #icon>+</template>
-  Create
-</U1Button>
-
-<U1Button>
-  <template #icon>?</template>
-  Help
-</U1Button>
-
-<U1Button type="danger" circle>
-  <template #icon>x</template>
-</U1Button>
+<U1Button link type="primary">Primary link</U1Button>
+<U1Button link type="success">Success link</U1Button>
+<U1Button link type="danger">Danger link</U1Button>
+<U1Button tag="a" href="/component/overview" link type="primary">Native anchor</U1Button>
 ```
 
   </details>
@@ -188,8 +178,19 @@
     <summary>Show code</summary>
 
 ```vue
-<U1Button type="primary" loading>Loading</U1Button>
-<U1Button loading>Loading</U1Button>
+<U1Button type="primary">
+  <template #icon>+</template>
+  Create
+</U1Button>
+
+<U1Button>
+  <template #icon>?</template>
+  Help
+</U1Button>
+
+<U1Button type="danger" circle>
+  <template #icon>x</template>
+</U1Button>
 ```
 
   </details>
@@ -208,9 +209,8 @@
     <summary>Show code</summary>
 
 ```vue
-<U1Button size="large">Large</U1Button>
-<U1Button>Default</U1Button>
-<U1Button size="small">Small</U1Button>
+<U1Button type="primary" loading>Loading</U1Button>
+<U1Button loading>Loading</U1Button>
 ```
 
   </details>
@@ -226,6 +226,16 @@
       <U1Button size="small">Small</U1Button>
     </div>
   </div>
+  <details class="u1-demo__footer">
+    <summary>Show code</summary>
+
+```vue
+<U1Button size="large">Large</U1Button>
+<U1Button>Default</U1Button>
+<U1Button size="small">Small</U1Button>
+```
+
+  </details>
 </div>
 
 ## API
@@ -245,6 +255,7 @@
     <tr><td>link</td><td>是否链接按钮</td><td>boolean</td><td>false</td></tr>
     <tr><td>bg</td><td>文字按钮是否带背景</td><td>boolean</td><td>false</td></tr>
     <tr><td>tag</td><td>渲染标签</td><td>button | a</td><td>button</td></tr>
+    <tr><td>href</td><td>当 tag 为 a 时的链接地址, disabled 或 loading 时不会输出 href</td><td>string</td><td>-</td></tr>
     <tr><td>nativeType</td><td>原生 button 类型</td><td>button | submit | reset</td><td>button</td></tr>
   </tbody>
 </table>

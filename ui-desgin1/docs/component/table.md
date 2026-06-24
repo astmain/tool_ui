@@ -20,18 +20,56 @@ const data = [
 
 <div class="u1-demo">
   <U1Table :columns="columns" :data="data" row-key="id" />
+  <details class="u1-demo__footer">
+    <summary>Show code</summary>
+
+```vue
+<script setup>
+const columns = [
+  { prop: 'name', label: '姓名' },
+  { prop: 'role', label: '角色' },
+  { prop: 'city', label: '城市' }
+]
+
+const data = [
+  { id: 'u1', name: 'Alice', role: 'Designer', city: '上海' },
+  { id: 'u2', name: 'Bob', role: 'Developer', city: '北京' },
+  { id: 'u3', name: 'Carol', role: 'PM', city: '深圳' }
+]
+</script>
+
+<U1Table :columns="columns" :data="data" row-key="id" />
+```
+
+  </details>
 </div>
 
 ## 边框和斑马纹
 
 <div class="u1-demo">
   <U1Table :columns="columns" :data="data" row-key="id" border stripe />
+  <details class="u1-demo__footer">
+    <summary>Show code</summary>
+
+```vue
+<U1Table :columns="columns" :data="data" row-key="id" border stripe />
+```
+
+  </details>
 </div>
 
 ## 空状态
 
 <div class="u1-demo">
   <U1Table :columns="columns" :data="[]" empty-text="暂无数据" />
+  <details class="u1-demo__footer">
+    <summary>Show code</summary>
+
+```vue
+<U1Table :columns="columns" :data="[]" empty-text="暂无数据" />
+```
+
+  </details>
 </div>
 
 ## API

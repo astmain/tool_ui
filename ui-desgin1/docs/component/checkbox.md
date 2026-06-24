@@ -16,6 +16,21 @@ const cities = ref(['shanghai'])
     <U1Checkbox v-model="checked">同意协议</U1Checkbox>
     <span>当前值: {{ checked }}</span>
   </div>
+  <details class="u1-demo__footer">
+    <summary>Show code</summary>
+
+```vue
+<script setup>
+import { ref } from 'vue'
+
+const checked = ref(false)
+</script>
+
+<U1Checkbox v-model="checked">同意协议</U1Checkbox>
+<span>当前值: {{ checked }}</span>
+```
+
+  </details>
 </div>
 
 ## 多选框组
@@ -31,6 +46,26 @@ const cities = ref(['shanghai'])
   <div class="u1-demo-row">
     <span>已选择: {{ cities.join(', ') || '空' }}</span>
   </div>
+  <details class="u1-demo__footer">
+    <summary>Show code</summary>
+
+```vue
+<script setup>
+import { ref } from 'vue'
+
+const cities = ref(['shanghai'])
+</script>
+
+<U1CheckboxGroup v-model="cities">
+  <U1Checkbox label="shanghai">上海</U1Checkbox>
+  <U1Checkbox label="beijing">北京</U1Checkbox>
+  <U1Checkbox label="shenzhen">深圳</U1Checkbox>
+</U1CheckboxGroup>
+
+<span>已选择: {{ cities.join(', ') || '空' }}</span>
+```
+
+  </details>
 </div>
 
 ## 状态
@@ -40,6 +75,15 @@ const cities = ref(['shanghai'])
     <U1Checkbox model-value disabled>禁用</U1Checkbox>
     <U1Checkbox indeterminate>半选</U1Checkbox>
   </div>
+  <details class="u1-demo__footer">
+    <summary>Show code</summary>
+
+```vue
+<U1Checkbox model-value disabled>禁用</U1Checkbox>
+<U1Checkbox indeterminate>半选</U1Checkbox>
+```
+
+  </details>
 </div>
 
 ## Checkbox API

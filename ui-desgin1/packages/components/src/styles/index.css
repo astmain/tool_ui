@@ -301,6 +301,15 @@
   transition: border-color var(--u1-transition), box-shadow var(--u1-transition);
 }
 
+.u1-input:has(.u1-input__clear) .u1-input__inner,
+.u1-input:has(.u1-input__password) .u1-input__inner {
+  padding-right: 52px;
+}
+
+.u1-input:has(.u1-input__clear):has(.u1-input__password) .u1-input__inner {
+  padding-right: 86px;
+}
+
 .u1-input__inner:focus {
   border-color: var(--u1-color-primary);
   box-shadow: var(--u1-shadow-focus);
@@ -331,6 +340,35 @@
   line-height: 18px;
   cursor: pointer;
   transform: translateY(-50%);
+}
+
+.u1-input:has(.u1-input__password) .u1-input__clear {
+  right: 50px;
+}
+
+.u1-input__password {
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  height: 22px;
+  padding: 0 6px;
+  border: 0;
+  border-radius: var(--u1-radius-base);
+  color: var(--u1-color-info);
+  background: transparent;
+  font-size: 12px;
+  line-height: 22px;
+  cursor: pointer;
+  transform: translateY(-50%);
+}
+
+.u1-input__password:hover {
+  color: var(--u1-color-primary);
+  background: #ecf5ff;
+}
+
+.dark .u1-input__password:hover {
+  background: #18222c;
 }
 
 .u1-select {
@@ -601,6 +639,11 @@
   background: var(--u1-color-bg);
 }
 
+.u1-radio__original:focus-visible + .u1-radio__inner {
+  border-color: var(--u1-color-primary);
+  box-shadow: var(--u1-shadow-focus);
+}
+
 .u1-radio.is-checked .u1-radio__inner {
   border: 5px solid var(--u1-color-primary);
 }
@@ -656,6 +699,11 @@
   border-radius: 2px;
   background: var(--u1-color-bg);
   transition: border-color var(--u1-transition), background var(--u1-transition);
+}
+
+.u1-checkbox__original:focus-visible + .u1-checkbox__inner {
+  border-color: var(--u1-color-primary);
+  box-shadow: var(--u1-shadow-focus);
 }
 
 .u1-checkbox.is-checked .u1-checkbox__inner,

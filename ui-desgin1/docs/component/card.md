@@ -10,6 +10,18 @@
     U1Card 用于展示成组内容, 适合文档示例, 信息摘要和操作区域.
     <template #footer>底部内容</template>
   </U1Card>
+  <details class="u1-demo__footer">
+    <summary>Show code</summary>
+
+```vue
+<U1Card style="max-width: 360px">
+  <template #header>卡片标题</template>
+  U1Card 用于展示成组内容, 适合文档示例, 信息摘要和操作区域.
+  <template #footer>底部内容</template>
+</U1Card>
+```
+
+  </details>
 </div>
 
 ## 阴影模式
@@ -20,6 +32,16 @@
     <U1Card shadow="hover" style="width: 220px">Hover</U1Card>
     <U1Card shadow="never" style="width: 220px">Never</U1Card>
   </div>
+  <details class="u1-demo__footer">
+    <summary>Show code</summary>
+
+```vue
+<U1Card shadow="always" style="width: 220px">Always</U1Card>
+<U1Card shadow="hover" style="width: 220px">Hover</U1Card>
+<U1Card shadow="never" style="width: 220px">Never</U1Card>
+```
+
+  </details>
 </div>
 
 ## API

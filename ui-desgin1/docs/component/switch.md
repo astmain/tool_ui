@@ -15,6 +15,21 @@ const enabled = ref(false)
     <U1Switch v-model="enabled" active-text="开启" inactive-text="关闭" />
     <span>当前状态: {{ enabled ? '开启' : '关闭' }}</span>
   </div>
+  <details class="u1-demo__footer">
+    <summary>Show code</summary>
+
+```vue
+<script setup>
+import { ref } from 'vue'
+
+const enabled = ref(false)
+</script>
+
+<U1Switch v-model="enabled" active-text="开启" inactive-text="关闭" />
+<span>当前状态: {{ enabled ? '开启' : '关闭' }}</span>
+```
+
+  </details>
 </div>
 
 ## 状态
@@ -24,6 +39,15 @@ const enabled = ref(false)
     <U1Switch model-value active-text="开启" inactive-text="关闭" />
     <U1Switch disabled inactive-text="禁用" />
   </div>
+  <details class="u1-demo__footer">
+    <summary>Show code</summary>
+
+```vue
+<U1Switch model-value active-text="开启" inactive-text="关闭" />
+<U1Switch disabled inactive-text="禁用" />
+```
+
+  </details>
 </div>
 
 ## API

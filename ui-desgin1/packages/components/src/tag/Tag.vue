@@ -1,18 +1,20 @@
 <template>
-  <span class="u1-tag-component" :class="[`u1-tag-component--${type}`, `u1-tag-component--${effect}`]">
+  <span v-if="visible" class="u1-tag-component" :class="[`u1-tag-component--${type}`, `u1-tag-component--${effect}`]">
     <span class="u1-tag-component__content">
       <slot />
     </span>
-    <button v-if="closable" class="u1-tag-component__close" type="button" aria-label="close" @click="emit('close')">x</button>
+    <button v-if="closable" class="u1-tag-component__close" type="button" aria-label="close" @click="close">x</button>
   </span>
 </template>
 
 <script setup lang="ts">
+import { ref, watch } from 'vue'
+
 defineOptions({
   name: 'U1Tag'
 })
 
-withDefaults(
+const props = withDefaults(
   defineProps<{
     type?: 'primary' | 'success' | 'warning' | 'danger' | 'info'
     effect?: 'light' | 'dark' | 'plain'
@@ -28,4 +30,18 @@ withDefaults(
 const emit = defineEmits<{
   close: []
 }>()
+
+const visible = ref(true)
+
+watch(
+  () => props.closable,
+  () => {
+    visible.value = true
+  }
+)
+
+function close() {
+  visible.value = false
+  emit('close')
+}
 </script>

@@ -19,6 +19,11 @@ const advancedItems = [
   { text: 'Menu 菜单', link: '/component/menu' }
 ]
 
+const designItems = [
+  { text: '颜色方案', link: '/component/design/colors' },
+  { text: '图标体系', link: '/component/design/icons' }
+]
+
 export default defineConfig({
   title: 'U1Design',
   description: 'Vue 3 component library for U1Design',
@@ -30,7 +35,8 @@ export default defineConfig({
     sidebar: {
       '/component/': [
         { text: '基础组件', items: basicItems },
-        { text: '高级组件', items: advancedItems }
+        { text: '高级组件', items: advancedItems },
+        { text: '风格设计', items: designItems }
       ]
     },
     socialLinks: [],

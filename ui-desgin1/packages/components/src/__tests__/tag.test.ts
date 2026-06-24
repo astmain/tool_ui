@@ -33,4 +33,19 @@ describe('U1Tag', () => {
 
     expect(wrapper.emitted('close')).toBeTruthy()
   })
+
+  it('hides itself after close button is clicked', async () => {
+    const wrapper = mount(U1Tag, {
+      props: {
+        closable: true
+      },
+      slots: {
+        default: 'Closable'
+      }
+    })
+
+    await wrapper.get('button').trigger('click')
+
+    expect(wrapper.find('.u1-tag-component').exists()).toBe(false)
+  })
 })

@@ -21,12 +21,41 @@ const items = [
     <U1Menu v-model:active="active" :items="items" />
     <span>当前项: {{ active }}</span>
   </div>
+  <details class="u1-demo__footer">
+    <summary>Show code</summary>
+
+```vue
+<script setup>
+import { ref } from 'vue'
+
+const active = ref('dashboard')
+const items = [
+  { index: 'dashboard', label: '工作台' },
+  { index: 'components', label: '组件' },
+  { index: 'settings', label: '设置' },
+  { index: 'disabled', label: '禁用项', disabled: true }
+]
+</script>
+
+<U1Menu v-model:active="active" :items="items" />
+<span>当前项: {{ active }}</span>
+```
+
+  </details>
 </div>
 
 ## 水平菜单
 
 <div class="u1-demo">
   <U1Menu v-model:active="active" :items="items" mode="horizontal" />
+  <details class="u1-demo__footer">
+    <summary>Show code</summary>
+
+```vue
+<U1Menu v-model:active="active" :items="items" mode="horizontal" />
+```
+
+  </details>
 </div>
 
 ## API

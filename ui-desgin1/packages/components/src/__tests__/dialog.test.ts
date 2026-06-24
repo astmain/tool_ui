@@ -66,4 +66,31 @@ describe('U1Dialog', () => {
     expect(dialog.attributes('aria-label')).toBe('Settings')
     expect(wrapper.find('.u1-dialog__close').attributes('aria-label')).toBe('Close dialog')
   })
+
+  it('closes when Escape is pressed by default', async () => {
+    const wrapper = mount(U1Dialog, {
+      props: {
+        modelValue: true,
+        title: 'Keyboard dialog'
+      }
+    })
+
+    await wrapper.get('.u1-dialog__overlay').trigger('keydown', { key: 'Escape' })
+
+    expect(wrapper.emitted('update:modelValue')?.[0]).toEqual([false])
+    expect(wrapper.emitted('close')).toBeTruthy()
+  })
+
+  it('can disable Escape close behavior', async () => {
+    const wrapper = mount(U1Dialog, {
+      props: {
+        modelValue: true,
+        closeOnPressEscape: false
+      }
+    })
+
+    await wrapper.get('.u1-dialog__overlay').trigger('keydown', { key: 'Escape' })
+
+    expect(wrapper.emitted('update:modelValue')).toBeUndefined()
+  })
 })

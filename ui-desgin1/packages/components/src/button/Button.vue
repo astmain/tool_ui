@@ -3,9 +3,11 @@
     :is="tag"
     class="u1-button"
     :class="buttonClasses"
-    :disabled="disabled || loading"
+    :disabled="tag === 'button' ? isDisabled : undefined"
     :type="tag === 'button' ? nativeType : undefined"
-    :href="tag === 'a' ? href : undefined"
+    :href="tag === 'a' && !isDisabled ? href : undefined"
+    :aria-disabled="tag === 'a' && isDisabled ? 'true' : undefined"
+    :tabindex="tag === 'a' && isDisabled ? -1 : undefined"
   >
     <span v-if="loading" class="u1-button__loading" aria-hidden="true"></span>
     <span v-if="$slots.icon" class="u1-button__icon">
@@ -74,4 +76,6 @@ const buttonClasses = computed(() => [
     'is-has-bg': props.bg
   }
 ])
+
+const isDisabled = computed(() => props.disabled || props.loading)
 </script>

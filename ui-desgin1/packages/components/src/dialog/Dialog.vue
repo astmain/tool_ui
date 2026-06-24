@@ -1,5 +1,5 @@
 <template>
-  <div v-if="modelValue" class="u1-dialog__overlay" @click="handleOverlayClick">
+  <div v-if="modelValue" class="u1-dialog__overlay" tabindex="-1" @click="handleOverlayClick" @keydown.esc.prevent="handleEscapeKey">
     <section class="u1-dialog" :style="{ width }" role="dialog" aria-modal="true" :aria-label="title" @click.stop>
       <header class="u1-dialog__header">
         <slot name="header">
@@ -24,12 +24,14 @@ const props = withDefaults(
     title?: string
     width?: string
     closeOnClickModal?: boolean
+    closeOnPressEscape?: boolean
   }>(),
   {
     modelValue: false,
     title: '',
     width: '50%',
-    closeOnClickModal: true
+    closeOnClickModal: true,
+    closeOnPressEscape: true
   }
 )
 
@@ -49,6 +51,12 @@ function close() {
 
 function handleOverlayClick() {
   if (props.closeOnClickModal) {
+    close()
+  }
+}
+
+function handleEscapeKey() {
+  if (props.closeOnPressEscape) {
     close()
   }
 }

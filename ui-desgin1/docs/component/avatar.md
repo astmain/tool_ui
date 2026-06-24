@@ -10,6 +10,16 @@
     <U1Avatar>U1</U1Avatar>
     <U1Avatar shape="square">U1</U1Avatar>
   </div>
+  <details class="u1-demo__footer">
+    <summary>Show code</summary>
+
+```vue
+<U1Avatar src="https://cube.elemecdn.com/e/fd/0fc7d20532fdaf769a25683617711png.png" alt="User avatar" />
+<U1Avatar>U1</U1Avatar>
+<U1Avatar shape="square">U1</U1Avatar>
+```
+
+  </details>
 </div>
 
 ## 尺寸
@@ -20,6 +30,16 @@
     <U1Avatar>M</U1Avatar>
     <U1Avatar size="large">L</U1Avatar>
   </div>
+  <details class="u1-demo__footer">
+    <summary>Show code</summary>
+
+```vue
+<U1Avatar size="small">S</U1Avatar>
+<U1Avatar>M</U1Avatar>
+<U1Avatar size="large">L</U1Avatar>
+```
+
+  </details>
 </div>
 
 ## 图片失败回退
@@ -28,6 +48,14 @@
   <div class="u1-demo-row">
     <U1Avatar src="/not-found-avatar.png" alt="Missing avatar">NA</U1Avatar>
   </div>
+  <details class="u1-demo__footer">
+    <summary>Show code</summary>
+
+```vue
+<U1Avatar src="/not-found-avatar.png" alt="Missing avatar">NA</U1Avatar>
+```
+
+  </details>
 </div>
 
 ## API

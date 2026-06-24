@@ -64,6 +64,22 @@ describe('U1Button', () => {
     expect(wrapper.classes()).toContain('is-has-bg')
   })
 
+  it('marks disabled anchor buttons as inaccessible links', () => {
+    const wrapper = mount(U1Button, {
+      props: {
+        tag: 'a',
+        href: 'https://example.com',
+        disabled: true
+      },
+      slots: { default: 'Disabled link' }
+    })
+
+    expect(wrapper.attributes('href')).toBeUndefined()
+    expect(wrapper.attributes('disabled')).toBeUndefined()
+    expect(wrapper.attributes('aria-disabled')).toBe('true')
+    expect(wrapper.attributes('tabindex')).toBe('-1')
+  })
+
   it('renders icon slot before content', () => {
     const wrapper = mount(U1Button, {
       slots: {

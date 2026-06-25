@@ -21,7 +21,8 @@ const advancedItems = [
 
 const designItems = [
   { text: '颜色方案', link: '/component/design/colors' },
-  { text: '图标体系', link: '/component/design/icons' }
+  { text: '图标体系', link: '/component/design/icons' },
+  { text: '主题编辑器', link: '/component/design/theme-editor' }
 ]
 
 export default defineConfig({

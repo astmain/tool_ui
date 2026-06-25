@@ -1,0 +1,8 @@
+feat: 主题编辑器全局浮窗 & README 更新
+
+- 新增 Layout.vue 通过 VitePress #layout-bottom 插槽全局注入 ThemeEditorDemo
+- 新增 ThemeEditorDemo.vue 作为文档站主题编辑器浮窗入口
+- 更新 config.ts 导航栏添加主题编辑器入口
+- 优化 Dialog 拖拽遮罩层样式，调整 Radio/Checkbox/Dialog 的禁用态透明度
+- 更新 README.md 完整反映当前项目结构和新增功能
+- 补充 vitest/tsconfig 路径别名配置

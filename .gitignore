@@ -29,7 +29,7 @@
 dist_vue
 dist_electron
 dist_electron_win
-
+format-markdown.yaml
 
 # nextjs项目
 .next
@@ -77,7 +77,6 @@ Thumbs.db
 *.tmp
 *.bak
 .idea/
-.vscode/
 *.code-workspace
 node_modules/
 npm-debug.log*
@@ -99,6 +98,7 @@ coverage/
 .jest-cache/
 .eslintcache
 .prettiercache
+docs/.vitepress/cache/
 
 
 # ==============================

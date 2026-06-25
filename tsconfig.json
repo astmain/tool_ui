@@ -17,8 +17,8 @@
     "declarationMap": true,
     "paths": {
       "@/*": ["./packages/components/src/*"],
-      "@u1design/vue": ["./packages/components/src/index.ts"],
-      "@u1design/vue/theme": ["./packages/components/src/theme/index.ts"]
+      "tool_ui1": ["./packages/components/src/index.ts"],
+      "tool_ui1/theme": ["./packages/components/src/theme/index.ts"]
     }
   },
   "include": ["packages", "docs", "vitest.config.ts"]

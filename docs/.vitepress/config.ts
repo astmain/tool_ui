@@ -38,8 +38,8 @@ export default defineConfig({
   vite: {
     resolve: {
       alias: [
-        { find: '@u1design/vue/style.css', replacement: resolve(__dirname, '../../packages/components/src/styles/index.css') },
-        { find: '@u1design/vue', replacement: resolve(__dirname, '../../packages/components/src/index.ts') },
+        { find: 'tool_ui1/style.css', replacement: resolve(__dirname, '../../packages/components/src/styles/index.css') },
+        { find: 'tool_ui1', replacement: resolve(__dirname, '../../packages/components/src/index.ts') },
         { find: '@', replacement: resolve(__dirname, '../../packages/components/src/') }
       ]
     },

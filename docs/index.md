@@ -14,15 +14,15 @@ layout: doc
 ## 安装
 
 ```bash
-pnpm add @u1design/vue
+pnpm add tool_ui1
 ```
 
 ## 使用
 
 ```ts
 import { createApp } from 'vue'
-import U1Design from '@u1design/vue'
-import '@u1design/vue/style.css'
+import U1Design from 'tool_ui1'
+import 'tool_ui1/style.css'
 
 createApp(App).use(U1Design).mount('#app')
 ```

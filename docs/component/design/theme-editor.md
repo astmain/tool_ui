@@ -14,7 +14,7 @@
 
 <script setup>
 import { ref } from 'vue'
-import { U1ThemeEditorDialog } from '@u1design/vue'
+import { U1ThemeEditorDialog } from 'tool_ui1'
 
 const showEditor = ref(false)
 </script>
@@ -25,7 +25,7 @@ const showEditor = ref(false)
 编辑器底部提供"复制代码"按钮, 点击后生成的主题配置格式如下:
 
 ```js
-import { applyU1Theme } from '@u1design/vue/theme'
+import { applyU1Theme } from 'tool_ui1/theme'
 
 applyU1Theme({
   primary: '#409eff',
@@ -69,8 +69,8 @@ applyU1Theme({
 ## 用户项目用法
 
 ```ts
-import '@u1design/vue/style.css'
-import { applyU1Theme } from '@u1design/vue/theme'
+import 'tool_ui1/style.css'
+import { applyU1Theme } from 'tool_ui1/theme'
 
 applyU1Theme({
   primary: '#1677ff',

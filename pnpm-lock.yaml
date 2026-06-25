@@ -41,7 +41,7 @@ importers:
 
   docs:
     dependencies:
-      '@u1design/vue':
+      tool_ui1:
         specifier: workspace:*
         version: link:../packages/components
 

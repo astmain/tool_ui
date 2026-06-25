@@ -9,7 +9,7 @@ export function createU1ThemeCode(vars: U1ThemeVars): string {
     .join(',\n')
 
   return [
-    `import { applyU1Theme } from '@u1design/vue/theme'`,
+    `import { applyU1Theme } from 'tool_ui1/theme'`,
     ``,
     `applyU1Theme({`,
     body,

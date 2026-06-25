@@ -126,7 +126,7 @@ describe('createU1ThemeCode', () => {
       shadowLight: '0 6px 18px rgb(15 23 42 / 10%)',
       shadowFocus: '0 0 0 3px rgb(22 119 255 / 20%)'
     })
-    expect(code).toContain("import { applyU1Theme } from '@u1design/vue/theme'")
+    expect(code).toContain("import { applyU1Theme } from 'tool_ui1/theme'")
     expect(code).toContain('primary: \'#1677ff\'')
     expect(code).toContain('success: \'#52c41a\'')
     expect(code).toContain('radiusBase: \'8px\'')
@@ -141,7 +141,7 @@ describe('createU1ThemeCode', () => {
 
   it('generates code that is a valid applyU1Theme call', () => {
     const code = createU1ThemeCode({ primary: '#1677ff', radiusBase: '8px' })
-    expect(code).toContain("import { applyU1Theme } from '@u1design/vue/theme'")
+    expect(code).toContain("import { applyU1Theme } from 'tool_ui1/theme'")
     expect(code).toContain('applyU1Theme({')
     expect(code).toContain('})')
   })

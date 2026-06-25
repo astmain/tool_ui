@@ -49,7 +49,7 @@ describe('U1ThemeEditor', () => {
     const textarea = wrapper.find('textarea')
     expect(textarea.exists()).toBe(true)
     expect((textarea.element as HTMLTextAreaElement).readOnly).toBe(true)
-    expect((textarea.element as HTMLTextAreaElement).value).toContain("import { applyU1Theme } from '@u1design/vue/theme'")
+    expect((textarea.element as HTMLTextAreaElement).value).toContain("import { applyU1Theme } from 'tool_ui1/theme'")
     expect((textarea.element as HTMLTextAreaElement).value).toContain('applyU1Theme({')
   })
 

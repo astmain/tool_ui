@@ -6,6 +6,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
+import type { CSSProperties } from 'vue'
 
 const props = withDefaults(
   defineProps<{
@@ -30,15 +31,18 @@ const normalizedOffset = computed(() => {
   return typeof props.offset === 'number' ? `${props.offset}px` : props.offset
 })
 
-const affixStyle = computed(() => {
+const affixStyle = computed<CSSProperties>(() => {
   if (props.disabled) {
     return {}
   }
 
-  return {
+  let style: CSSProperties = {
     position: 'sticky',
-    [props.position]: normalizedOffset.value,
-    zIndex: `${props.zIndex}`
+    zIndex: props.zIndex
   }
+
+  style[props.position] = normalizedOffset.value
+
+  return style
 })
 </script>

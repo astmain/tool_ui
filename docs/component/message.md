@@ -3,7 +3,7 @@
 用于页面中的轻量级反馈提示. 适合保存成功, 删除失败, 表单校验, 后台任务完成等即时反馈场景. 推荐使用函数式 API 调用.
 
 <script setup>
-import { U1Message } from '@u1design/vue'
+import { U1Message } from 'tool_ui1'
 
 function openBasicMessage() {
   U1Message('这是一条提示消息')
@@ -72,7 +72,7 @@ function closeAllMessage() {
 
 ```vue
 <script setup>
-import { U1Message } from '@u1design/vue'
+import { U1Message } from 'tool_ui1'
 
 function openBasicMessage() {
   U1Message('这是一条提示消息')
@@ -117,7 +117,7 @@ function openClosableMessage() {
 
 ```vue
 <script setup>
-import { U1Message } from '@u1design/vue'
+import { U1Message } from 'tool_ui1'
 
 function openSuccessMessage() {
   U1Message.success('success 类型消息')
@@ -166,7 +166,7 @@ function openErrorMessage() {
 
 ```vue
 <script setup>
-import { U1Message } from '@u1design/vue'
+import { U1Message } from 'tool_ui1'
 
 function openGroupedMessage() {
   U1Message({
@@ -226,7 +226,7 @@ function closeAllMessage() {
 
 ```vue
 <script setup>
-import { U1Message } from '@u1design/vue'
+import { U1Message } from 'tool_ui1'
 
 function openPlacementMessage(placement) {
   U1Message({

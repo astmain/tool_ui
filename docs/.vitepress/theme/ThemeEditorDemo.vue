@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { U1ThemeEditor, U1ThemeEditorDialog } from '@u1design/vue'
+import { U1ThemeEditor, U1ThemeEditorDialog } from 'tool_ui1'
 import { ref } from 'vue'
 
 const visible = ref(false)

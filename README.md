@@ -1,6 +1,6 @@
 # U1Design Vue 组件库
 
-- 本项目是一个基于 Vue 3 和 TypeScript 的组件库 workspace, 包名为 `@u1design/vue`, 主要用于沉淀 U1Design 组件, 主题变量和 VitePress 文档站.
+- 本项目是一个基于 Vue 3 和 TypeScript 的组件库 workspace, 包名为 `tool_ui1`, 主要用于沉淀 U1Design 组件, 主题变量和 VitePress 文档站.
 
 ## 功能特点
 
@@ -33,14 +33,14 @@ pnpm build
 
 - 文档开发服务默认监听 `http://127.0.0.1:5173/`.
 - `pnpm dev` 实际执行 `pnpm --filter docs dev`.
-- `pnpm build` 会先构建 `@u1design/vue`, 再构建 docs 文档站.
+- `pnpm build` 会先构建 `tool_ui1`, 再构建 docs 文档站.
 
 业务项目使用示例:
 
 ```ts
 import { createApp } from 'vue'
-import U1Design from '@u1design/vue'
-import '@u1design/vue/style.css'
+import U1Design from 'tool_ui1'
+import 'tool_ui1/style.css'
 
 createApp(App).use(U1Design).mount('#app')
 ```
@@ -48,9 +48,9 @@ createApp(App).use(U1Design).mount('#app')
 按需导入示例:
 
 ```ts
-import { U1Button, U1Input } from '@u1design/vue'
-import { applyU1Theme, resetU1Theme } from '@u1design/vue/theme'
-import '@u1design/vue/style.css'
+import { U1Button, U1Input } from 'tool_ui1'
+import { applyU1Theme, resetU1Theme } from 'tool_ui1/theme'
+import 'tool_ui1/style.css'
 ```
 
 ## 技术栈
@@ -96,7 +96,7 @@ C:\AAA\tool_ui
 |   |   `-- design/                 # 颜色, 图标和主题编辑器文档
 |   `-- package.json               # docs 包脚本和 workspace 依赖
 |-- packages/
-|   `-- components/                 # @u1design/vue 组件包
+|   `-- components/                 # tool_ui1 组件包
 |       |-- package.json            # 包入口, exports 和 peerDependencies
 |       |-- vite.config.ts          # 组件库构建配置
 |       `-- src/

@@ -8,6 +8,7 @@ const __dirname = dirname(__filename)
 const basicItems = [
   { text: 'Button 按钮', link: '/component/button' },
   { text: 'Input 输入框', link: '/component/input' },
+  { text: 'InputLabel 输入标签', link: '/component/input-label' },
   { text: 'Radio 单选框', link: '/component/radio' },
   { text: 'Checkbox 多选框', link: '/component/checkbox' },
   { text: 'Select 选择器', link: '/component/select' },

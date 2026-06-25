@@ -903,6 +903,110 @@
   background: #18222c;
 }
 
+.u1-input-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--u1-color-text);
+  font-size: 14px;
+  vertical-align: middle;
+}
+
+.u1-input-label__label {
+  flex: 0 0 auto;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  line-height: 32px;
+}
+
+.u1-input-label__control {
+  position: relative;
+  display: inline-flex;
+  flex: 0 0 auto;
+}
+
+.u1-input-label__inner {
+  width: 100%;
+  height: 32px;
+  box-sizing: border-box;
+  padding: 1px 11px;
+  border: 1px solid var(--u1-color-border);
+  border-radius: var(--u1-radius-base);
+  color: var(--u1-color-text);
+  background: var(--u1-color-bg);
+  font-size: 14px;
+  outline: none;
+  transition: border-color var(--u1-transition), box-shadow var(--u1-transition);
+}
+
+.u1-input-label__control:has(.u1-input-label__toggle) .u1-input-label__inner {
+  padding-right: 42px;
+}
+
+.u1-input-label__inner:focus {
+  border-color: var(--u1-color-primary);
+  box-shadow: var(--u1-shadow-focus);
+}
+
+.u1-input-label.is-disabled {
+  color: var(--u1-disabled-text);
+}
+
+.u1-input-label.is-disabled .u1-input-label__inner {
+  color: var(--u1-disabled-text);
+  border-color: var(--u1-disabled-border);
+  background: var(--u1-disabled-bg);
+  cursor: not-allowed;
+}
+
+.u1-input-label.is-readonly:not(.is-disabled) .u1-input-label__inner {
+  background: #fafafa;
+}
+
+.dark .u1-input-label.is-readonly:not(.is-disabled) .u1-input-label__inner {
+  background: #202121;
+}
+
+.u1-input-label__toggle {
+  position: absolute;
+  top: 50%;
+  right: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--u1-radius-base);
+  color: var(--u1-color-info);
+  background: transparent;
+  cursor: pointer;
+  transform: translateY(-50%);
+}
+
+.u1-input-label__toggle:hover {
+  color: var(--u1-color-primary);
+  background: #ecf5ff;
+}
+
+.u1-input-label__toggle:disabled {
+  color: var(--u1-disabled-text);
+  cursor: not-allowed;
+}
+
+.u1-input-label__toggle .u1-icon-mark {
+  width: 16px;
+  height: 16px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+.dark .u1-input-label__toggle:hover {
+  background: #18222c;
+}
+
 .u1-select {
   display: inline-flex;
   width: 220px;

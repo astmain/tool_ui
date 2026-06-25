@@ -5,6 +5,7 @@ import { U1Card } from './card'
 import { U1Checkbox, U1CheckboxGroup } from './checkbox'
 import { U1Dialog } from './dialog'
 import { U1Input } from './input'
+import { U1InputLabel } from './input-label'
 import { U1Menu } from './menu'
 import { U1Message, U1MessageComponent } from './message'
 import { U1Radio, U1RadioGroup } from './radio'
@@ -18,6 +19,7 @@ import './styles/index.css'
 const components = [
   U1Button,
   U1Input,
+  U1InputLabel,
   U1Radio,
   U1RadioGroup,
   U1Checkbox,
@@ -51,6 +53,7 @@ const U1Design: Plugin = {
 export {
   U1Button,
   U1Input,
+  U1InputLabel,
   U1Radio,
   U1RadioGroup,
   U1Checkbox,

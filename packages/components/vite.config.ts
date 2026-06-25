@@ -26,7 +26,10 @@ export default defineConfig({
         theme: resolve(__dirname, 'src/theme/index.ts')
       },
       name: 'U1Design',
-      fileName: (format, entryName) => (entryName === 'index' ? 'u1design' : `${entryName}/index`),
+      fileName: (format, entryName) => {
+        const baseName = entryName === 'index' ? 'u1design' : `${entryName}/index`
+        return format === 'es' ? `${baseName}.js` : `${baseName}.cjs`
+      },
       cssFileName: 'style'
     },
     rollupOptions: {

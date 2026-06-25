@@ -1,22 +1,47 @@
 {
-  "name": "@u1design/vue",
+  "name": "tool_ui1",
   "version": "0.1.0",
+  "description": "U1Design component library for Vue 3",
+  "license": "MIT",
   "type": "module",
-  "main": "dist/u1design.umd.cjs",
+  "main": "dist/u1design.cjs",
   "module": "dist/u1design.js",
   "types": "dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/u1design.js"
+      "import": "./dist/u1design.js",
+      "require": "./dist/u1design.cjs"
     },
     "./theme": {
       "types": "./dist/theme/index.d.ts",
-      "import": "./dist/theme/index.js"
+      "import": "./dist/theme/index.js",
+      "require": "./dist/theme/index.cjs"
     },
     "./style.css": "./dist/style.css"
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "vue",
+    "vue3",
+    "component-library",
+    "ui",
+    "u1design"
+  ],
+  "homepage": "https://github.com/astmain/tool_ui#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/astmain/tool_ui.git",
+    "directory": "packages/components"
+  },
+  "bugs": {
+    "url": "https://github.com/astmain/tool_ui/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "peerDependencies": {
     "vue": "^3.5.0"
   },

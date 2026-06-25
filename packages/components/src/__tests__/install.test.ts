@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { createApp } from 'vue'
 import U1Design, {
+  U1Affix,
   U1Avatar,
   U1Button,
   U1Card,
@@ -24,6 +25,7 @@ describe('U1Design plugin', () => {
   it('exports components and installs them globally', () => {
     const app = createApp({})
     const components = [
+      U1Affix,
       U1Avatar,
       U1Button,
       U1Card,

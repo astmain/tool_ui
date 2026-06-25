@@ -19,6 +19,7 @@ const basicItems = [
 ]
 
 const advancedItems = [
+  { text: 'Affix 吸附', link: '/component/affix' },
   { text: 'Card 卡片', link: '/component/card' },
   { text: 'Dialog 对话框', link: '/component/dialog' },
   { text: 'Table 表格', link: '/component/table' },

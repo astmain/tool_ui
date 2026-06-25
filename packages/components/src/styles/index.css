@@ -899,6 +899,14 @@
   background: #ecf5ff;
 }
 
+.u1-affix {
+  display: block;
+}
+
+.u1-affix.is-disabled {
+  position: static !important;
+}
+
 .dark .u1-input__password:hover {
   background: #18222c;
 }

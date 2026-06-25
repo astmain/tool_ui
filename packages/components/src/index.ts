@@ -1,4 +1,5 @@
 import type { App, Plugin } from 'vue'
+import { U1Affix } from './affix'
 import { U1Avatar } from './avatar'
 import { U1Button } from './button'
 import { U1Card } from './card'
@@ -17,6 +18,7 @@ import { U1ThemeEditor, U1ThemeEditorDialog } from './theme-editor'
 import './styles/index.css'
 
 const components = [
+  U1Affix,
   U1Button,
   U1Input,
   U1InputLabel,
@@ -51,6 +53,7 @@ const U1Design: Plugin = {
 }
 
 export {
+  U1Affix,
   U1Button,
   U1Input,
   U1InputLabel,

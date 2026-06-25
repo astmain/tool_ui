@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>U1Tool Sticky Demo</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        background: #f5f7fa;
+        color: #303133;
+        font-family: Arial, sans-serif;
+      }
+
+      .page {
+        width: 100%;
+        min-height: 100vh;
+        padding: 24px;
+      }
+
+      .content {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .u1-tool {
+        padding: 12px 16px;
+        background: #ffffff;
+        border: 1px solid #dcdfe6;
+        box-shadow: 0 2px 8px rgb(31 45 61 / 8%);
+      }
+
+      .u1-tool.is-fixed {
+        position: fixed;
+        z-index: 1000;
+      }
+
+      .u1-tool-placeholder {
+        display: none;
+      }
+
+      .u1-tool-placeholder.is-active {
+        display: block;
+      }
+
+      .block {
+        min-height: 120px;
+        padding: 16px;
+        background: #ffffff;
+        border: 1px solid #ebeef5;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="page">
+      <div class="u1-tool">111</div>
+      <div class="u1-tool">222</div>
+      <div class="content">
+        <div class="block">内容</div>
+        <div class="block">内容</div>
+        <div class="u1-tool">333</div>
+        <div class="block">内容</div>
+        <div class="block">内容</div>
+        <div class="block">内容</div>
+        <div class="block">内容</div>
+        <div class="block">内容</div>
+        <div class="block">内容</div>
+        <div class="block">内容</div>
+   
+        <div class="block">内容</div>
+        <div class="block">内容</div>
+        <div class="block">内容</div>
+        <div class="block">内容</div>
+        <div class="block">内容</div>
+        <div class="block">内容</div>
+        <div class="block">内容</div>
+        <div class="block">内容</div>
+        <div class="block">内容</div>
+        <div class="block">内容</div>
+        <div class="block">内容</div>
+        <div class="block">内容</div>
+        <div class="block">内容</div>
+        <div class="block">内容</div>
+        <div class="block">内容</div>
+        <div class="block">内容</div>
+        <div class="block">内容</div>
+        <div class="block">内容</div>
+        <div class="block">内容</div>
+        <div class="block">内容</div>
+        <div class="block">内容</div>
+        <div class="block">内容</div>
+        <div class="block">内容</div>
+        <div class="block">内容</div>
+        <div class="block">内容</div>
+        <div class="block">内容</div>
+        <div class="block">内容</div>
+        <div class="block">内容</div>
+        <div class="block">内容</div>
+        <div class="block">内容</div>
+        <div class="block">内容</div>
+        <div class="block">内容</div>
+        <div class="block">内容</div>
+        <div class="block">内容</div>
+        <div class="block">内容</div>
+        <div class="block">内容</div>
+      </div>
+    </div>
+
+    <script>
+      const toolItems = Array.from(document.querySelectorAll('.u1-tool')).map((tool) => {
+        const placeholder = document.createElement('div')
+        placeholder.className = 'u1-tool-placeholder'
+        tool.insertAdjacentElement('afterend', placeholder)
+        return {
+          tool,
+          placeholder,
+          initialTop: 0,
+          initialLeft: 0,
+          initialWidth: 0,
+          documentTop: 0,
+          height: 0
+        }
+      })
+
+      function clearFixedState() {
+        toolItems.forEach((item) => {
+          item.tool.classList.remove('is-fixed')
+          item.tool.style.top = ''
+          item.tool.style.left = ''
+          item.tool.style.width = ''
+          item.placeholder.classList.remove('is-active')
+          item.placeholder.style.height = ''
+        })
+      }
+
+      function measureTools() {
+        clearFixedState()
+
+        toolItems.forEach((item) => {
+          const rect = item.tool.getBoundingClientRect()
+          item.initialTop = rect.top
+          item.initialLeft = rect.left
+          item.initialWidth = rect.width
+          item.documentTop = window.scrollY + rect.top
+          item.height = rect.height
+        })
+      }
+
+      function updateTools() {
+        const scrollTop = window.scrollY
+
+        toolItems.forEach((item) => {
+          const triggerTop = item.documentTop - item.initialTop
+          const shouldFix = scrollTop >= triggerTop
+
+          if (shouldFix) {
+            item.tool.classList.add('is-fixed')
+            item.tool.style.top = `${item.initialTop}px`
+            item.tool.style.left = `${item.initialLeft}px`
+            item.tool.style.width = `${item.initialWidth}px`
+            item.placeholder.classList.add('is-active')
+            item.placeholder.style.height = `${item.height}px`
+            return
+          }
+
+          item.tool.classList.remove('is-fixed')
+          item.tool.style.top = ''
+          item.tool.style.left = ''
+          item.tool.style.width = ''
+          item.placeholder.classList.remove('is-active')
+          item.placeholder.style.height = ''
+        })
+      }
+
+      function refreshTools() {
+        measureTools()
+        updateTools()
+      }
+
+      window.addEventListener('scroll', updateTools, { passive: true })
+      window.addEventListener('resize', refreshTools)
+      window.addEventListener('load', refreshTools)
+    </script>
+  </body>
+</html>

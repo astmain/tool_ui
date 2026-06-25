@@ -39,6 +39,9 @@ jobs:
           npm version "${VERSION}" --no-git-tag-version
         working-directory: packages/components
 
+      - name: Sync package README
+        run: cp README.md packages/components/README.md
+
       - name: Build package
         run: pnpm --filter tool_ui1 build
 

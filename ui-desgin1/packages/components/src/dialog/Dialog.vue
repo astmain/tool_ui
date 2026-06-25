@@ -1,23 +1,13 @@
 <template>
-  <div
+  <section
     v-if="modelValue"
-    class="u1-dialog__overlay"
-    tabindex="-1"
-    @click="handleOverlayClick"
-    @keydown.esc.prevent="handleEscapeKey"
-    @mousemove="handleMouseMove"
-    @mouseup="endDrag"
-    @mouseleave="endDrag"
+    class="u1-dialog"
+    :class="{ 'is-dragging': isDragging }"
+    :style="dialogStyle"
+    role="dialog"
+    aria-modal="true"
+    :aria-label="title"
   >
-    <section
-      class="u1-dialog"
-      :class="{ 'is-dragging': isDragging }"
-      :style="dialogStyle"
-      role="dialog"
-      aria-modal="true"
-      :aria-label="title"
-      @click.stop
-    >
       <header
         class="u1-dialog__header"
         :class="{ 'is-draggable': draggable, 'is-dragging': isDragging }"
@@ -32,7 +22,6 @@
         <slot />
       </div>
     </section>
-  </div>
 </template>
 
 <script setup lang="ts">
@@ -47,7 +36,6 @@ const props = withDefaults(
     showClose?: boolean
     lockScroll?: boolean
     draggable?: boolean
-    closeOnClickModal?: boolean
   }>(),
   {
     modelValue: false,
@@ -56,8 +44,7 @@ const props = withDefaults(
     top: '15vh',
     showClose: true,
     lockScroll: true,
-    draggable: true,
-    closeOnClickModal: false
+    draggable: true
   }
 )
 
@@ -82,7 +69,7 @@ const normalizedTop = computed(() => (typeof props.top === 'number' ? `${props.t
 const dialogStyle = computed(() => ({
   width: props.width,
   top: normalizedTop.value,
-  transform: `translate(${position.x}px, ${position.y}px)`
+  transform: `translateX(-50%) translate(${position.x}px, ${position.y}px)`
 }))
 
 watch(
@@ -135,16 +122,6 @@ function unlockBodyScroll() {
   hasLockedBodyScroll.value = false
 }
 
-function handleOverlayClick() {
-  if (props.closeOnClickModal) {
-    close()
-  }
-}
-
-function handleEscapeKey() {
-  close()
-}
-
 function startDrag(event: MouseEvent) {
   if (!props.draggable) {
     return
@@ -154,6 +131,9 @@ function startDrag(event: MouseEvent) {
   isDragging.value = true
   lastPointer.x = event.clientX
   lastPointer.y = event.clientY
+
+  document.addEventListener('mousemove', handleMouseMove)
+  document.addEventListener('mouseup', endDrag)
 }
 
 function handleMouseMove(event: MouseEvent) {
@@ -169,5 +149,9 @@ function handleMouseMove(event: MouseEvent) {
 
 function endDrag() {
   isDragging.value = false
+  if (canUseDocument) {
+    document.removeEventListener('mousemove', handleMouseMove)
+    document.removeEventListener('mouseup', endDrag)
+  }
 }
 </script>

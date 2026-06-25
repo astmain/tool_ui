@@ -6,7 +6,7 @@
 
 <script setup lang="ts">
 import { computed, provide, toRef } from 'vue'
-import { radioGroupKey } from './context'
+import { radioGroupKey } from '@/radio/context'
 
 defineOptions({
   name: 'U1RadioGroup'

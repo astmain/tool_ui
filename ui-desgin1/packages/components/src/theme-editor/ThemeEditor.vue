@@ -71,8 +71,8 @@
 
 <script setup lang="ts">
 import { computed, onBeforeUnmount, reactive, ref } from 'vue'
-import { applyU1Theme, resetU1Theme, u1ThemeTokens } from '../theme'
-import { createU1ThemeCode } from '../theme/createThemeCode'
+import { applyU1Theme, resetU1Theme, u1ThemeTokens } from '@/theme'
+import { createU1ThemeCode } from '@/theme/createThemeCode'
 
 interface Props {
   modelValue?: boolean

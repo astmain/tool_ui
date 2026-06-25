@@ -1366,20 +1366,11 @@
   padding: 16px;
 }
 
-.u1-dialog__overlay {
+.u1-dialog {
   position: fixed;
   z-index: 2000;
-  inset: 0;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  overflow: auto;
-  padding: 0 16px;
-  background: rgb(0 0 0 / 45%);
-}
-
-.u1-dialog {
-  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   max-width: calc(100vw - 32px);
   max-height: 90vh;

@@ -27,7 +27,7 @@
 
 <script setup lang="ts">
 import { computed, inject, onMounted, ref, watch } from 'vue'
-import { checkboxGroupKey, type U1CheckboxValue } from './context'
+import { checkboxGroupKey, type U1CheckboxValue } from '@/checkbox/context'
 
 defineOptions({
   name: 'U1Checkbox'

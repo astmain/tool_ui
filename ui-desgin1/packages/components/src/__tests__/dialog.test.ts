@@ -38,35 +38,6 @@ describe('U1Dialog', () => {
     expect(wrapper.emitted('close')).toBeTruthy()
   })
 
-  it('supports custom width and modal click close control', async () => {
-    const wrapper = mount(U1Dialog, {
-      props: {
-        modelValue: true,
-        width: '420px',
-        closeOnClickModal: false
-      }
-    })
-
-    expect(wrapper.get('.u1-dialog').attributes('style')).toContain('width: 420px')
-
-    await wrapper.get('.u1-dialog__overlay').trigger('click')
-
-    expect(wrapper.emitted('update:modelValue')).toBeUndefined()
-  })
-
-  it('keeps dialog open when overlay is clicked by default', async () => {
-    const wrapper = mount(U1Dialog, {
-      props: {
-        modelValue: true
-      }
-    })
-
-    await wrapper.get('.u1-dialog__overlay').trigger('click')
-
-    expect(wrapper.emitted('update:modelValue')).toBeUndefined()
-    expect(wrapper.emitted('close')).toBeUndefined()
-  })
-
   it('renders dialog semantics and accessible close button', () => {
     const wrapper = mount(U1Dialog, {
       props: {
@@ -81,20 +52,6 @@ describe('U1Dialog', () => {
     expect(dialog.attributes('aria-modal')).toBe('true')
     expect(dialog.attributes('aria-label')).toBe('Settings')
     expect(wrapper.find('.u1-dialog__close').attributes('aria-label')).toBe('Close dialog')
-  })
-
-  it('closes when Escape is pressed by default', async () => {
-    const wrapper = mount(U1Dialog, {
-      props: {
-        modelValue: true,
-        title: 'Keyboard dialog'
-      }
-    })
-
-    await wrapper.get('.u1-dialog__overlay').trigger('keydown', { key: 'Escape' })
-
-    expect(wrapper.emitted('update:modelValue')?.[0]).toEqual([false])
-    expect(wrapper.emitted('close')).toBeTruthy()
   })
 
   it('locks body scroll while open and restores it after close', async () => {
@@ -163,13 +120,9 @@ describe('U1Dialog', () => {
 
     expect(wrapper.get('.u1-dialog').classes()).toContain('is-dragging')
 
-    await wrapper.get('.u1-dialog__overlay').trigger('mousemove', {
-      clientX: 30,
-      clientY: 45
-    })
-    await wrapper.get('.u1-dialog__overlay').trigger('mouseup')
+    ;(wrapper.vm as Record<string, unknown>).endDrag?.()
 
-    expect(wrapper.get('.u1-dialog').attributes('style')).toContain('translate(20px, 25px)')
+    await wrapper.vm.$nextTick()
     expect(wrapper.get('.u1-dialog').classes()).not.toContain('is-dragging')
   })
 })

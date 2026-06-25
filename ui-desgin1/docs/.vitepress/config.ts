@@ -1,4 +1,9 @@
 import { defineConfig } from 'vitepress'
+import { fileURLToPath } from 'node:url'
+import { resolve, dirname } from 'node:path'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
 
 const basicItems = [
   { text: 'Button 按钮', link: '/component/button' },
@@ -28,6 +33,22 @@ const designItems = [
 export default defineConfig({
   title: 'U1Design',
   description: 'Vue 3 component library for U1Design',
+  vite: {
+    resolve: {
+      alias: [
+        { find: '@u1design/vue/style.css', replacement: resolve(__dirname, '../../packages/components/src/styles/index.css') },
+        { find: '@u1design/vue', replacement: resolve(__dirname, '../../packages/components/src/index.ts') },
+        { find: '@', replacement: resolve(__dirname, '../../packages/components/src/') }
+      ]
+    },
+    rollupOptions: {
+      resolve: {
+        alias: {
+          '@': resolve(__dirname, '../../packages/components/src/')
+        }
+      }
+    }
+  },
   themeConfig: {
     nav: [
       { text: '指南', link: '/' },

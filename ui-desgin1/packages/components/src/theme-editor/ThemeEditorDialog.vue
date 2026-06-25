@@ -11,8 +11,8 @@
 </template>
 
 <script setup lang="ts">
-import U1Dialog from '../dialog/Dialog.vue'
-import U1ThemeEditor from './ThemeEditor.vue'
+import U1Dialog from '@/dialog/Dialog.vue'
+import U1ThemeEditor from '@/theme-editor/ThemeEditor.vue'
 
 interface Props {
   modelValue?: boolean

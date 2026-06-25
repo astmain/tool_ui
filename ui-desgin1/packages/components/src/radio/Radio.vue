@@ -25,7 +25,7 @@
 
 <script setup lang="ts">
 import { computed, inject } from 'vue'
-import { radioGroupKey } from './context'
+import { radioGroupKey } from '@/radio/context'
 
 defineOptions({
   name: 'U1Radio'

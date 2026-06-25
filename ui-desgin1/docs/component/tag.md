@@ -16,11 +16,13 @@
     <summary>Show code</summary>
 
 ```vue
-<U1Tag>Primary</U1Tag>
-<U1Tag type="success">Success</U1Tag>
-<U1Tag type="warning">Warning</U1Tag>
-<U1Tag type="danger">Danger</U1Tag>
-<U1Tag type="info">Info</U1Tag>
+<template>
+  <U1Tag>Primary</U1Tag>
+  <U1Tag type="success">Success</U1Tag>
+  <U1Tag type="warning">Warning</U1Tag>
+  <U1Tag type="danger">Danger</U1Tag>
+  <U1Tag type="info">Info</U1Tag>
+</template>
 ```
 
   </details>
@@ -38,9 +40,11 @@
     <summary>Show code</summary>
 
 ```vue
-<U1Tag effect="dark">Dark</U1Tag>
-<U1Tag effect="plain">Plain</U1Tag>
-<U1Tag closable>Closable, click x</U1Tag>
+<template>
+  <U1Tag effect="dark">Dark</U1Tag>
+  <U1Tag effect="plain">Plain</U1Tag>
+  <U1Tag closable>Closable, click x</U1Tag>
+</template>
 ```
 
   </details>

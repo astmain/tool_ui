@@ -10,6 +10,10 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/u1design.js"
     },
+    "./theme": {
+      "types": "./dist/theme/index.d.ts",
+      "import": "./dist/theme/index.js"
+    },
     "./style.css": "./dist/style.css"
   },
   "files": ["dist"],

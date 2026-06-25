@@ -50,6 +50,91 @@ describe('U1Table', () => {
     expect(wrapper.classes()).toContain('is-stripe')
   })
 
+  it('applies column width min width and alignment options', () => {
+    const wrapper = mount(U1Table, {
+      props: {
+        columns: [
+          { prop: 'name', label: 'Name', width: 120, align: 'center', headerAlign: 'right' },
+          { prop: 'role', label: 'Role', minWidth: '180px', align: 'right' }
+        ],
+        data: [{ name: 'Alice', role: 'Admin' }]
+      }
+    })
+
+    const headers = wrapper.findAll('thead th')
+    const cells = wrapper.findAll('tbody td')
+
+    expect(headers[0].attributes('style')).toContain('width: 120px')
+    expect(headers[0].classes()).toContain('is-right')
+    expect(headers[1].attributes('style')).toContain('min-width: 180px')
+    expect(cells[0].classes()).toContain('is-center')
+    expect(cells[1].classes()).toContain('is-right')
+  })
+
+  it('supports size class and loading state', () => {
+    const wrapper = mount(U1Table, {
+      props: {
+        columns,
+        data: [{ name: 'Alice', age: 18 }],
+        size: 'small',
+        loading: true
+      }
+    })
+
+    expect(wrapper.classes()).toContain('u1-table--small')
+    expect(wrapper.classes()).toContain('is-loading')
+    expect(wrapper.find('.u1-table__loading').text()).toBe('Loading')
+  })
+
+  it('marks overflowing columns with a title tooltip', () => {
+    const wrapper = mount(U1Table, {
+      props: {
+        columns: [{ prop: 'description', label: 'Description', showOverflowTooltip: true }],
+        data: [{ description: 'Long cell content' }]
+      }
+    })
+
+    const cell = wrapper.find('tbody td')
+
+    expect(cell.classes()).toContain('is-overflow')
+    expect(cell.attributes('title')).toBe('Long cell content')
+  })
+
+  it('renders index and action columns', () => {
+    const wrapper = mount(U1Table, {
+      props: {
+        columns: [
+          { type: 'index', label: '#', width: 60 },
+          { prop: 'name', label: 'Name' },
+          { type: 'action', label: 'Action' }
+        ],
+        data: [{ name: 'Alice' }]
+      },
+      slots: {
+        action: '<button class="edit">Edit</button>'
+      }
+    })
+
+    expect(wrapper.find('tbody td').text()).toBe('1')
+    expect(wrapper.find('.u1-table__actions .edit').exists()).toBe(true)
+  })
+
+  it('renders custom cell and header slots', () => {
+    const wrapper = mount(U1Table, {
+      props: {
+        columns: [{ prop: 'name', label: 'Name' }],
+        data: [{ name: 'Alice' }]
+      },
+      slots: {
+        'header-name': '<strong class="custom-header">Custom Name</strong>',
+        'cell-name': '<template #default="{ row }"><span class="custom-cell">{{ row.name }} user</span></template>'
+      }
+    })
+
+    expect(wrapper.find('.custom-header').text()).toBe('Custom Name')
+    expect(wrapper.find('.custom-cell').text()).toBe('Alice user')
+  })
+
   it('accepts rowKey for stable body rows', () => {
     const wrapper = mount(U1Table, {
       props: {

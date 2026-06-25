@@ -14,9 +14,13 @@
     <summary>Show code</summary>
 
 ```vue
-<U1Avatar src="https://cube.elemecdn.com/e/fd/0fc7d20532fdaf769a25683617711png.png" alt="User avatar" />
-<U1Avatar>U1</U1Avatar>
-<U1Avatar shape="square">U1</U1Avatar>
+<template>
+  <div class="u1-demo-row">
+    <U1Avatar src="https://cube.elemecdn.com/e/fd/0fc7d20532fdaf769a25683617711png.png" alt="User avatar" />
+    <U1Avatar>U1</U1Avatar>
+    <U1Avatar shape="square">U1</U1Avatar>
+  </div>
+</template>
 ```
 
   </details>
@@ -34,9 +38,13 @@
     <summary>Show code</summary>
 
 ```vue
-<U1Avatar size="small">S</U1Avatar>
-<U1Avatar>M</U1Avatar>
-<U1Avatar size="large">L</U1Avatar>
+<template>
+  <div class="u1-demo-row">
+    <U1Avatar size="small">S</U1Avatar>
+    <U1Avatar>M</U1Avatar>
+    <U1Avatar size="large">L</U1Avatar>
+  </div>
+</template>
 ```
 
   </details>
@@ -52,7 +60,11 @@
     <summary>Show code</summary>
 
 ```vue
-<U1Avatar src="/not-found-avatar.png" alt="Missing avatar">NA</U1Avatar>
+<template>
+  <div class="u1-demo-row">
+    <U1Avatar src="/not-found-avatar.png" alt="Missing avatar">NA</U1Avatar>
+  </div>
+</template>
 ```
 
   </details>

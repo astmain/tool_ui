@@ -11,12 +11,18 @@ const city = ref('shanghai')
 ## 单选组
 
 <div class="u1-demo">
-  <U1RadioGroup v-model="city">
-    <U1Radio label="shanghai">上海</U1Radio>
-    <U1Radio label="beijing">北京</U1Radio>
-    <U1Radio label="shenzhen">深圳</U1Radio>
-  </U1RadioGroup>
-  <span>当前值: {{ city }}</span>
+  <div class="u1-demo__body">
+    <div class="u1-demo-row">
+      <U1RadioGroup v-model="city">
+        <U1Radio label="shanghai">上海</U1Radio>
+        <U1Radio label="beijing">北京</U1Radio>
+        <U1Radio label="shenzhen">深圳</U1Radio>
+      </U1RadioGroup>
+    </div>
+    <div class="u1-demo-row">
+      <span>当前值: {{ city }}</span>
+    </div>
+  </div>
   <details class="u1-demo__footer">
     <summary>Show code</summary>
 
@@ -27,12 +33,14 @@ import { ref } from 'vue'
 const city = ref('shanghai')
 </script>
 
-<U1RadioGroup v-model="city">
-  <U1Radio label="shanghai">上海</U1Radio>
-  <U1Radio label="beijing">北京</U1Radio>
-  <U1Radio label="shenzhen">深圳</U1Radio>
-</U1RadioGroup>
-<span>当前值: {{ city }}</span>
+<template>
+  <U1RadioGroup v-model="city">
+    <U1Radio label="shanghai">上海</U1Radio>
+    <U1Radio label="beijing">北京</U1Radio>
+    <U1Radio label="shenzhen">深圳</U1Radio>
+  </U1RadioGroup>
+  <span>当前值: {{ city }}</span>
+</template>
 ```
 
   </details>
@@ -49,8 +57,10 @@ const city = ref('shanghai')
     <summary>Show code</summary>
 
 ```vue
-<U1Radio model-value="a" label="a" disabled>禁用已选</U1Radio>
-<U1Radio model-value="a" label="b" disabled>禁用未选</U1Radio>
+<template>
+  <U1Radio model-value="a" label="a" disabled>禁用已选</U1Radio>
+  <U1Radio model-value="a" label="b" disabled>禁用未选</U1Radio>
+</template>
 ```
 
   </details>

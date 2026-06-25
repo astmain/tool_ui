@@ -35,8 +35,10 @@ const options = [
 ]
 </script>
 
-<U1Select v-model="city" :options="options" placeholder="请选择城市" />
-<span>当前值: {{ city || '空' }}</span>
+<template>
+  <U1Select v-model="city" :options="options" placeholder="请选择城市" />
+  <span>当前值: {{ city || '空' }}</span>
+</template>
 ```
 
   </details>
@@ -52,7 +54,9 @@ const options = [
     <summary>Show code</summary>
 
 ```vue
-<U1Select model-value="shanghai" :options="options" disabled />
+<template>
+  <U1Select model-value="shanghai" :options="options" disabled />
+</template>
 ```
 
   </details>

@@ -25,8 +25,10 @@ import { ref } from 'vue'
 const enabled = ref(false)
 </script>
 
-<U1Switch v-model="enabled" active-text="开启" inactive-text="关闭" />
-<span>当前状态: {{ enabled ? '开启' : '关闭' }}</span>
+<template>
+  <U1Switch v-model="enabled" active-text="开启" inactive-text="关闭" />
+  <span>当前状态: {{ enabled ? '开启' : '关闭' }}</span>
+</template>
 ```
 
   </details>
@@ -43,8 +45,10 @@ const enabled = ref(false)
     <summary>Show code</summary>
 
 ```vue
-<U1Switch model-value active-text="开启" inactive-text="关闭" />
-<U1Switch disabled inactive-text="禁用" />
+<template>
+  <U1Switch model-value active-text="开启" inactive-text="关闭" />
+  <U1Switch disabled inactive-text="禁用" />
+</template>
 ```
 
   </details>

@@ -1,23 +1,26 @@
 import { mount } from '@vue/test-utils'
-import { describe, expect, it } from 'vitest'
+import { afterEach, describe, expect, it } from 'vitest'
 import { U1Dialog } from '../dialog'
 
 describe('U1Dialog', () => {
-  it('renders title content and footer when visible', () => {
+  afterEach(() => {
+    document.body.style.overflow = ''
+  })
+
+  it('renders title content when visible', () => {
     const wrapper = mount(U1Dialog, {
       props: {
         modelValue: true,
         title: 'Dialog title'
       },
       slots: {
-        default: 'Dialog content',
-        footer: 'Dialog footer'
+        default: 'Dialog content'
       }
     })
 
     expect(wrapper.text()).toContain('Dialog title')
     expect(wrapper.text()).toContain('Dialog content')
-    expect(wrapper.text()).toContain('Dialog footer')
+    expect(wrapper.find('.u1-dialog__footer').exists()).toBe(false)
     expect(wrapper.get('.u1-dialog').attributes('style')).toContain('width: 50%')
   })
 
@@ -51,6 +54,19 @@ describe('U1Dialog', () => {
     expect(wrapper.emitted('update:modelValue')).toBeUndefined()
   })
 
+  it('keeps dialog open when overlay is clicked by default', async () => {
+    const wrapper = mount(U1Dialog, {
+      props: {
+        modelValue: true
+      }
+    })
+
+    await wrapper.get('.u1-dialog__overlay').trigger('click')
+
+    expect(wrapper.emitted('update:modelValue')).toBeUndefined()
+    expect(wrapper.emitted('close')).toBeUndefined()
+  })
+
   it('renders dialog semantics and accessible close button', () => {
     const wrapper = mount(U1Dialog, {
       props: {
@@ -81,16 +97,79 @@ describe('U1Dialog', () => {
     expect(wrapper.emitted('close')).toBeTruthy()
   })
 
-  it('can disable Escape close behavior', async () => {
+  it('locks body scroll while open and restores it after close', async () => {
+    const wrapper = mount(U1Dialog, {
+      props: {
+        modelValue: false
+      },
+      attachTo: document.body
+    })
+
+    expect(document.body.style.overflow).toBe('')
+
+    await wrapper.setProps({ modelValue: true })
+
+    expect(document.body.style.overflow).toBe('hidden')
+
+    await wrapper.setProps({ modelValue: false })
+
+    expect(document.body.style.overflow).toBe('')
+
+    wrapper.unmount()
+  })
+
+  it('does not reset existing body overflow when initially hidden', () => {
+    document.body.style.overflow = 'clip'
+
+    const wrapper = mount(U1Dialog, {
+      props: {
+        modelValue: false
+      },
+      attachTo: document.body
+    })
+
+    expect(document.body.style.overflow).toBe('clip')
+
+    wrapper.unmount()
+  })
+
+  it('uses draggable header by default', () => {
     const wrapper = mount(U1Dialog, {
       props: {
         modelValue: true,
-        closeOnPressEscape: false
+        title: 'Default draggable dialog'
       }
     })
 
-    await wrapper.get('.u1-dialog__overlay').trigger('keydown', { key: 'Escape' })
+    expect(wrapper.get('.u1-dialog__header').classes()).toContain('is-draggable')
+  })
 
-    expect(wrapper.emitted('update:modelValue')).toBeUndefined()
+  it('supports top offset and draggable header movement', async () => {
+    const wrapper = mount(U1Dialog, {
+      props: {
+        modelValue: true,
+        title: 'Drag dialog',
+        top: '38px',
+        draggable: true
+      }
+    })
+
+    expect(wrapper.get('.u1-dialog').attributes('style')).toContain('top: 38px')
+
+    await wrapper.get('.u1-dialog__header').trigger('mousedown', {
+      clientX: 10,
+      clientY: 20
+    })
+
+    expect(wrapper.get('.u1-dialog').classes()).toContain('is-dragging')
+
+    await wrapper.get('.u1-dialog__overlay').trigger('mousemove', {
+      clientX: 30,
+      clientY: 45
+    })
+    await wrapper.get('.u1-dialog__overlay').trigger('mouseup')
+
+    expect(wrapper.get('.u1-dialog').attributes('style')).toContain('translate(20px, 25px)')
+    expect(wrapper.get('.u1-dialog').classes()).not.toContain('is-dragging')
   })
 })

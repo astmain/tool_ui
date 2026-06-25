@@ -1,29 +1,34 @@
 <template>
-  <component
-    :is="tag"
+  <button
+    v-bind="buttonAttrs"
     class="u1-button"
     :class="buttonClasses"
-    :disabled="tag === 'button' ? isDisabled : undefined"
-    :type="tag === 'button' ? nativeType : undefined"
-    :href="tag === 'a' && !isDisabled ? href : undefined"
-    :aria-disabled="tag === 'a' && isDisabled ? 'true' : undefined"
-    :tabindex="tag === 'a' && isDisabled ? -1 : undefined"
+    :disabled="isDisabled"
+    :type="nativeType"
+    @click="handleClick"
   >
     <span v-if="loading" class="u1-button__loading" aria-hidden="true"></span>
-    <span v-if="$slots.icon" class="u1-button__icon">
+    <span v-if="$slots.icon" class="u1-button__icon is-left">
       <slot name="icon" />
     </span>
-    <span class="u1-button__content">
-      <slot />
+    <span v-else-if="leftIconClass" class="u1-button__icon is-left" aria-hidden="true">
+      <span class="u1-icon-mark" :class="leftIconClass"></span>
     </span>
-  </component>
+    <span class="u1-button__content">
+      <slot>{{ label }}</slot>
+    </span>
+    <span v-if="rightIconClass" class="u1-button__icon is-right" aria-hidden="true">
+      <span class="u1-icon-mark" :class="rightIconClass"></span>
+    </span>
+  </button>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, useAttrs } from 'vue'
 
 defineOptions({
-  name: 'U1Button'
+  name: 'U1Button',
+  inheritAttrs: false
 })
 
 const props = withDefaults(
@@ -32,15 +37,16 @@ const props = withDefaults(
     size?: 'large' | 'default' | 'small'
     disabled?: boolean
     loading?: boolean
+    label?: string
+    icon?: string
+    iconLeft?: string
+    iconRight?: string
     plain?: boolean
     round?: boolean
     circle?: boolean
-    dashed?: boolean
     text?: boolean
     link?: boolean
     bg?: boolean
-    tag?: 'button' | 'a'
-    href?: string
     nativeType?: 'button' | 'submit' | 'reset'
   }>(),
   {
@@ -48,18 +54,78 @@ const props = withDefaults(
     size: 'default',
     disabled: false,
     loading: false,
+    label: '',
+    icon: '',
+    iconLeft: '',
+    iconRight: '',
     plain: false,
     round: false,
     circle: false,
-    dashed: false,
     text: false,
     link: false,
     bg: false,
-    tag: 'button',
-    href: undefined,
     nativeType: 'button'
   }
 )
+
+const emit = defineEmits<{
+  click: [event: MouseEvent]
+}>()
+
+const attrs = useAttrs()
+
+const iconNames = [
+  'add',
+  'edit',
+  'delete',
+  'save',
+  'search',
+  'refresh',
+  'upload',
+  'download',
+  'copy',
+  'export',
+  'home',
+  'menu',
+  'setting',
+  'user',
+  'role',
+  'permission',
+  'dashboard',
+  'back',
+  'left',
+  'right',
+  'table',
+  'list',
+  'chart',
+  'database',
+  'file',
+  'folder',
+  'filter',
+  'sort',
+  'calendar',
+  'time',
+  'check',
+  'close',
+  'info',
+  'warning',
+  'error',
+  'success',
+  'loading',
+  'lock',
+  'unlock',
+  'view',
+  'hide'
+] as const
+
+function resolveIconClass(name: string) {
+  if (!name) {
+    return ''
+  }
+
+  const iconName = iconNames.includes(name as (typeof iconNames)[number]) ? name : 'close'
+  return `is-${iconName}`
+}
 
 const buttonClasses = computed(() => [
   `u1-button--${props.type}`,
@@ -70,12 +136,29 @@ const buttonClasses = computed(() => [
     'is-plain': props.plain,
     'is-round': props.round,
     'is-circle': props.circle,
-    'is-dashed': props.dashed,
     'is-text': props.text,
     'is-link': props.link,
     'is-has-bg': props.bg
   }
 ])
 
+const leftIconClass = computed(() => resolveIconClass(props.iconLeft || props.icon))
+const rightIconClass = computed(() => resolveIconClass(props.iconRight))
+
+const buttonAttrs = computed(() => {
+  const entries = Object.entries(attrs).filter(([key]) => key !== 'tag' && key !== 'href' && key !== 'dashed')
+  return Object.fromEntries(entries)
+})
+
 const isDisabled = computed(() => props.disabled || props.loading)
+
+function handleClick(event: MouseEvent) {
+  if (isDisabled.value) {
+    event.preventDefault()
+    event.stopPropagation()
+    return
+  }
+
+  emit('click', event)
+}
 </script>

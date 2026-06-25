@@ -1,24 +1,26 @@
 # Card 卡片
 
-用于承载一组信息, 支持头部, 主体, 底部和阴影模式.
+用于承载一组信息, 支持头部, 主体和阴影模式.
 
 ## 基础卡片
 
 <div class="u1-demo">
-  <U1Card style="max-width: 360px">
-    <template #header>卡片标题</template>
-    U1Card 用于展示成组内容, 适合文档示例, 信息摘要和操作区域.
-    <template #footer>底部内容</template>
-  </U1Card>
+  <div class="u1-demo__body">
+    <U1Card style="max-width: 360px">
+      <template #header>卡片标题</template>
+      U1Card 用于展示成组内容, 适合文档示例, 信息摘要和操作区域.
+    </U1Card>
+  </div>
   <details class="u1-demo__footer">
     <summary>Show code</summary>
 
 ```vue
-<U1Card style="max-width: 360px">
-  <template #header>卡片标题</template>
-  U1Card 用于展示成组内容, 适合文档示例, 信息摘要和操作区域.
-  <template #footer>底部内容</template>
-</U1Card>
+<template>
+  <U1Card style="max-width: 360px">
+    <template #header>卡片标题</template>
+    U1Card 用于展示成组内容, 适合文档示例, 信息摘要和操作区域.
+  </U1Card>
+</template>
 ```
 
   </details>
@@ -36,9 +38,11 @@
     <summary>Show code</summary>
 
 ```vue
-<U1Card shadow="always" style="width: 220px">Always</U1Card>
-<U1Card shadow="hover" style="width: 220px">Hover</U1Card>
-<U1Card shadow="never" style="width: 220px">Never</U1Card>
+<template>
+  <U1Card shadow="always" style="width: 220px">Always</U1Card>
+  <U1Card shadow="hover" style="width: 220px">Hover</U1Card>
+  <U1Card shadow="never" style="width: 220px">Never</U1Card>
+</template>
 ```
 
   </details>
@@ -60,7 +64,6 @@
   <tbody>
     <tr><td>header</td><td>卡片头部内容</td></tr>
     <tr><td>default</td><td>卡片主体内容</td></tr>
-    <tr><td>footer</td><td>卡片底部内容</td></tr>
   </tbody>
 </table>
 

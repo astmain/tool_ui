@@ -105,10 +105,6 @@
   background: var(--u1-color-bg);
 }
 
-.u1-button.is-dashed {
-  border-style: dashed;
-}
-
 .u1-button.is-round {
   border-radius: 20px;
 }
@@ -278,6 +274,542 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  flex: none;
+}
+
+.u1-icon-mark {
+  position: relative;
+  display: inline-flex;
+  width: 36px;
+  height: 36px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid color-mix(in srgb, currentcolor 30%, transparent);
+  border-radius: 8px;
+  color: currentcolor;
+  background: color-mix(in srgb, currentcolor 10%, transparent);
+}
+
+.u1-button__icon .u1-icon-mark {
+  width: 1em;
+  height: 1em;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  font-size: 16px;
+}
+
+.u1-icon-mark::before,
+.u1-icon-mark::after {
+  position: absolute;
+  content: "";
+}
+
+.u1-icon-mark.is-add::before,
+.u1-icon-mark.is-add::after,
+.u1-icon-mark.is-close::before,
+.u1-icon-mark.is-close::after,
+.u1-icon-mark.is-menu::before,
+.u1-icon-mark.is-list::before {
+  width: 44%;
+  height: 2px;
+  border-radius: 999px;
+  background: currentcolor;
+}
+
+.u1-icon-mark.is-add::after {
+  transform: rotate(90deg);
+}
+
+.u1-icon-mark.is-check::before {
+  width: 44%;
+  height: 24%;
+  border-bottom: 2px solid currentcolor;
+  border-left: 2px solid currentcolor;
+  transform: translateY(-8%) rotate(-45deg);
+}
+
+.u1-icon-mark.is-close::before {
+  transform: rotate(45deg);
+}
+
+.u1-icon-mark.is-close::after {
+  transform: rotate(-45deg);
+}
+
+.u1-icon-mark.is-search::before {
+  width: 44%;
+  height: 44%;
+  border: 2px solid currentcolor;
+  border-radius: 50%;
+}
+
+.u1-icon-mark.is-search::after {
+  width: 28%;
+  height: 2px;
+  border-radius: 999px;
+  background: currentcolor;
+  transform: translate(38%, 38%) rotate(45deg);
+}
+
+.u1-icon-mark.is-edit::before {
+  width: 44%;
+  height: 2px;
+  border-radius: 999px;
+  background: currentcolor;
+  transform: rotate(-45deg);
+}
+
+.u1-icon-mark.is-edit::after {
+  width: 18%;
+  height: 18%;
+  border-right: 2px solid currentcolor;
+  border-bottom: 2px solid currentcolor;
+  transform: translate(34%, -34%) rotate(-45deg);
+}
+
+.u1-icon-mark.is-delete::before {
+  width: 44%;
+  height: 44%;
+  border: 2px solid currentcolor;
+  border-top: 0;
+  border-radius: 0 0 3px 3px;
+  transform: translateY(8%);
+}
+
+.u1-icon-mark.is-delete::after {
+  width: 50%;
+  height: 2px;
+  border-radius: 999px;
+  background: currentcolor;
+  box-shadow: 0 -4px 0 -1px currentcolor;
+  transform: translateY(-32%);
+}
+
+.u1-icon-mark.is-save::before,
+.u1-icon-mark.is-file::before {
+  width: 48%;
+  height: 52%;
+  border: 2px solid currentcolor;
+  border-radius: 3px;
+}
+
+.u1-icon-mark.is-save::after {
+  width: 26%;
+  height: 12%;
+  border: 2px solid currentcolor;
+  border-top: 0;
+  transform: translateY(70%);
+}
+
+.u1-icon-mark.is-refresh::before,
+.u1-icon-mark.is-loading::before {
+  width: 50%;
+  height: 50%;
+  border: 2px solid currentcolor;
+  border-right-color: transparent;
+  border-radius: 50%;
+}
+
+.u1-icon-mark.is-refresh::after {
+  width: 18%;
+  height: 18%;
+  border-top: 2px solid currentcolor;
+  border-right: 2px solid currentcolor;
+  transform: translate(28%, -30%) rotate(22deg);
+}
+
+.u1-icon-mark.is-loading::before {
+  animation: u1-rotate 0.8s linear infinite;
+}
+
+.u1-icon-mark.is-upload::before,
+.u1-icon-mark.is-download::before {
+  width: 2px;
+  height: 48%;
+  border-radius: 999px;
+  background: currentcolor;
+}
+
+.u1-icon-mark.is-upload::after,
+.u1-icon-mark.is-download::after {
+  width: 28%;
+  height: 28%;
+  border-top: 2px solid currentcolor;
+  border-left: 2px solid currentcolor;
+}
+
+.u1-icon-mark.is-upload::after {
+  transform: translateY(-36%) rotate(45deg);
+}
+
+.u1-icon-mark.is-download::after {
+  transform: translateY(36%) rotate(225deg);
+}
+
+.u1-icon-mark.is-copy::before {
+  width: 38%;
+  height: 44%;
+  border: 2px solid currentcolor;
+  border-radius: 3px;
+  transform: translate(10%, 8%);
+}
+
+.u1-icon-mark.is-copy::after {
+  width: 38%;
+  height: 44%;
+  border: 2px solid currentcolor;
+  border-radius: 3px;
+  transform: translate(-10%, -8%);
+}
+
+.u1-icon-mark.is-export::before {
+  width: 42%;
+  height: 42%;
+  border: 2px solid currentcolor;
+  border-radius: 3px;
+  transform: translate(-8%, 8%);
+}
+
+.u1-icon-mark.is-export::after {
+  width: 34%;
+  height: 34%;
+  border-top: 2px solid currentcolor;
+  border-right: 2px solid currentcolor;
+  transform: translate(16%, -18%) rotate(45deg);
+}
+
+.u1-icon-mark.is-home::before {
+  width: 46%;
+  height: 46%;
+  border-top: 2px solid currentcolor;
+  border-left: 2px solid currentcolor;
+  transform: translateY(-8%) rotate(45deg);
+}
+
+.u1-icon-mark.is-home::after {
+  width: 38%;
+  height: 34%;
+  border: 2px solid currentcolor;
+  border-top: 0;
+  transform: translateY(20%);
+}
+
+.u1-icon-mark.is-menu::before,
+.u1-icon-mark.is-list::before {
+  box-shadow: 0 -7px 0 currentcolor, 0 7px 0 currentcolor;
+}
+
+.u1-icon-mark.is-list::after {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: currentcolor;
+  box-shadow: 0 -7px 0 currentcolor, 0 7px 0 currentcolor;
+  transform: translateX(-12px);
+}
+
+.u1-icon-mark.is-setting::before {
+  width: 46%;
+  height: 46%;
+  border: 2px solid currentcolor;
+  border-radius: 50%;
+  box-shadow:
+    0 -8px 0 -4px currentcolor,
+    0 8px 0 -4px currentcolor,
+    8px 0 0 -4px currentcolor,
+    -8px 0 0 -4px currentcolor;
+}
+
+.u1-icon-mark.is-setting::after {
+  width: 14%;
+  height: 14%;
+  border-radius: 50%;
+  background: currentcolor;
+}
+
+.u1-icon-mark.is-user::before,
+.u1-icon-mark.is-role::before {
+  width: 24%;
+  height: 24%;
+  border: 2px solid currentcolor;
+  border-radius: 50%;
+  transform: translateY(-34%);
+}
+
+.u1-icon-mark.is-user::after,
+.u1-icon-mark.is-role::after {
+  width: 46%;
+  height: 24%;
+  border: 2px solid currentcolor;
+  border-radius: 999px 999px 0 0;
+  border-bottom: 0;
+  transform: translateY(34%);
+}
+
+.u1-icon-mark.is-role::after {
+  box-shadow: 8px 0 0 -5px currentcolor, -8px 0 0 -5px currentcolor;
+}
+
+.u1-icon-mark.is-permission::before,
+.u1-icon-mark.is-lock::before,
+.u1-icon-mark.is-unlock::before {
+  width: 42%;
+  height: 32%;
+  border: 2px solid currentcolor;
+  border-radius: 3px;
+  transform: translateY(22%);
+}
+
+.u1-icon-mark.is-permission::after,
+.u1-icon-mark.is-lock::after,
+.u1-icon-mark.is-unlock::after {
+  width: 28%;
+  height: 28%;
+  border: 2px solid currentcolor;
+  border-bottom: 0;
+  border-radius: 999px 999px 0 0;
+  transform: translateY(-24%);
+}
+
+.u1-icon-mark.is-unlock::after {
+  transform: translate(18%, -24%);
+}
+
+.u1-icon-mark.is-dashboard::before {
+  width: 54%;
+  height: 34%;
+  border: 2px solid currentcolor;
+  border-bottom: 0;
+  border-radius: 999px 999px 0 0;
+  transform: translateY(12%);
+}
+
+.u1-icon-mark.is-dashboard::after {
+  width: 22%;
+  height: 2px;
+  border-radius: 999px;
+  background: currentcolor;
+  transform: translate(16%, 12%) rotate(-35deg);
+}
+
+.u1-icon-mark.is-back::before,
+.u1-icon-mark.is-left::before,
+.u1-icon-mark.is-right::before {
+  width: 32%;
+  height: 32%;
+  border-top: 2px solid currentcolor;
+  border-left: 2px solid currentcolor;
+}
+
+.u1-icon-mark.is-back::before,
+.u1-icon-mark.is-left::before {
+  transform: rotate(-45deg);
+}
+
+.u1-icon-mark.is-right::before {
+  transform: rotate(135deg);
+}
+
+.u1-icon-mark.is-back::after {
+  width: 46%;
+  height: 2px;
+  border-radius: 999px;
+  background: currentcolor;
+}
+
+.u1-icon-mark.is-table::before {
+  width: 52%;
+  height: 46%;
+  border: 2px solid currentcolor;
+  background:
+    linear-gradient(currentcolor 0 0) 0 33% / 100% 2px no-repeat,
+    linear-gradient(currentcolor 0 0) 0 66% / 100% 2px no-repeat,
+    linear-gradient(currentcolor 0 0) 50% 0 / 2px 100% no-repeat;
+}
+
+.u1-icon-mark.is-chart::before {
+  width: 52%;
+  height: 46%;
+  border-left: 2px solid currentcolor;
+  border-bottom: 2px solid currentcolor;
+}
+
+.u1-icon-mark.is-chart::after {
+  width: 8px;
+  height: 16px;
+  border-radius: 2px 2px 0 0;
+  background: currentcolor;
+  box-shadow: 9px -8px 0 currentcolor, 18px -3px 0 currentcolor;
+  transform: translate(-8px, 6px);
+}
+
+.u1-icon-mark.is-database::before {
+  width: 50%;
+  height: 48%;
+  border: 2px solid currentcolor;
+  border-radius: 50% / 18%;
+}
+
+.u1-icon-mark.is-database::after {
+  width: 50%;
+  height: 2px;
+  background: currentcolor;
+  box-shadow: 0 -8px 0 currentcolor, 0 8px 0 currentcolor;
+}
+
+.u1-icon-mark.is-file::after {
+  width: 18%;
+  height: 18%;
+  border-top: 2px solid currentcolor;
+  border-right: 2px solid currentcolor;
+  transform: translate(66%, -66%);
+}
+
+.u1-icon-mark.is-folder::before {
+  width: 54%;
+  height: 38%;
+  border: 2px solid currentcolor;
+  border-radius: 3px;
+  transform: translateY(12%);
+}
+
+.u1-icon-mark.is-folder::after {
+  width: 26%;
+  height: 10%;
+  border: 2px solid currentcolor;
+  border-bottom: 0;
+  border-radius: 3px 3px 0 0;
+  transform: translate(-36%, -72%);
+}
+
+.u1-icon-mark.is-filter::before {
+  width: 56%;
+  height: 46%;
+  border-top: 2px solid currentcolor;
+  border-right: 2px solid currentcolor;
+  transform: translateY(-6%) rotate(135deg) skew(-12deg);
+}
+
+.u1-icon-mark.is-filter::after {
+  width: 2px;
+  height: 22%;
+  border-radius: 999px;
+  background: currentcolor;
+  transform: translateY(42%);
+}
+
+.u1-icon-mark.is-sort::before,
+.u1-icon-mark.is-sort::after {
+  width: 28%;
+  height: 28%;
+  border-top: 2px solid currentcolor;
+  border-left: 2px solid currentcolor;
+}
+
+.u1-icon-mark.is-sort::before {
+  transform: translateY(-34%) rotate(45deg);
+}
+
+.u1-icon-mark.is-sort::after {
+  transform: translateY(34%) rotate(225deg);
+}
+
+.u1-icon-mark.is-calendar::before {
+  width: 52%;
+  height: 48%;
+  border: 2px solid currentcolor;
+  border-radius: 3px;
+  background: linear-gradient(currentcolor 0 0) 0 28% / 100% 2px no-repeat;
+}
+
+.u1-icon-mark.is-calendar::after {
+  width: 4px;
+  height: 4px;
+  border-radius: 1px;
+  background: currentcolor;
+  box-shadow: 8px 0 0 currentcolor, 0 8px 0 currentcolor, 8px 8px 0 currentcolor;
+  transform: translate(-4px, 5px);
+}
+
+.u1-icon-mark.is-time::before {
+  width: 50%;
+  height: 50%;
+  border: 2px solid currentcolor;
+  border-radius: 50%;
+}
+
+.u1-icon-mark.is-time::after {
+  width: 16%;
+  height: 26%;
+  border-left: 2px solid currentcolor;
+  border-bottom: 2px solid currentcolor;
+  transform: translate(10%, -8%);
+}
+
+.u1-icon-mark.is-info::before,
+.u1-icon-mark.is-warning::before,
+.u1-icon-mark.is-error::before,
+.u1-icon-mark.is-success::before {
+  width: 54%;
+  height: 54%;
+  border: 2px solid currentcolor;
+  border-radius: 50%;
+}
+
+.u1-icon-mark.is-info::after {
+  width: 2px;
+  height: 26%;
+  border-radius: 999px;
+  background: currentcolor;
+  box-shadow: 0 -8px 0 -1px currentcolor;
+  transform: translateY(8%);
+}
+
+.u1-icon-mark.is-warning::before {
+  border-radius: 4px;
+  transform: rotate(45deg);
+}
+
+.u1-icon-mark.is-warning::after,
+.u1-icon-mark.is-error::after {
+  width: 2px;
+  height: 26%;
+  border-radius: 999px;
+  background: currentcolor;
+  box-shadow: 0 8px 0 -1px currentcolor;
+  transform: translateY(-4%);
+}
+
+.u1-icon-mark.is-success::after {
+  width: 24%;
+  height: 12%;
+  border-bottom: 2px solid currentcolor;
+  border-left: 2px solid currentcolor;
+  transform: rotate(-45deg);
+}
+
+.u1-icon-mark.is-view::before,
+.u1-icon-mark.is-hide::before {
+  width: 54%;
+  height: 34%;
+  border: 2px solid currentcolor;
+  border-radius: 50%;
+}
+
+.u1-icon-mark.is-view::after,
+.u1-icon-mark.is-hide::after {
+  width: 16%;
+  height: 16%;
+  border-radius: 50%;
+  background: currentcolor;
+}
+
+.u1-icon-mark.is-hide::after {
+  width: 58%;
+  height: 2px;
+  border-radius: 999px;
+  transform: rotate(-35deg);
 }
 
 .u1-input {
@@ -571,17 +1103,70 @@
 
 .u1-message {
   --u1-message-color: var(--u1-color-info);
+  position: fixed;
+  left: 50%;
+  z-index: 3000;
   display: inline-flex;
   align-items: center;
-  gap: 12px;
-  min-width: 260px;
+  gap: 10px;
+  min-width: 300px;
+  max-width: min(560px, calc(100vw - 32px));
   box-sizing: border-box;
-  padding: 11px 15px;
+  padding: 10px 15px;
   border: 1px solid color-mix(in srgb, var(--u1-message-color) 30%, white);
-  border-radius: var(--u1-radius-base);
+  border-radius: 6px;
   color: var(--u1-message-color);
   background: color-mix(in srgb, var(--u1-message-color) 10%, white);
   font-size: 14px;
+  line-height: 1.5;
+  box-shadow: var(--u1-shadow-light);
+  transform: translateX(-50%);
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+}
+
+.u1-message--top-left,
+.u1-message--bottom-left {
+  right: auto;
+  left: 20px;
+  transform: none;
+}
+
+.u1-message--top-right,
+.u1-message--bottom-right {
+  right: 20px;
+  left: auto;
+  transform: none;
+}
+
+.u1-message__icon {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  color: var(--u1-color-white);
+  background: var(--u1-message-color);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.u1-message__content {
+  flex: 1 1 auto;
+  color: var(--u1-text-primary);
+}
+
+.u1-message__repeat {
+  flex: 0 0 auto;
+  padding: 1px 7px;
+  border-radius: 999px;
+  color: var(--u1-message-color);
+  background: color-mix(in srgb, var(--u1-message-color) 15%, white);
+  font-size: 12px;
+  font-weight: 600;
 }
 
 .u1-message--success {
@@ -771,16 +1356,10 @@
   box-shadow: none;
 }
 
-.u1-card__header,
-.u1-card__footer {
+.u1-card__header {
   padding: 12px 16px;
   border-bottom: 1px solid var(--u1-color-border-light);
   font-weight: 500;
-}
-
-.u1-card__footer {
-  border-top: 1px solid var(--u1-color-border-light);
-  border-bottom: 0;
 }
 
 .u1-card__body {
@@ -794,16 +1373,28 @@
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  padding-top: 15vh;
+  overflow: auto;
+  padding: 0 16px;
   background: rgb(0 0 0 / 45%);
 }
 
 .u1-dialog {
+  position: relative;
+  display: flex;
+  max-width: calc(100vw - 32px);
+  max-height: 90vh;
+  flex-direction: column;
   overflow: hidden;
   border-radius: var(--u1-radius-base);
   color: var(--u1-color-text);
   background: var(--u1-color-bg);
   box-shadow: 0 18px 46px rgb(0 0 0 / 18%);
+  transition: transform var(--u1-transition);
+  will-change: transform;
+}
+
+.u1-dialog.is-dragging {
+  transition: none;
 }
 
 .u1-dialog__header,
@@ -812,6 +1403,15 @@
   align-items: center;
   justify-content: space-between;
   padding: 16px 20px;
+}
+
+.u1-dialog__header.is-draggable {
+  cursor: grab;
+  user-select: none;
+}
+
+.u1-dialog__header.is-dragging {
+  cursor: grabbing;
 }
 
 .u1-dialog__title {
@@ -840,6 +1440,8 @@
 }
 
 .u1-dialog__body {
+  flex: 1;
+  overflow: auto;
   padding: 10px 20px 20px;
   color: var(--u1-color-text-regular);
 }
@@ -848,26 +1450,67 @@
   justify-content: flex-end;
   gap: 12px;
   border-top: 1px solid var(--u1-color-border-light);
+  background: #fafafa;
+}
+
+.dark .u1-dialog__footer {
+  background: #202121;
 }
 
 .u1-table {
+  --u1-table-font-size: 14px;
+  --u1-table-cell-padding: 10px 14px;
+  --u1-table-empty-padding: 28px 14px;
+  position: relative;
   width: 100%;
   overflow: hidden;
   border-radius: var(--u1-radius-base);
   color: var(--u1-color-text);
+  background: var(--u1-color-bg);
+  font-size: var(--u1-table-font-size);
+}
+
+.u1-table--small {
+  --u1-table-font-size: 12px;
+  --u1-table-cell-padding: 7px 10px;
+  --u1-table-empty-padding: 22px 10px;
+}
+
+.u1-table--default {
+  --u1-table-font-size: 14px;
+  --u1-table-cell-padding: 10px 14px;
+  --u1-table-empty-padding: 28px 14px;
+}
+
+.u1-table--large {
+  --u1-table-font-size: 15px;
+  --u1-table-cell-padding: 13px 18px;
+  --u1-table-empty-padding: 34px 18px;
+}
+
+.u1-table__wrapper {
+  position: relative;
+  overflow: auto;
+  border-radius: inherit;
 }
 
 .u1-table__inner {
   width: 100%;
-  border-collapse: collapse;
-  font-size: 14px;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: inherit;
+  table-layout: fixed;
 }
 
 .u1-table__cell,
 .u1-table__empty {
-  padding: 12px 16px;
+  box-sizing: border-box;
+  padding: var(--u1-table-cell-padding);
   border-bottom: 1px solid var(--u1-color-border-light);
+  color: var(--u1-color-text);
+  line-height: 1.45;
   text-align: left;
+  vertical-align: middle;
 }
 
 .u1-table th.u1-table__cell {
@@ -876,7 +1519,17 @@
   font-weight: 600;
 }
 
-.dark .u1-table th.u1-table__cell {
+.u1-table tbody tr {
+  background: var(--u1-color-bg);
+  transition: background var(--u1-transition);
+}
+
+.u1-table tbody tr:hover {
+  background: #f5f7fa;
+}
+
+.dark .u1-table th.u1-table__cell,
+.dark .u1-table tbody tr:hover {
   background: #262727;
 }
 
@@ -889,17 +1542,87 @@
   border-right: 1px solid var(--u1-color-border-light);
 }
 
+.u1-table.is-border .u1-table__cell:last-child,
+.u1-table.is-border .u1-table__empty:last-child {
+  border-right: 0;
+}
+
 .u1-table.is-stripe tbody tr:nth-child(even) {
   background: #fafafa;
+}
+
+.u1-table.is-stripe tbody tr:nth-child(even):hover {
+  background: #f0f2f5;
 }
 
 .dark .u1-table.is-stripe tbody tr:nth-child(even) {
   background: #202121;
 }
 
+.dark .u1-table.is-stripe tbody tr:nth-child(even):hover {
+  background: #262727;
+}
+
+.u1-table__cell.is-center {
+  text-align: center;
+}
+
+.u1-table__cell.is-right {
+  text-align: right;
+}
+
+.u1-table__cell.is-left {
+  text-align: left;
+}
+
+.u1-table__cell-content {
+  display: block;
+  min-width: 0;
+}
+
+.u1-table__cell.is-overflow .u1-table__cell-content {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.u1-table__actions {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+.u1-table__cell.is-center .u1-table__actions {
+  justify-content: center;
+}
+
+.u1-table__cell.is-right .u1-table__actions {
+  justify-content: flex-end;
+}
+
 .u1-table__empty {
+  padding: var(--u1-table-empty-padding);
   color: var(--u1-color-info);
   text-align: center;
+}
+
+.u1-table__loading {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--u1-color-primary);
+  background: rgb(255 255 255 / 68%);
+  font-size: var(--u1-table-font-size);
+  pointer-events: auto;
+}
+
+.dark .u1-table__loading {
+  background: rgb(29 30 31 / 72%);
 }
 
 .u1-menu {

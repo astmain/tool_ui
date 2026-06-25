@@ -16,9 +16,12 @@ export default defineConfig({
   build: {
     cssCodeSplit: false,
     lib: {
-      entry: resolve(__dirname, 'src/index.ts'),
+      entry: {
+        index: resolve(__dirname, 'src/index.ts'),
+        theme: resolve(__dirname, 'src/theme/index.ts')
+      },
       name: 'U1Design',
-      fileName: 'u1design',
+      fileName: (format, entryName) => (entryName === 'index' ? 'u1design' : `${entryName}/index`),
       cssFileName: 'style'
     },
     rollupOptions: {

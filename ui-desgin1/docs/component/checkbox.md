@@ -26,8 +26,10 @@ import { ref } from 'vue'
 const checked = ref(false)
 </script>
 
-<U1Checkbox v-model="checked">同意协议</U1Checkbox>
-<span>当前值: {{ checked }}</span>
+<template>
+  <U1Checkbox v-model="checked">同意协议</U1Checkbox>
+  <span>当前值: {{ checked }}</span>
+</template>
 ```
 
   </details>
@@ -56,13 +58,15 @@ import { ref } from 'vue'
 const cities = ref(['shanghai'])
 </script>
 
-<U1CheckboxGroup v-model="cities">
-  <U1Checkbox label="shanghai">上海</U1Checkbox>
-  <U1Checkbox label="beijing">北京</U1Checkbox>
-  <U1Checkbox label="shenzhen">深圳</U1Checkbox>
-</U1CheckboxGroup>
+<template>
+  <U1CheckboxGroup v-model="cities">
+    <U1Checkbox label="shanghai">上海</U1Checkbox>
+    <U1Checkbox label="beijing">北京</U1Checkbox>
+    <U1Checkbox label="shenzhen">深圳</U1Checkbox>
+  </U1CheckboxGroup>
 
-<span>已选择: {{ cities.join(', ') || '空' }}</span>
+  <span>已选择: {{ cities.join(', ') || '空' }}</span>
+</template>
 ```
 
   </details>
@@ -79,8 +83,10 @@ const cities = ref(['shanghai'])
     <summary>Show code</summary>
 
 ```vue
-<U1Checkbox model-value disabled>禁用</U1Checkbox>
-<U1Checkbox indeterminate>半选</U1Checkbox>
+<template>
+  <U1Checkbox model-value disabled>禁用</U1Checkbox>
+  <U1Checkbox indeterminate>半选</U1Checkbox>
+</template>
 ```
 
   </details>

@@ -14,14 +14,34 @@ describe('U1Button', () => {
     expect(wrapper.classes()).toContain('u1-button--primary')
   })
 
-  it('renders dashed style class', () => {
+  it('renders label prop when default slot is empty', () => {
     const wrapper = mount(U1Button, {
-      props: { type: 'primary', dashed: true },
+      props: { label: '我的按钮' }
+    })
+
+    expect(wrapper.text()).toContain('我的按钮')
+  })
+
+  it('prefers default slot over label prop', () => {
+    const wrapper = mount(U1Button, {
+      props: { label: '我的按钮' },
+      slots: { default: '插槽按钮' }
+    })
+
+    expect(wrapper.text()).toContain('插槽按钮')
+    expect(wrapper.text()).not.toContain('我的按钮')
+  })
+
+  it('ignores removed dashed attribute', () => {
+    const wrapper = mount(U1Button, {
+      attrs: { dashed: '' },
+      props: { type: 'primary' },
       slots: { default: 'Dashed' }
     })
 
     expect(wrapper.classes()).toContain('u1-button--primary')
-    expect(wrapper.classes()).toContain('is-dashed')
+    expect(wrapper.classes()).not.toContain('is-dashed')
+    expect(wrapper.attributes('dashed')).toBeUndefined()
   })
 
   it('renders disabled and loading states', () => {
@@ -45,39 +65,68 @@ describe('U1Button', () => {
     expect(wrapper.classes()).toContain('is-disabled')
   })
 
-  it('supports text link background and native tag modes', () => {
+  it('supports text link and background styles on native button only', () => {
     const wrapper = mount(U1Button, {
       props: {
         text: true,
         link: true,
-        bg: true,
+        bg: true
+      },
+      slots: { default: 'Docs' }
+    })
+
+    expect(wrapper.element.tagName).toBe('BUTTON')
+    expect(wrapper.classes()).toContain('is-text')
+    expect(wrapper.classes()).toContain('is-link')
+    expect(wrapper.classes()).toContain('is-has-bg')
+  })
+
+  it('ignores removed tag and href attributes', () => {
+    const wrapper = mount(U1Button, {
+      attrs: {
         tag: 'a',
         href: 'https://example.com'
       },
       slots: { default: 'Docs' }
     })
 
-    expect(wrapper.element.tagName).toBe('A')
-    expect(wrapper.attributes('href')).toBe('https://example.com')
-    expect(wrapper.classes()).toContain('is-text')
-    expect(wrapper.classes()).toContain('is-link')
-    expect(wrapper.classes()).toContain('is-has-bg')
+    expect(wrapper.element.tagName).toBe('BUTTON')
+    expect(wrapper.attributes('href')).toBeUndefined()
+    expect(wrapper.attributes('tag')).toBeUndefined()
   })
 
-  it('marks disabled anchor buttons as inaccessible links', () => {
-    const wrapper = mount(U1Button, {
+  it('does not emit click events while disabled or loading', async () => {
+    const disabledButton = mount(U1Button, {
       props: {
-        tag: 'a',
-        href: 'https://example.com',
-        disabled: true
+        disabled: true,
+        onClick: () => undefined
       },
-      slots: { default: 'Disabled link' }
+      slots: { default: 'Disabled' }
     })
 
-    expect(wrapper.attributes('href')).toBeUndefined()
-    expect(wrapper.attributes('disabled')).toBeUndefined()
-    expect(wrapper.attributes('aria-disabled')).toBe('true')
-    expect(wrapper.attributes('tabindex')).toBe('-1')
+    const loadingButton = mount(U1Button, {
+      props: {
+        loading: true,
+        onClick: () => undefined
+      },
+      slots: { default: 'Loading' }
+    })
+
+    await disabledButton.trigger('click')
+    await loadingButton.trigger('click')
+
+    expect(disabledButton.emitted('click')).toBeUndefined()
+    expect(loadingButton.emitted('click')).toBeUndefined()
+  })
+
+  it('emits one click event when enabled', async () => {
+    const wrapper = mount(U1Button, {
+      slots: { default: 'Save' }
+    })
+
+    await wrapper.trigger('click')
+
+    expect(wrapper.emitted('click')).toHaveLength(1)
   })
 
   it('renders icon slot before content', () => {
@@ -90,5 +139,62 @@ describe('U1Button', () => {
 
     expect(wrapper.find('.u1-button__icon .demo-icon').exists()).toBe(true)
     expect(wrapper.text()).toContain('Create')
+  })
+
+  it('renders icon prop as left icon by default', () => {
+    const wrapper = mount(U1Button, {
+      props: {
+        icon: 'add',
+        label: 'Create'
+      }
+    })
+
+    const leftIcon = wrapper.find('.u1-button__icon.is-left .u1-icon-mark')
+
+    expect(leftIcon.exists()).toBe(true)
+    expect(leftIcon.classes()).toContain('is-add')
+    expect(wrapper.text()).toContain('Create')
+  })
+
+  it('renders left and right icons from string names', () => {
+    const cases = [
+      { iconLeft: 'search', iconRight: 'check', label: 'Search' },
+      { iconLeft: 'setting', iconRight: 'download', label: 'System settings' }
+    ]
+
+    for (const item of cases) {
+      const wrapper = mount(U1Button, {
+        props: item
+      })
+
+      expect(wrapper.find('.u1-button__icon.is-left .u1-icon-mark').classes()).toContain(`is-${item.iconLeft}`)
+      expect(wrapper.find('.u1-button__icon.is-right .u1-icon-mark').classes()).toContain(`is-${item.iconRight}`)
+    }
+  })
+
+  it('uses close icon when icon name is unknown', () => {
+    const wrapper = mount(U1Button, {
+      props: {
+        icon: 'not-exists',
+        label: 'Unknown'
+      }
+    })
+
+    expect(wrapper.find('.u1-button__icon.is-left .u1-icon-mark').classes()).toContain('is-close')
+  })
+
+  it('prefers icon slot over string icon props', () => {
+    const wrapper = mount(U1Button, {
+      props: {
+        icon: 'add',
+        label: 'Create'
+      },
+      slots: {
+        icon: '<span class="demo-icon">slot</span>'
+      }
+    })
+
+    expect(wrapper.find('.u1-button__icon .demo-icon').exists()).toBe(true)
+    expect(wrapper.find('.u1-button__icon .u1-icon-mark').exists()).toBe(false)
   })
 })

@@ -1,4 +1,4 @@
-import { existsSync, readdirSync, readFileSync } from 'node:fs'
+import { readdirSync, readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { describe, expect, it } from 'vitest'
 
@@ -31,6 +31,29 @@ describe('docs layout regressions', () => {
     expect(css).not.toMatch(/\.VPContent\.has-sidebar/)
     expect(css).not.toMatch(/\.VPDoc\.has-aside\s+\.aside/)
     expect(css).not.toMatch(/\.VPDoc\.has-aside\s*>\s*\.container\s*>\s*\.content/)
+  })
+
+  it('does not show VitePress heading anchor marks in component docs', () => {
+    const css = readProjectFile('docs/.vitepress/theme/style.css')
+
+    expect(css).toMatch(/\.vp-doc\s+\.header-anchor\s*{[^}]*display:\s*none/s)
+  })
+
+  it('keeps documented icon mark utility styles available', () => {
+    const css = readProjectFile('docs/.vitepress/theme/style.css')
+    const icons = readProjectFile('docs/component/design/icons.md')
+
+    expect(icons).toContain('u1-icon-mark is-add')
+    expect(icons).toContain('u1-icon-mark is-search')
+    expect(css).toMatch(/\.u1-icon-mark\s*{[^}]*display:\s*inline-flex/s)
+    expect(css).toMatch(/\.u1-icon-mark\.is-add::before/)
+    expect(css).toMatch(/\.u1-icon-mark\.is-search::before/)
+  })
+
+  it('disables dialog transform transitions while dragging', () => {
+    const css = readProjectFile('packages/components/src/styles/index.css')
+
+    expect(css).toMatch(/\.u1-dialog\.is-dragging\s*{[^}]*transition:\s*none/s)
   })
 
   it('does not render a dialog open on page load', () => {
@@ -68,30 +91,32 @@ describe('docs layout regressions', () => {
     }
   })
 
-  it('keeps style design pages available from the component sidebar', () => {
-    const config = readProjectFile('docs/.vitepress/config.ts')
-
-    expect(config).toContain("text: '风格设计'")
-    expect(config).toContain("link: '/component/design/colors'")
-    expect(config).toContain("link: '/component/design/icons'")
-    expect(existsSync(resolve(root, 'docs/component/design/colors.md'))).toBe(true)
-    expect(existsSync(resolve(root, 'docs/component/design/icons.md'))).toBe(true)
-  })
-
-  it('uses Show code demos for global style design pages', () => {
-    const files = [
-      'docs/component/design/colors.md',
-      'docs/component/design/icons.md'
-    ]
+  it('wraps component demos with padded content containers', () => {
+    const componentDir = resolve(root, 'docs/component')
+    const files = listMarkdownFiles(componentDir)
+    const directComponentPattern = /<div class="u1-demo">\s*<(?!div class="u1-demo(?:__body|-row)"|details class="u1-demo__footer"|\/div)(U1|span|table|script)/g
 
     for (const file of files) {
-      const markdown = readProjectFile(file)
-      const demoCount = countMatches(markdown, /<div class="u1-demo(?:\s|")/g)
+      const markdown = readFileSync(file, 'utf8')
 
-      expect(demoCount, file).toBeGreaterThan(0)
-      expect(countMatches(markdown, /class="u1-demo__footer"/g), file).toBe(demoCount)
-      expect(countMatches(markdown, /<summary>Show code<\/summary>/g), file).toBe(demoCount)
+      expect(markdown, file).not.toMatch(directComponentPattern)
     }
+  })
+
+  it('keeps component navigation limited to developed components and design pages', () => {
+    const config = readProjectFile('docs/.vitepress/config.ts')
+    const overview = readProjectFile('docs/component/overview.md')
+    const index = readProjectFile('docs/index.md')
+
+    expect(config).toContain("text: '基础组件'")
+    expect(config).toContain("text: '高级组件'")
+    expect(config).toContain("text: '设计分组'")
+    expect(config).toContain('/component/design/colors')
+    expect(config).toContain('/component/design/icons')
+    expect(overview).toContain('设计分组')
+    expect(overview).toContain('/component/design/colors')
+    expect(overview).toContain('/component/design/icons')
+    expect(index).not.toMatch(/表单控件|反馈组件|数据展示组件|导航组件/)
   })
 
   it('keeps visible keyboard focus for custom radio and checkbox controls', () => {

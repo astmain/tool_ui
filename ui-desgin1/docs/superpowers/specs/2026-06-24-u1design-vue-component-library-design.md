@@ -56,7 +56,7 @@ Every public component should satisfy the same baseline.
 
 ### Basic Components
 
-`U1Button` should support type, size, disabled, loading, plain, round, circle, dashed, text, link, background text, icon, and button group usage.
+`U1Button` should support type, size, disabled, loading, plain, round, circle, text, link, background text, icon, and button group usage.
 
 `U1Input` should support `v-model`, placeholder, disabled, clearable, password visibility, and emitted clear events.
 
@@ -82,7 +82,7 @@ Every public component should satisfy the same baseline.
 
 `U1Menu` should support vertical and horizontal display, active item, disabled item, item click events, and basic keyboard focus behavior.
 
-`U1Card` should support header, default body, footer, and shadow modes.
+`U1Card` should support header, default body, and shadow modes.
 
 ## Documentation Standards
 

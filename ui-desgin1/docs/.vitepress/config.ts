@@ -36,7 +36,7 @@ export default defineConfig({
       '/component/': [
         { text: '基础组件', items: basicItems },
         { text: '高级组件', items: advancedItems },
-        { text: '风格设计', items: designItems }
+        { text: '设计分组', items: designItems }
       ]
     },
     socialLinks: [],

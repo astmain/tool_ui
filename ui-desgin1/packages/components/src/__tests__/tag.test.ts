@@ -19,7 +19,7 @@ describe('U1Tag', () => {
     expect(wrapper.classes()).toContain('u1-tag-component--dark')
   })
 
-  it('emits close when close button is clicked', async () => {
+  it('emits close and hides itself when close button is clicked', async () => {
     const wrapper = mount(U1Tag, {
       props: {
         closable: true
@@ -32,20 +32,6 @@ describe('U1Tag', () => {
     await wrapper.get('button').trigger('click')
 
     expect(wrapper.emitted('close')).toBeTruthy()
-  })
-
-  it('hides itself after close button is clicked', async () => {
-    const wrapper = mount(U1Tag, {
-      props: {
-        closable: true
-      },
-      slots: {
-        default: 'Closable'
-      }
-    })
-
-    await wrapper.get('button').trigger('click')
-
     expect(wrapper.find('.u1-tag-component').exists()).toBe(false)
   })
 })

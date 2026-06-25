@@ -26,8 +26,10 @@ import { ref } from 'vue'
 const basicValue = ref('')
 </script>
 
-<U1Input v-model="basicValue" placeholder="请输入内容" clearable />
-<span>当前值: {{ basicValue || '空' }}</span>
+<template>
+  <U1Input v-model="basicValue" placeholder="请输入内容" clearable />
+  <span>当前值: {{ basicValue || '空' }}</span>
+</template>
 ```
 
   </details>
@@ -50,8 +52,10 @@ import { ref } from 'vue'
 const passwordValue = ref('u1design')
 </script>
 
-<U1Input v-model="passwordValue" show-password clearable />
-<U1Input model-value="Disabled" disabled />
+<template>
+  <U1Input v-model="passwordValue" show-password clearable />
+  <U1Input model-value="Disabled" disabled />
+</template>
 ```
 
   </details>

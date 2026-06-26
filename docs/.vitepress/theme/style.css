@@ -5,10 +5,15 @@
   --vp-button-brand-bg: #409eff;
   --vp-button-brand-hover-bg: #337ecc;
   --vp-home-hero-name-color: #409eff;
+  --vp-layout-max-width: 1680px;
   --u1-doc-surface: var(--vp-c-bg);
   --u1-doc-surface-soft: var(--vp-c-bg-soft);
   --u1-doc-border: color-mix(in srgb, var(--vp-c-divider) 82%, transparent);
   --u1-doc-shadow: 0 8px 24px rgb(31 45 61 / 8%);
+}
+
+.VPDoc.has-aside .content-container {
+  max-width: 920px !important;
 }
 
 .vp-doc h1 {
@@ -302,9 +307,14 @@
   overflow-x: auto;
 }
 
-.u1-icon-table {
+.u1-icon-table-demo__body {
+  padding: 8px;
+}
+
+.vp-doc .u1-icon-table {
+  display: table;
   width: 100%;
-  min-width: 860px;
+  min-width: 100%;
   border: 1px solid var(--u1-doc-border);
   border-collapse: separate;
   border-spacing: 0;
@@ -346,6 +356,12 @@
 .u1-icon-table__preview .u1-icon {
   width: 18px;
   height: 18px;
+}
+
+.u1-icon-table__usage {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 
 .u1-icon-table code {

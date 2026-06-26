@@ -5,7 +5,7 @@ U1Design 的 Icon 图标用于按钮, 表单, 导航和反馈场景. 图标保�
 ## 基础图标
 
 <div class="u1-demo">
-  <div class="u1-demo__body">
+  <div class="u1-demo__body u1-icon-table-demo__body">
     <div class="u1-icon-table-wrap">
       <table class="u1-icon-table">
         <thead>
@@ -13,7 +13,7 @@ U1Design 的 Icon 图标用于按钮, 表单, 导航和反馈场景. 图标保�
             <th>图标</th>
             <th>名称</th>
             <th>说明</th>
-            <th>按钮用法</th>
+            <th>用法</th>
           </tr>
         </thead>
         <tbody>
@@ -57,7 +57,7 @@ U1Design 的 Icon 图标用于按钮, 表单, 导航和反馈场景. 图标保�
           <tr><td><span class="u1-icon-table__preview"><U1Icon name="lock" /></span></td><td><code>lock</code></td><td>锁定状态</td><td><code>&lt;U1Button class="icon-lock" label="锁定状态"/&gt;</code></td></tr>
           <tr><td><span class="u1-icon-table__preview"><U1Icon name="unlock" /></span></td><td><code>unlock</code></td><td>解锁状态</td><td><code>&lt;U1Button class="icon-unlock" label="解锁状态"/&gt;</code></td></tr>
           <tr><td><span class="u1-icon-table__preview"><U1Icon name="eye-open" /></span></td><td><code>eye-open</code></td><td>显示内容</td><td><code>&lt;U1Button class="icon-eye-open" label="显示内容"/&gt;</code></td></tr>
-          <tr><td><span class="u1-icon-table__preview"><U1Icon name="hide" /></span></td><td><code>hide</code></td><td>隐藏内容</td><td><code>&lt;U1Button class="icon-hide" label="隐藏内容"/&gt;</code></td></tr>
+          <tr><td><span class="u1-icon-table__preview"><U1Icon name="eye-close" /></span></td><td><code>eye-close</code></td><td>隐藏内容</td><td><code>&lt;U1Button class="icon-eye-close" label="隐藏内容"/&gt;</code></td></tr>
         </tbody>
       </table>
     </div>
@@ -66,10 +66,16 @@ U1Design 的 Icon 图标用于按钮, 表单, 导航和反馈场景. 图标保�
     <summary>Show code</summary>
 
 ```vue
-<U1Button class="icon-add" label="新增动作"/>
-<U1Button class="icon-search" label="搜索入口"/>
-<U1Button class="icon-eye-open" label="显示内容"/>
-<U1Button class="icon-hide" label="隐藏内容"/>
+<template>
+  <!-- icon不同的使用方式-->
+  <div class="button-icon-demo">
+    <U1Button icon="add" label="新增动作"/>
+    <U1Button icon="eye-open" label="显示内容"/>
+    <U1Button icon-left="search" icon-right="check" label="搜索确认"/>
+    <U1Button class="icon-eye-open" label="显示内容"/>
+    <U1Icon name="eye-open" />
+  </div>
+</template>
 ```
 
   </details>

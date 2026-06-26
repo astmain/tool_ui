@@ -141,6 +141,6 @@ describe('U1InputLabel', () => {
 
     await wrapper.get('button.u1-input-label__toggle').trigger('click')
 
-    expect(wrapper.get('.u1-input-label__toggle .u1-icon').attributes('data-icon')).toBe('hide')
+    expect(wrapper.get('.u1-input-label__toggle .u1-icon').attributes('data-icon')).toBe('eye-close')
   })
 })

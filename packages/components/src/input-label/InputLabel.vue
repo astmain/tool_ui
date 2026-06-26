@@ -22,7 +22,7 @@
         :aria-label="visible ? 'hide value' : 'show value'"
         @click="toggleVisible"
       >
-        <U1Icon :name="visible ? 'hide' : 'eye-open'" />
+        <U1Icon :name="visible ? 'eye-close' : 'eye-open'" />
       </button>
     </span>
   </span>

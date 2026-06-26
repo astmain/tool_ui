@@ -10,6 +10,8 @@ describe('U1Icon source files', () => {
     const source = readFileSync(resolve(iconsDir, 'menu.vue'), 'utf8')
 
     expect(files).toContain('menu.vue')
+    expect(files).toContain('eye-close.vue')
+    expect(files).not.toContain('hide.vue')
     expect(files).not.toContain('menu.ts')
     expect(source).toContain('<template>')
     expect(source).toContain('<svg')

@@ -13,11 +13,11 @@ import DownloadIcon from './download.vue'
 import EditIcon from './edit.vue'
 import ErrorIcon from './error.vue'
 import ExportIcon from './export.vue'
+import EyeCloseIcon from './eye-close.vue'
 import EyeOpenIcon from './eye-open.vue'
 import FileIcon from './file.vue'
 import FilterIcon from './filter.vue'
 import FolderIcon from './folder.vue'
-import HideIcon from './hide.vue'
 import HomeIcon from './home.vue'
 import InfoIcon from './info.vue'
 import LeftIcon from './left.vue'
@@ -82,7 +82,7 @@ export const iconMap = {
   lock: LockIcon,
   unlock: UnlockIcon,
   'eye-open': EyeOpenIcon,
-  hide: HideIcon
+  'eye-close': EyeCloseIcon
 } satisfies Record<string, Component>
 
 export type IconName = keyof typeof iconMap

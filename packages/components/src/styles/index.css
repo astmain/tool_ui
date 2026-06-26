@@ -789,6 +789,7 @@
   transform: rotate(-45deg);
 }
 
+.u1-icon-mark.is-eye-open::before,
 .u1-icon-mark.is-view::before,
 .u1-icon-mark.is-hide::before {
   width: 54%;
@@ -797,6 +798,7 @@
   border-radius: 50%;
 }
 
+.u1-icon-mark.is-eye-open::after,
 .u1-icon-mark.is-view::after,
 .u1-icon-mark.is-hide::after {
   width: 16%;

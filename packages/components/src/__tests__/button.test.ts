@@ -183,6 +183,17 @@ describe('U1Button', () => {
     expect(wrapper.find('.u1-button__icon.is-left .u1-icon-mark').classes()).toContain('is-close')
   })
 
+  it('maps view icon to eye-open mark', () => {
+    const wrapper = mount(U1Button, {
+      props: {
+        icon: 'view',
+        label: 'View'
+      }
+    })
+
+    expect(wrapper.find('.u1-button__icon.is-left .u1-icon-mark').classes()).toContain('is-eye-open')
+  })
+
   it('prefers icon slot over string icon props', () => {
     const wrapper = mount(U1Button, {
       props: {

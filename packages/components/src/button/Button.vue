@@ -114,6 +114,7 @@ const iconNames = [
   'loading',
   'lock',
   'unlock',
+  'eye-open',
   'view',
   'hide'
 ] as const
@@ -123,8 +124,9 @@ function resolveIconClass(name: string) {
     return ''
   }
 
-  const iconName = iconNames.includes(name as (typeof iconNames)[number]) ? name : 'close'
-  return `is-${iconName}`
+  const iconName = name === 'view' ? 'eye-open' : name
+  const resolvedName = iconNames.includes(iconName as (typeof iconNames)[number]) ? iconName : 'close'
+  return `is-${resolvedName}`
 }
 
 const buttonClasses = computed(() => [

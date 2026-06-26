@@ -63,7 +63,7 @@ U1Design 的 Icon 图标用于按钮, 表单, 导航和反馈场景. 图标保�
         <div class="u1-icon-card"><span class="u1-icon-mark is-loading" aria-hidden="true"></span><strong>loading</strong><span>加载状态</span></div>
         <div class="u1-icon-card"><span class="u1-icon-mark is-lock" aria-hidden="true"></span><strong>lock</strong><span>锁定状态</span></div>
         <div class="u1-icon-card"><span class="u1-icon-mark is-unlock" aria-hidden="true"></span><strong>unlock</strong><span>解锁状态</span></div>
-        <div class="u1-icon-card"><span class="u1-icon-mark is-view" aria-hidden="true"></span><strong>view</strong><span>显示内容</span></div>
+        <div class="u1-icon-card"><span class="u1-icon-mark is-eye-open" aria-hidden="true"></span><strong>eye-open</strong><span>显示内容</span></div>
         <div class="u1-icon-card"><span class="u1-icon-mark is-hide" aria-hidden="true"></span><strong>hide</strong><span>隐藏内容</span></div>
       </div>
     </section>

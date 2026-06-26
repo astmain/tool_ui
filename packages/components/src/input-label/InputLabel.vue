@@ -22,7 +22,7 @@
         :aria-label="visible ? 'hide value' : 'show value'"
         @click="toggleVisible"
       >
-        <span class="u1-icon-mark" :class="visible ? 'is-hide' : 'is-view'" aria-hidden="true"></span>
+        <U1Icon :name="visible ? 'hide' : 'eye-open'" />
       </button>
     </span>
   </span>
@@ -31,6 +31,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import type { CSSProperties } from 'vue'
+import { U1Icon } from '../icon'
 
 defineOptions({
   name: 'U1InputLabel'

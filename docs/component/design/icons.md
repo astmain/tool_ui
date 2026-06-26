@@ -5,103 +5,71 @@ U1Design 的 Icon 图标用于按钮, 表单, 导航和反馈场景. 图标保�
 ## 基础图标
 
 <div class="u1-demo">
-  <div class="u1-demo__body is-column">
-    <section class="u1-icon-section">
-      <h3>动作图标</h3>
-      <div class="u1-icon-grid">
-        <div class="u1-icon-card"><span class="u1-icon-mark is-add" aria-hidden="true"></span><strong>add</strong><span>新增动作</span></div>
-        <div class="u1-icon-card"><span class="u1-icon-mark is-edit" aria-hidden="true"></span><strong>edit</strong><span>编辑内容</span></div>
-        <div class="u1-icon-card"><span class="u1-icon-mark is-delete" aria-hidden="true"></span><strong>delete</strong><span>删除动作</span></div>
-        <div class="u1-icon-card"><span class="u1-icon-mark is-save" aria-hidden="true"></span><strong>save</strong><span>保存动作</span></div>
-        <div class="u1-icon-card"><span class="u1-icon-mark is-search" aria-hidden="true"></span><strong>search</strong><span>搜索入口</span></div>
-        <div class="u1-icon-card"><span class="u1-icon-mark is-refresh" aria-hidden="true"></span><strong>refresh</strong><span>刷新数据</span></div>
-        <div class="u1-icon-card"><span class="u1-icon-mark is-upload" aria-hidden="true"></span><strong>upload</strong><span>上传文件</span></div>
-        <div class="u1-icon-card"><span class="u1-icon-mark is-download" aria-hidden="true"></span><strong>download</strong><span>下载文件</span></div>
-        <div class="u1-icon-card"><span class="u1-icon-mark is-copy" aria-hidden="true"></span><strong>copy</strong><span>复制内容</span></div>
-        <div class="u1-icon-card"><span class="u1-icon-mark is-export" aria-hidden="true"></span><strong>export</strong><span>导出数据</span></div>
-      </div>
-    </section>
-    <section class="u1-icon-section">
-      <h3>导航图标</h3>
-      <div class="u1-icon-grid">
-        <div class="u1-icon-card"><span class="u1-icon-mark is-home" aria-hidden="true"></span><strong>home</strong><span>首页入口</span></div>
-        <div class="u1-icon-card"><span class="u1-icon-mark is-menu" aria-hidden="true"></span><strong>menu</strong><span>菜单入口</span></div>
-        <div class="u1-icon-card"><span class="u1-icon-mark is-setting" aria-hidden="true"></span><strong>setting</strong><span>系统设置</span></div>
-        <div class="u1-icon-card"><span class="u1-icon-mark is-user" aria-hidden="true"></span><strong>user</strong><span>用户管理</span></div>
-        <div class="u1-icon-card"><span class="u1-icon-mark is-role" aria-hidden="true"></span><strong>role</strong><span>角色管理</span></div>
-        <div class="u1-icon-card"><span class="u1-icon-mark is-permission" aria-hidden="true"></span><strong>permission</strong><span>权限管理</span></div>
-        <div class="u1-icon-card"><span class="u1-icon-mark is-dashboard" aria-hidden="true"></span><strong>dashboard</strong><span>仪表盘</span></div>
-        <div class="u1-icon-card"><span class="u1-icon-mark is-back" aria-hidden="true"></span><strong>back</strong><span>返回动作</span></div>
-        <div class="u1-icon-card"><span class="u1-icon-mark is-left" aria-hidden="true"></span><strong>left</strong><span>向左切换</span></div>
-        <div class="u1-icon-card"><span class="u1-icon-mark is-right" aria-hidden="true"></span><strong>right</strong><span>向右切换</span></div>
-      </div>
-    </section>
-    <section class="u1-icon-section">
-      <h3>数据图标</h3>
-      <div class="u1-icon-grid">
-        <div class="u1-icon-card"><span class="u1-icon-mark is-table" aria-hidden="true"></span><strong>table</strong><span>表格数据</span></div>
-        <div class="u1-icon-card"><span class="u1-icon-mark is-list" aria-hidden="true"></span><strong>list</strong><span>列表数据</span></div>
-        <div class="u1-icon-card"><span class="u1-icon-mark is-chart" aria-hidden="true"></span><strong>chart</strong><span>图表统计</span></div>
-        <div class="u1-icon-card"><span class="u1-icon-mark is-database" aria-hidden="true"></span><strong>database</strong><span>数据库</span></div>
-        <div class="u1-icon-card"><span class="u1-icon-mark is-file" aria-hidden="true"></span><strong>file</strong><span>文件资源</span></div>
-        <div class="u1-icon-card"><span class="u1-icon-mark is-folder" aria-hidden="true"></span><strong>folder</strong><span>文件夹</span></div>
-        <div class="u1-icon-card"><span class="u1-icon-mark is-filter" aria-hidden="true"></span><strong>filter</strong><span>筛选条件</span></div>
-        <div class="u1-icon-card"><span class="u1-icon-mark is-sort" aria-hidden="true"></span><strong>sort</strong><span>排序动作</span></div>
-        <div class="u1-icon-card"><span class="u1-icon-mark is-calendar" aria-hidden="true"></span><strong>calendar</strong><span>日期选择</span></div>
-        <div class="u1-icon-card"><span class="u1-icon-mark is-time" aria-hidden="true"></span><strong>time</strong><span>时间选择</span></div>
-      </div>
-    </section>
-    <section class="u1-icon-section">
-      <h3>状态图标</h3>
-      <div class="u1-icon-grid">
-        <div class="u1-icon-card"><span class="u1-icon-mark is-check" aria-hidden="true"></span><strong>check</strong><span>确认动作</span></div>
-        <div class="u1-icon-card"><span class="u1-icon-mark is-close" aria-hidden="true"></span><strong>close</strong><span>关闭动作</span></div>
-        <div class="u1-icon-card"><span class="u1-icon-mark is-info" aria-hidden="true"></span><strong>info</strong><span>信息提示</span></div>
-        <div class="u1-icon-card"><span class="u1-icon-mark is-warning" aria-hidden="true"></span><strong>warning</strong><span>警告状态</span></div>
-        <div class="u1-icon-card"><span class="u1-icon-mark is-error" aria-hidden="true"></span><strong>error</strong><span>错误状态</span></div>
-        <div class="u1-icon-card"><span class="u1-icon-mark is-success" aria-hidden="true"></span><strong>success</strong><span>成功状态</span></div>
-        <div class="u1-icon-card"><span class="u1-icon-mark is-loading" aria-hidden="true"></span><strong>loading</strong><span>加载状态</span></div>
-        <div class="u1-icon-card"><span class="u1-icon-mark is-lock" aria-hidden="true"></span><strong>lock</strong><span>锁定状态</span></div>
-        <div class="u1-icon-card"><span class="u1-icon-mark is-unlock" aria-hidden="true"></span><strong>unlock</strong><span>解锁状态</span></div>
-        <div class="u1-icon-card"><span class="u1-icon-mark is-eye-open" aria-hidden="true"></span><strong>eye-open</strong><span>显示内容</span></div>
-        <div class="u1-icon-card"><span class="u1-icon-mark is-hide" aria-hidden="true"></span><strong>hide</strong><span>隐藏内容</span></div>
-      </div>
-    </section>
-  </div>
-  <details class="u1-demo__footer">
-    <summary>Show code</summary>
-
-```html
-<span class="u1-icon-mark is-add" aria-hidden="true"></span>
-<span class="u1-icon-mark is-setting" aria-hidden="true"></span>
-<span class="u1-icon-mark is-table" aria-hidden="true"></span>
-<span class="u1-icon-mark is-warning" aria-hidden="true"></span>
-```
-
-  </details>
-</div>
-
-## 按钮用法
-
-<div class="u1-demo">
   <div class="u1-demo__body">
-    <div class="u1-demo-row">
-      <U1Button type="primary" icon="add" label="新增用户"></U1Button>
-      <U1Button icon="search" label="查询"></U1Button>
-      <U1Button iconLeft="setting" iconRight="right" label="系统配置"></U1Button>
-      <U1Button type="danger" icon="delete" label="删除"></U1Button>
+    <div class="u1-icon-table-wrap">
+      <table class="u1-icon-table">
+        <thead>
+          <tr>
+            <th>图标</th>
+            <th>名称</th>
+            <th>说明</th>
+            <th>按钮用法</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><span class="u1-icon-table__preview"><U1Icon name="add" /></span></td><td><code>add</code></td><td>新增动作</td><td><code>&lt;U1Button class="icon-add" label="新增动作"/&gt;</code></td></tr>
+          <tr><td><span class="u1-icon-table__preview"><U1Icon name="edit" /></span></td><td><code>edit</code></td><td>编辑内容</td><td><code>&lt;U1Button class="icon-edit" label="编辑内容"/&gt;</code></td></tr>
+          <tr><td><span class="u1-icon-table__preview"><U1Icon name="delete" /></span></td><td><code>delete</code></td><td>删除动作</td><td><code>&lt;U1Button class="icon-delete" label="删除动作"/&gt;</code></td></tr>
+          <tr><td><span class="u1-icon-table__preview"><U1Icon name="save" /></span></td><td><code>save</code></td><td>保存动作</td><td><code>&lt;U1Button class="icon-save" label="保存动作"/&gt;</code></td></tr>
+          <tr><td><span class="u1-icon-table__preview"><U1Icon name="search" /></span></td><td><code>search</code></td><td>搜索入口</td><td><code>&lt;U1Button class="icon-search" label="搜索入口"/&gt;</code></td></tr>
+          <tr><td><span class="u1-icon-table__preview"><U1Icon name="refresh" /></span></td><td><code>refresh</code></td><td>刷新数据</td><td><code>&lt;U1Button class="icon-refresh" label="刷新数据"/&gt;</code></td></tr>
+          <tr><td><span class="u1-icon-table__preview"><U1Icon name="upload" /></span></td><td><code>upload</code></td><td>上传文件</td><td><code>&lt;U1Button class="icon-upload" label="上传文件"/&gt;</code></td></tr>
+          <tr><td><span class="u1-icon-table__preview"><U1Icon name="download" /></span></td><td><code>download</code></td><td>下载文件</td><td><code>&lt;U1Button class="icon-download" label="下载文件"/&gt;</code></td></tr>
+          <tr><td><span class="u1-icon-table__preview"><U1Icon name="copy" /></span></td><td><code>copy</code></td><td>复制内容</td><td><code>&lt;U1Button class="icon-copy" label="复制内容"/&gt;</code></td></tr>
+          <tr><td><span class="u1-icon-table__preview"><U1Icon name="export" /></span></td><td><code>export</code></td><td>导出数据</td><td><code>&lt;U1Button class="icon-export" label="导出数据"/&gt;</code></td></tr>
+          <tr><td><span class="u1-icon-table__preview"><U1Icon name="home" /></span></td><td><code>home</code></td><td>首页入口</td><td><code>&lt;U1Button class="icon-home" label="首页入口"/&gt;</code></td></tr>
+          <tr><td><span class="u1-icon-table__preview"><U1Icon name="menu" /></span></td><td><code>menu</code></td><td>菜单入口</td><td><code>&lt;U1Button class="icon-menu" label="菜单入口"/&gt;</code></td></tr>
+          <tr><td><span class="u1-icon-table__preview"><U1Icon name="setting" /></span></td><td><code>setting</code></td><td>系统设置</td><td><code>&lt;U1Button class="icon-setting" label="系统设置"/&gt;</code></td></tr>
+          <tr><td><span class="u1-icon-table__preview"><U1Icon name="user" /></span></td><td><code>user</code></td><td>用户管理</td><td><code>&lt;U1Button class="icon-user" label="用户管理"/&gt;</code></td></tr>
+          <tr><td><span class="u1-icon-table__preview"><U1Icon name="role" /></span></td><td><code>role</code></td><td>角色管理</td><td><code>&lt;U1Button class="icon-role" label="角色管理"/&gt;</code></td></tr>
+          <tr><td><span class="u1-icon-table__preview"><U1Icon name="permission" /></span></td><td><code>permission</code></td><td>权限管理</td><td><code>&lt;U1Button class="icon-permission" label="权限管理"/&gt;</code></td></tr>
+          <tr><td><span class="u1-icon-table__preview"><U1Icon name="dashboard" /></span></td><td><code>dashboard</code></td><td>仪表盘</td><td><code>&lt;U1Button class="icon-dashboard" label="仪表盘"/&gt;</code></td></tr>
+          <tr><td><span class="u1-icon-table__preview"><U1Icon name="back" /></span></td><td><code>back</code></td><td>返回动作</td><td><code>&lt;U1Button class="icon-back" label="返回动作"/&gt;</code></td></tr>
+          <tr><td><span class="u1-icon-table__preview"><U1Icon name="left" /></span></td><td><code>left</code></td><td>向左切换</td><td><code>&lt;U1Button class="icon-left" label="向左切换"/&gt;</code></td></tr>
+          <tr><td><span class="u1-icon-table__preview"><U1Icon name="right" /></span></td><td><code>right</code></td><td>向右切换</td><td><code>&lt;U1Button class="icon-right" label="向右切换"/&gt;</code></td></tr>
+          <tr><td><span class="u1-icon-table__preview"><U1Icon name="table" /></span></td><td><code>table</code></td><td>表格数据</td><td><code>&lt;U1Button class="icon-table" label="表格数据"/&gt;</code></td></tr>
+          <tr><td><span class="u1-icon-table__preview"><U1Icon name="list" /></span></td><td><code>list</code></td><td>列表数据</td><td><code>&lt;U1Button class="icon-list" label="列表数据"/&gt;</code></td></tr>
+          <tr><td><span class="u1-icon-table__preview"><U1Icon name="chart" /></span></td><td><code>chart</code></td><td>图表统计</td><td><code>&lt;U1Button class="icon-chart" label="图表统计"/&gt;</code></td></tr>
+          <tr><td><span class="u1-icon-table__preview"><U1Icon name="database" /></span></td><td><code>database</code></td><td>数据库</td><td><code>&lt;U1Button class="icon-database" label="数据库"/&gt;</code></td></tr>
+          <tr><td><span class="u1-icon-table__preview"><U1Icon name="file" /></span></td><td><code>file</code></td><td>文件资源</td><td><code>&lt;U1Button class="icon-file" label="文件资源"/&gt;</code></td></tr>
+          <tr><td><span class="u1-icon-table__preview"><U1Icon name="folder" /></span></td><td><code>folder</code></td><td>文件夹</td><td><code>&lt;U1Button class="icon-folder" label="文件夹"/&gt;</code></td></tr>
+          <tr><td><span class="u1-icon-table__preview"><U1Icon name="filter" /></span></td><td><code>filter</code></td><td>筛选条件</td><td><code>&lt;U1Button class="icon-filter" label="筛选条件"/&gt;</code></td></tr>
+          <tr><td><span class="u1-icon-table__preview"><U1Icon name="sort" /></span></td><td><code>sort</code></td><td>排序动作</td><td><code>&lt;U1Button class="icon-sort" label="排序动作"/&gt;</code></td></tr>
+          <tr><td><span class="u1-icon-table__preview"><U1Icon name="calendar" /></span></td><td><code>calendar</code></td><td>日期选择</td><td><code>&lt;U1Button class="icon-calendar" label="日期选择"/&gt;</code></td></tr>
+          <tr><td><span class="u1-icon-table__preview"><U1Icon name="time" /></span></td><td><code>time</code></td><td>时间选择</td><td><code>&lt;U1Button class="icon-time" label="时间选择"/&gt;</code></td></tr>
+          <tr><td><span class="u1-icon-table__preview"><U1Icon name="check" /></span></td><td><code>check</code></td><td>确认动作</td><td><code>&lt;U1Button class="icon-check" label="确认动作"/&gt;</code></td></tr>
+          <tr><td><span class="u1-icon-table__preview"><U1Icon name="close" /></span></td><td><code>close</code></td><td>关闭动作</td><td><code>&lt;U1Button class="icon-close" label="关闭动作"/&gt;</code></td></tr>
+          <tr><td><span class="u1-icon-table__preview"><U1Icon name="info" /></span></td><td><code>info</code></td><td>信息提示</td><td><code>&lt;U1Button class="icon-info" label="信息提示"/&gt;</code></td></tr>
+          <tr><td><span class="u1-icon-table__preview"><U1Icon name="warning" /></span></td><td><code>warning</code></td><td>警告状态</td><td><code>&lt;U1Button class="icon-warning" label="警告状态"/&gt;</code></td></tr>
+          <tr><td><span class="u1-icon-table__preview"><U1Icon name="error" /></span></td><td><code>error</code></td><td>错误状态</td><td><code>&lt;U1Button class="icon-error" label="错误状态"/&gt;</code></td></tr>
+          <tr><td><span class="u1-icon-table__preview"><U1Icon name="success" /></span></td><td><code>success</code></td><td>成功状态</td><td><code>&lt;U1Button class="icon-success" label="成功状态"/&gt;</code></td></tr>
+          <tr><td><span class="u1-icon-table__preview"><U1Icon name="loading" /></span></td><td><code>loading</code></td><td>加载状态</td><td><code>&lt;U1Button class="icon-loading" label="加载状态"/&gt;</code></td></tr>
+          <tr><td><span class="u1-icon-table__preview"><U1Icon name="lock" /></span></td><td><code>lock</code></td><td>锁定状态</td><td><code>&lt;U1Button class="icon-lock" label="锁定状态"/&gt;</code></td></tr>
+          <tr><td><span class="u1-icon-table__preview"><U1Icon name="unlock" /></span></td><td><code>unlock</code></td><td>解锁状态</td><td><code>&lt;U1Button class="icon-unlock" label="解锁状态"/&gt;</code></td></tr>
+          <tr><td><span class="u1-icon-table__preview"><U1Icon name="eye-open" /></span></td><td><code>eye-open</code></td><td>显示内容</td><td><code>&lt;U1Button class="icon-eye-open" label="显示内容"/&gt;</code></td></tr>
+          <tr><td><span class="u1-icon-table__preview"><U1Icon name="hide" /></span></td><td><code>hide</code></td><td>隐藏内容</td><td><code>&lt;U1Button class="icon-hide" label="隐藏内容"/&gt;</code></td></tr>
+        </tbody>
+      </table>
     </div>
   </div>
   <details class="u1-demo__footer">
     <summary>Show code</summary>
 
 ```vue
-<template>
-  <U1Button type="primary" icon="add" label="新增用户"></U1Button>
-  <U1Button icon="search" label="查询"></U1Button>
-  <U1Button iconLeft="setting" iconRight="right" label="系统配置"></U1Button>
-  <U1Button type="danger" icon="delete" label="删除"></U1Button>
-</template>
+<U1Button class="icon-add" label="新增动作"/>
+<U1Button class="icon-search" label="搜索入口"/>
+<U1Button class="icon-eye-open" label="显示内容"/>
+<U1Button class="icon-hide" label="隐藏内容"/>
 ```
 
   </details>

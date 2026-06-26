@@ -39,15 +39,22 @@ describe('docs layout regressions', () => {
     expect(css).toMatch(/\.vp-doc\s+\.header-anchor\s*{[^}]*display:\s*none/s)
   })
 
-  it('keeps documented icon mark utility styles available', () => {
-    const css = readProjectFile('docs/.vitepress/theme/style.css')
+  it('keeps documented svg icon usage available', () => {
+    const componentCss = readProjectFile('packages/components/src/styles/index.css')
+    const docsCss = readProjectFile('docs/.vitepress/theme/style.css')
     const icons = readProjectFile('docs/component/design/icons.md')
 
-    expect(icons).toContain('u1-icon-mark is-add')
-    expect(icons).toContain('u1-icon-mark is-search')
-    expect(css).toMatch(/\.u1-icon-mark\s*{[^}]*display:\s*inline-flex/s)
-    expect(css).toMatch(/\.u1-icon-mark\.is-add::before/)
-    expect(css).toMatch(/\.u1-icon-mark\.is-search::before/)
+    expect(icons).toContain('<table class="u1-icon-table">')
+    expect(icons).toContain('<U1Icon name="add"')
+    expect(icons).toContain('<code>&lt;U1Button class="icon-add" label="新增动作"/&gt;</code>')
+    expect(icons).toContain('<code>&lt;U1Button class="icon-eye-open" label="显示内容"/&gt;</code>')
+    expect(icons).not.toContain('u1-icon-card')
+    expect(icons).not.toContain('<th>文件</th>')
+    expect(icons).not.toContain('eye-open.vue')
+    expect(icons).not.toContain('<h3>动作图标</h3>')
+    expect(componentCss).toMatch(/\.u1-icon\s*{[^}]*display:\s*inline-block/s)
+    expect(docsCss).toMatch(/\.u1-icon-table__preview\s+\.u1-icon\s*{/)
+    expect(componentCss).not.toContain('u1-icon-mark')
   })
 
   it('disables dialog transform transitions while dragging', () => {

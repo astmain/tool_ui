@@ -2,6 +2,7 @@
 
 - 本项目是一个基于 Vue 3 和 TypeScript 的组件库 workspace, 包名为 `tool_ui1`, 主要用于沉淀 U1Design 组件, 主题变量和 VitePress 文档站.
 - 测试12
+-npm包 `https://www.npmjs.com/package/tool_ui1`
 
 ## 功能特点
 

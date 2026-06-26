@@ -11,20 +11,21 @@
     <span v-if="$slots.icon" class="u1-button__icon is-left">
       <slot name="icon" />
     </span>
-    <span v-else-if="leftIconClass" class="u1-button__icon is-left" aria-hidden="true">
-      <span class="u1-icon-mark" :class="leftIconClass"></span>
+    <span v-else-if="leftIconName" class="u1-button__icon is-left" aria-hidden="true">
+      <U1Icon :name="leftIconName" />
     </span>
     <span class="u1-button__content">
       <slot>{{ label }}</slot>
     </span>
-    <span v-if="rightIconClass" class="u1-button__icon is-right" aria-hidden="true">
-      <span class="u1-icon-mark" :class="rightIconClass"></span>
+    <span v-if="rightIconName" class="u1-button__icon is-right" aria-hidden="true">
+      <U1Icon :name="rightIconName" />
     </span>
   </button>
 </template>
 
 <script setup lang="ts">
 import { computed, useAttrs } from 'vue'
+import { U1Icon } from '../icon'
 
 defineOptions({
   name: 'U1Button',
@@ -74,61 +75,6 @@ const emit = defineEmits<{
 
 const attrs = useAttrs()
 
-const iconNames = [
-  'add',
-  'edit',
-  'delete',
-  'save',
-  'search',
-  'refresh',
-  'upload',
-  'download',
-  'copy',
-  'export',
-  'home',
-  'menu',
-  'setting',
-  'user',
-  'role',
-  'permission',
-  'dashboard',
-  'back',
-  'left',
-  'right',
-  'table',
-  'list',
-  'chart',
-  'database',
-  'file',
-  'folder',
-  'filter',
-  'sort',
-  'calendar',
-  'time',
-  'check',
-  'close',
-  'info',
-  'warning',
-  'error',
-  'success',
-  'loading',
-  'lock',
-  'unlock',
-  'eye-open',
-  'view',
-  'hide'
-] as const
-
-function resolveIconClass(name: string) {
-  if (!name) {
-    return ''
-  }
-
-  const iconName = name === 'view' ? 'eye-open' : name
-  const resolvedName = iconNames.includes(iconName as (typeof iconNames)[number]) ? iconName : 'close'
-  return `is-${resolvedName}`
-}
-
 const buttonClasses = computed(() => [
   `u1-button--${props.type}`,
   `u1-button--${props.size}`,
@@ -144,8 +90,15 @@ const buttonClasses = computed(() => [
   }
 ])
 
-const leftIconClass = computed(() => resolveIconClass(props.iconLeft || props.icon))
-const rightIconClass = computed(() => resolveIconClass(props.iconRight))
+const iconNameFromClass = computed(() => {
+  const classValue = attrs.class
+  const classNames = Array.isArray(classValue) ? classValue.join(' ') : String(classValue ?? '')
+  const iconClass = classNames.split(/\s+/).find((className) => className.startsWith('icon-'))
+  return iconClass?.replace(/^icon-/, '') ?? ''
+})
+
+const leftIconName = computed(() => props.iconLeft || props.icon || iconNameFromClass.value)
+const rightIconName = computed(() => props.iconRight)
 
 const buttonAttrs = computed(() => {
   const entries = Object.entries(attrs).filter(([key]) => key !== 'tag' && key !== 'href' && key !== 'dashed')

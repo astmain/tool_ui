@@ -1,0 +1,6 @@
+<template>
+  <svg class="u1-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+    <path d="M12 5v14" />
+    <path d="M5 12h14" />
+  </svg>
+</template>

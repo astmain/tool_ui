@@ -1,0 +1,7 @@
+<template>
+  <svg class="u1-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+    <path d="M14 4h6v6" />
+    <path d="M20 4l-9 9" />
+    <path d="M20 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h5" />
+  </svg>
+</template>

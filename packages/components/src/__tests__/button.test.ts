@@ -149,10 +149,11 @@ describe('U1Button', () => {
       }
     })
 
-    const leftIcon = wrapper.find('.u1-button__icon.is-left .u1-icon-mark')
+    const leftIcon = wrapper.find('.u1-button__icon.is-left .u1-icon')
 
     expect(leftIcon.exists()).toBe(true)
-    expect(leftIcon.classes()).toContain('is-add')
+    expect(leftIcon.attributes('data-icon')).toBe('add')
+    expect(leftIcon.element.tagName.toLowerCase()).toBe('svg')
     expect(wrapper.text()).toContain('Create')
   })
 
@@ -167,8 +168,8 @@ describe('U1Button', () => {
         props: item
       })
 
-      expect(wrapper.find('.u1-button__icon.is-left .u1-icon-mark').classes()).toContain(`is-${item.iconLeft}`)
-      expect(wrapper.find('.u1-button__icon.is-right .u1-icon-mark').classes()).toContain(`is-${item.iconRight}`)
+      expect(wrapper.find('.u1-button__icon.is-left .u1-icon').attributes('data-icon')).toBe(item.iconLeft)
+      expect(wrapper.find('.u1-button__icon.is-right .u1-icon').attributes('data-icon')).toBe(item.iconRight)
     }
   })
 
@@ -180,10 +181,10 @@ describe('U1Button', () => {
       }
     })
 
-    expect(wrapper.find('.u1-button__icon.is-left .u1-icon-mark').classes()).toContain('is-close')
+    expect(wrapper.find('.u1-button__icon.is-left .u1-icon').attributes('data-icon')).toBe('close')
   })
 
-  it('maps view icon to eye-open mark', () => {
+  it('maps view icon to eye-open svg', () => {
     const wrapper = mount(U1Button, {
       props: {
         icon: 'view',
@@ -191,7 +192,21 @@ describe('U1Button', () => {
       }
     })
 
-    expect(wrapper.find('.u1-button__icon.is-left .u1-icon-mark').classes()).toContain('is-eye-open')
+    expect(wrapper.find('.u1-button__icon.is-left .u1-icon').attributes('data-icon')).toBe('eye-open')
+  })
+
+  it('uses icon class as fallback when icon prop is empty', () => {
+    const wrapper = mount(U1Button, {
+      attrs: {
+        class: 'icon-eye-open'
+      },
+      props: {
+        label: 'View'
+      }
+    })
+
+    expect(wrapper.classes()).toContain('icon-eye-open')
+    expect(wrapper.find('.u1-button__icon.is-left .u1-icon').attributes('data-icon')).toBe('eye-open')
   })
 
   it('prefers icon slot over string icon props', () => {
@@ -206,6 +221,6 @@ describe('U1Button', () => {
     })
 
     expect(wrapper.find('.u1-button__icon .demo-icon').exists()).toBe(true)
-    expect(wrapper.find('.u1-button__icon .u1-icon-mark').exists()).toBe(false)
+    expect(wrapper.find('.u1-button__icon .u1-icon').exists()).toBe(false)
   })
 })

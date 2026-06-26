@@ -5,6 +5,7 @@ import { U1Button } from './button'
 import { U1Card } from './card'
 import { U1Checkbox, U1CheckboxGroup } from './checkbox'
 import { U1Dialog } from './dialog'
+import { U1Icon } from './icon'
 import { U1Input } from './input'
 import { U1InputLabel } from './input-label'
 import { U1Menu } from './menu'
@@ -20,6 +21,7 @@ import './styles/index.css'
 const components = [
   U1Affix,
   U1Button,
+  U1Icon,
   U1Input,
   U1InputLabel,
   U1Radio,
@@ -55,6 +57,7 @@ const U1Design: Plugin = {
 export {
   U1Affix,
   U1Button,
+  U1Icon,
   U1Input,
   U1InputLabel,
   U1Radio,

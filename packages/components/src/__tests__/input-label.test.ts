@@ -126,4 +126,21 @@ describe('U1InputLabel', () => {
     expect((input.element as HTMLInputElement).value).toBe('secret')
     expect(wrapper.get('button.u1-input-label__toggle').attributes('aria-pressed')).toBe('true')
   })
+
+  it('renders password toggle icon as svg', async () => {
+    const wrapper = mount(U1InputLabel, {
+      props: {
+        modelValue: 'secret',
+        label: 'Token',
+        show: true
+      }
+    })
+
+    expect(wrapper.get('.u1-input-label__toggle .u1-icon').element.tagName.toLowerCase()).toBe('svg')
+    expect(wrapper.get('.u1-input-label__toggle .u1-icon').attributes('data-icon')).toBe('eye-open')
+
+    await wrapper.get('button.u1-input-label__toggle').trigger('click')
+
+    expect(wrapper.get('.u1-input-label__toggle .u1-icon').attributes('data-icon')).toBe('hide')
+  })
 })

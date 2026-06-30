@@ -35,7 +35,7 @@ defineOptions({
 const props = withDefaults(
   defineProps<{
     type?: 'default' | 'primary' | 'success' | 'warning' | 'danger' | 'info'
-    size?: 'large' | 'default' | 'small'
+    size?: 'large' | 'default' | 'small' | 'mini'
     disabled?: boolean
     loading?: boolean
     label?: string

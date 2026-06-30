@@ -1,5 +1,6 @@
 packages:
   - "packages/*"
   - "docs"
+  - "vue3"
 allowBuilds:
   esbuild: true

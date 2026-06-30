@@ -211,6 +211,7 @@
       <U1Button size="large">Large</U1Button>
       <U1Button>Default</U1Button>
       <U1Button size="small">Small</U1Button>
+      <U1Button size="mini">Mini</U1Button>
     </div>
   </div>
   <details class="u1-demo__footer">
@@ -221,6 +222,7 @@
   <U1Button size="large">Large</U1Button>
   <U1Button>Default</U1Button>
   <U1Button size="small">Small</U1Button>
+  <U1Button size="mini">Mini</U1Button>
 </template>
 ```
 
@@ -233,7 +235,7 @@
   <thead><tr><th>属性</th><th>说明</th><th>类型</th><th>默认值</th></tr></thead>
   <tbody>
     <tr><td>type</td><td>按钮类型</td><td>default | primary | success | warning | danger | info</td><td>default</td></tr>
-    <tr><td>size</td><td>按钮尺寸</td><td>large | default | small</td><td>default</td></tr>
+    <tr><td>size</td><td>按钮尺寸</td><td>large | default | small | mini</td><td>default</td></tr>
     <tr><td>label</td><td>按钮内容, 默认插槽优先级更高</td><td>string</td><td>-</td></tr>
     <tr><td>icon</td><td>左侧图标名称, 等价于 iconLeft</td><td>IconName | string</td><td>-</td></tr>
     <tr><td>iconLeft</td><td>左侧图标名称, 优先级高于 icon</td><td>IconName | string</td><td>-</td></tr>

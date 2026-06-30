@@ -100,6 +100,12 @@
   font-size: 12px;
 }
 
+.u1-button--mini {
+  height: 22px;
+  padding: 3px 9px;
+  font-size: 11px;
+}
+
 .u1-button.is-plain {
   color: var(--u1-button-color, var(--u1-color-text));
   background: var(--u1-color-bg);

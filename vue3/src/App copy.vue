@@ -5,9 +5,8 @@
       <ul style="display: flex; flex-direction: column; gap: 4px">
         <li v-for="item in menus" :key="item.path">
           <RouterLink :to="item.path" class="menu_link" :class="{ menu_link_active: isActive(item.path) }">
-            <div class="icon-menu" style="  width: 16px;
-  height: 16px;"/>
-            <span>{{ item.title }}</span>
+            <div class="icon-menu" />
+            <div>{{ item.title }}</div>
           </RouterLink>
         </li>
       </ul>

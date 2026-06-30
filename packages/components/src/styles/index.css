@@ -607,6 +607,12 @@
   vertical-align: middle;
 }
 
+.u1-avatar--mini {
+  width: 18px;
+  height: 18px;
+  font-size: 11px;
+}
+
 .u1-avatar--small {
   width: 24px;
   height: 24px;
@@ -1064,6 +1070,12 @@
   color: var(--u1-color-text);
   background: var(--u1-color-bg);
   font-size: var(--u1-table-font-size);
+}
+
+.u1-table--mini {
+  --u1-table-font-size: 11px;
+  --u1-table-cell-padding: 4px 8px;
+  --u1-table-empty-padding: 18px 8px;
 }
 
 .u1-table--small {

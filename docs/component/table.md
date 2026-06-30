@@ -115,11 +115,12 @@ const data = [
 
 ## 边框 斑马纹和尺寸
 
-`border` 用于显示表格边框, `stripe` 用于显示斑马纹. `size` 支持 `small`, `default`, `large`.
+`border` 用于显示表格边框, `stripe` 用于显示斑马纹. `size` 支持 `small`, `default`, `large`, `mini`.
 
 <div class="u1-demo">
   <div class="u1-demo__body">
     <div class="u1-demo-column">
+      <U1Table :columns="sizeColumns" :data="data" row-key="id" border stripe size="mini" />
       <U1Table :columns="sizeColumns" :data="data" row-key="id" border stripe size="small" />
       <U1Table :columns="sizeColumns" :data="data" row-key="id" border size="large" />
     </div>
@@ -144,6 +145,7 @@ const data = [
 
 <template>
   <div class="u1-demo-column">
+    <U1Table :columns="columns" :data="data" row-key="id" border stripe size="mini" />
     <U1Table :columns="columns" :data="data" row-key="id" border stripe size="small" />
     <U1Table :columns="columns" :data="data" row-key="id" border size="large" />
   </div>
@@ -358,7 +360,7 @@ function statusType(value) {
     <tr><td>columns</td><td>列配置</td><td>U1TableColumn[]</td><td>[]</td></tr>
     <tr><td>border</td><td>是否显示边框</td><td>boolean</td><td>false</td></tr>
     <tr><td>stripe</td><td>是否显示斑马纹</td><td>boolean</td><td>false</td></tr>
-    <tr><td>size</td><td>表格尺寸</td><td>small | default | large</td><td>default</td></tr>
+    <tr><td>size</td><td>表格尺寸</td><td>large | default | small | mini</td><td>default</td></tr>
     <tr><td>loading</td><td>是否显示加载状态</td><td>boolean</td><td>false</td></tr>
     <tr><td>loadingText</td><td>加载状态文案</td><td>string</td><td>Loading</td></tr>
     <tr><td>emptyText</td><td>空状态文案</td><td>string</td><td>No data</td></tr>

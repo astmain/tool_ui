@@ -70,7 +70,7 @@ import { computed } from 'vue'
 
 type U1TableAlign = 'left' | 'center' | 'right'
 type U1TableColumnType = 'default' | 'index' | 'action'
-type U1TableSize = 'small' | 'default' | 'large'
+type U1TableSize = 'large' | 'default' | 'small' | 'mini'
 
 export interface U1TableColumn {
   prop?: string

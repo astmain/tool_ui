@@ -18,7 +18,7 @@ const props = withDefaults(
   defineProps<{
     src?: string
     alt?: string
-    size?: 'small' | 'default' | 'large'
+    size?: 'large' | 'default' | 'small' | 'mini'
     shape?: 'circle' | 'square'
   }>(),
   {

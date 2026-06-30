@@ -86,6 +86,18 @@ describe('U1Table', () => {
     expect(wrapper.find('.u1-table__loading').text()).toBe('Loading')
   })
 
+  it('supports the mini size class', () => {
+    const wrapper = mount(U1Table, {
+      props: {
+        columns,
+        data: [{ name: 'Alice', age: 18 }],
+        size: 'mini'
+      }
+    })
+
+    expect(wrapper.classes()).toContain('u1-table--mini')
+  })
+
   it('marks overflowing columns with a title tooltip', () => {
     const wrapper = mount(U1Table, {
       props: {

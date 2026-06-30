@@ -30,6 +30,7 @@
 
 <div class="u1-demo">
   <div class="u1-demo-row">
+    <U1Avatar size="mini">XS</U1Avatar>
     <U1Avatar size="small">S</U1Avatar>
     <U1Avatar>M</U1Avatar>
     <U1Avatar size="large">L</U1Avatar>
@@ -40,6 +41,7 @@
 ```vue
 <template>
   <div class="u1-demo-row">
+    <U1Avatar size="mini">XS</U1Avatar>
     <U1Avatar size="small">S</U1Avatar>
     <U1Avatar>M</U1Avatar>
     <U1Avatar size="large">L</U1Avatar>
@@ -77,7 +79,7 @@
   <tbody>
     <tr><td>src</td><td>图片地址</td><td>string</td><td>空字符串</td></tr>
     <tr><td>alt</td><td>图片替代文本</td><td>string</td><td>空字符串</td></tr>
-    <tr><td>size</td><td>头像尺寸</td><td>small | default | large</td><td>default</td></tr>
+    <tr><td>size</td><td>头像尺寸</td><td>large | default | small | mini</td><td>default</td></tr>
     <tr><td>shape</td><td>头像形状</td><td>circle | square</td><td>circle</td></tr>
   </tbody>
 </table>

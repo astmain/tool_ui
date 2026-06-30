@@ -33,6 +33,20 @@ describe('U1Avatar', () => {
     expect(wrapper.classes()).toContain('u1-avatar--square')
   })
 
+  it('supports the mini size class', () => {
+    const wrapper = mount(U1Avatar, {
+      props: {
+        size: 'mini'
+      },
+      slots: {
+        default: 'XS'
+      }
+    })
+
+    expect(wrapper.text()).toContain('XS')
+    expect(wrapper.classes()).toContain('u1-avatar--mini')
+  })
+
   it('shows fallback slot when the image fails to load', async () => {
     const wrapper = mount(U1Avatar, {
       props: {

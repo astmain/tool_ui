@@ -74,6 +74,7 @@ function closeAllMessage() {
 <script setup>
 import { U1Message } from 'tool_ui1'
 
+// message: 消息内容，type: 消息类型(success/warning/info/error)，showClose: 显示关闭按钮，duration: 显示时长(0 为常驻)
 function openBasicMessage() {
   U1Message('这是一条提示消息')
 }
@@ -119,6 +120,7 @@ function openClosableMessage() {
 <script setup>
 import { U1Message } from 'tool_ui1'
 
+// U1Message.success/warning/info/error: 快捷方法，自动设置 type
 function openSuccessMessage() {
   U1Message.success('success 类型消息')
 }
@@ -168,6 +170,7 @@ function openErrorMessage() {
 <script setup>
 import { U1Message } from 'tool_ui1'
 
+// grouping: 相同消息合并计数，duration: 0 为常驻，handler.close(): 手动关闭
 function openGroupedMessage() {
   U1Message({
     message: '同一条消息会合并计数',
@@ -189,6 +192,7 @@ function openPersistentMessage() {
   }, 5000)
 }
 
+// closeAll: 关闭全部消息
 function closeAllMessage() {
   U1Message.closeAll()
 }
@@ -228,6 +232,7 @@ function closeAllMessage() {
 <script setup>
 import { U1Message } from 'tool_ui1'
 
+// placement: 出现位置 (top/top-left/top-right/bottom/bottom-left/bottom-right)
 function openPlacementMessage(placement) {
   U1Message({
     message: placement + ' 位置提示',

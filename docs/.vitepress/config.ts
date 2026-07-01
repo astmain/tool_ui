@@ -26,6 +26,10 @@ const advancedItems = [
   { text: 'Menu 菜单', link: '/component/menu' }
 ]
 
+const layoutItems = [
+  { text: 'Layout1 侧边栏布局', link: '/component/layout1' }
+]
+
 const designItems = [
   { text: '颜色方案', link: '/component/design/colors' },
   { text: '图标体系', link: '/component/design/icons' },
@@ -59,6 +63,7 @@ export default defineConfig({
     sidebar: {
       '/component/': [
         { text: '基础组件', items: basicItems },
+        { text: '布局组件', items: layoutItems },
         { text: '高级组件', items: advancedItems },
         { text: '设计分组', items: designItems }
       ]

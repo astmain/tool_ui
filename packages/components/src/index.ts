@@ -8,6 +8,7 @@ import { U1Dialog } from './dialog'
 import { U1Icon } from './icon'
 import { U1Input } from './input'
 import { U1InputLabel } from './input-label'
+import { U1Layout1 } from './layout'
 import { U1Menu } from './menu'
 import { U1Message, U1MessageComponent } from './message'
 import { U1Radio, U1RadioGroup } from './radio'
@@ -25,6 +26,7 @@ const components = [
   U1Icon,
   U1Input,
   U1InputLabel,
+  U1Layout1,
   U1Radio,
   U1RadioGroup,
   U1Checkbox,
@@ -61,6 +63,7 @@ export {
   U1Icon,
   U1Input,
   U1InputLabel,
+  U1Layout1,
   U1Radio,
   U1RadioGroup,
   U1Checkbox,

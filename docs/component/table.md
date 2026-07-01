@@ -92,6 +92,8 @@ function statusType(value) {
 
 ```vue
 <script setup>
+// columns: 列配置数组，{ prop: 字段名, label: 表头文字 }
+// data: 表格数据源，row-key: 行唯一标识（必填，保证渲染稳定）
 const columns = [
   { prop: 'name', label: '姓名' },
   { prop: 'role', label: '角色' },
@@ -106,6 +108,7 @@ const data = [
 </script>
 
 <template>
+  <!-- columns: 列配置，data: 数据源，row-key: 行唯一标识 -->
   <U1Table :columns="columns" :data="data" row-key="id" />
 </template>
 ```
@@ -130,6 +133,8 @@ const data = [
 
 ```vue
 <script setup>
+// border: 显示边框，stripe: 斑马纹，size: 表格尺寸(mini/small/default/large)
+// width: 固定列宽，minWidth: 最小列宽
 const columns = [
   { prop: 'name', label: '姓名', width: 120 },
   { prop: 'role', label: '角色', minWidth: 160 },
@@ -145,6 +150,7 @@ const data = [
 
 <template>
   <div class="u1-demo-column">
+    <!-- border: 边框，stripe: 斑马纹，size: 表格尺寸 -->
     <U1Table :columns="columns" :data="data" row-key="id" border stripe size="mini" />
     <U1Table :columns="columns" :data="data" row-key="id" border stripe size="small" />
     <U1Table :columns="columns" :data="data" row-key="id" border size="large" />
@@ -171,6 +177,7 @@ const data = [
 
 ```vue
 <script setup>
+// loading: 加载状态，loading-text: 加载文案，empty-text: 空状态文案
 const columns = [
   { prop: 'name', label: '姓名' },
   { prop: 'role', label: '角色' },
@@ -186,6 +193,7 @@ const data = [
 
 <template>
   <div class="u1-demo-column">
+    <!-- loading: 加载状态，empty-text: 空状态文案（data 为空时显示） -->
     <U1Table :columns="columns" :data="data" row-key="id" loading loading-text="加载中" />
     <U1Table :columns="columns" :data="[]" empty-text="暂无数据" />
   </div>
@@ -208,6 +216,7 @@ const data = [
 
 ```vue
 <script setup>
+// align: 单元格对齐(left/center/right)，headerAlign: 表头对齐，showOverflowTooltip: 溢出提示
 const columns = [
   { prop: 'name', label: '姓名', width: 120 },
   { prop: 'role', label: '角色', align: 'center', headerAlign: 'center', width: 140 },
@@ -227,6 +236,7 @@ const data = [
 </script>
 
 <template>
+  <!-- border: 边框，align: 单元格对齐，showOverflowTooltip: 溢出时显示 tooltip -->
   <U1Table :columns="columns" :data="data" row-key="id" border />
 </template>
 ```
@@ -252,6 +262,7 @@ const data = [
 
 ```vue
 <script setup>
+// type: 'index' 序号列，type: 'action' 操作列（渲染 #action 插槽）
 const columns = [
   { type: 'index', label: '#', width: 64, align: 'center', headerAlign: 'center' },
   { prop: 'name', label: '姓名', minWidth: 120 },
@@ -267,6 +278,7 @@ const data = [
 </script>
 
 <template>
+  <!-- type: 'index' 序号列，type: 'action' 操作列（需要 #action 插槽） -->
   <U1Table :columns="columns" :data="data" row-key="id" border>
     <template #action="{ index }">
       <U1Button size="small" link type="primary">编辑 {{ index + 1 }}</U1Button>
@@ -304,6 +316,8 @@ const data = [
 
 ```vue
 <script setup>
+// #header-{prop}: 自定义表头插槽，#cell-{prop}: 自定义单元格插槽
+// { value }: 单元格值，{ row, index }: 行数据和行索引
 const columns = [
   { prop: 'name', label: '成员', minWidth: 120 },
   { prop: 'status', label: '状态', width: 120, align: 'center', headerAlign: 'center' },
@@ -317,19 +331,14 @@ const data = [
 ]
 
 function statusType(value) {
-  if (value === '在线') {
-    return 'success'
-  }
-
-  if (value === '忙碌') {
-    return 'warning'
-  }
-
+  if (value === '在线') return 'success'
+  if (value === '忙碌') return 'warning'
   return 'info'
 }
 </script>
 
 <template>
+  <!-- #header-{prop}: 自定义表头，#cell-{prop}: 自定义单元格 -->
   <U1Table :columns="columns" :data="data" row-key="id" border>
     <template #header-status="{ column }">
       <span>{{ column.label }} / 当前</span>

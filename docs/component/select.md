@@ -27,6 +27,7 @@ const options = [
 <script setup>
 import { ref } from 'vue'
 
+// city: 选择器绑定的值，options: 选项列表 { label: 显示文字, value: 对应值 }
 const city = ref('')
 const options = [
   { label: '上海', value: 'shanghai' },
@@ -36,6 +37,7 @@ const options = [
 </script>
 
 <template>
+  <!-- v-model: 双向绑定，options: 选项列表，placeholder: 占位提示文字 -->
   <U1Select v-model="city" :options="options" placeholder="请选择城市" />
   <span>当前值: {{ city || '空' }}</span>
 </template>
@@ -54,7 +56,12 @@ const options = [
     <summary>Show code</summary>
 
 ```vue
+<script setup>
+// disabled: 禁用状态，model-value: 默认选中的值
+</script>
+
 <template>
+  <!-- disabled: 禁用状态 -->
   <U1Select model-value="shanghai" :options="options" disabled />
 </template>
 ```

@@ -5,8 +5,8 @@
       <ul style="display: flex; flex-direction: column; gap: 4px">
         <li v-for="item in menus" :key="item.path">
           <RouterLink :to="item.path" class="menu_link" :class="{ menu_link_active: isActive(item.path) }">
-            <div class="icon-menu" />
-            <div>{{ item.title }}</div>
+            <div class="icon-menu"></div>
+            <span>{{ item.title }}</span>
           </RouterLink>
         </li>
       </ul>
@@ -53,6 +53,7 @@ function isActive(path: string) {
     background-color 0.15s ease,
     color 0.15s ease;
 }
+
 
 .menu_link_active {
   background-color: #2563eb;

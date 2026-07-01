@@ -22,10 +22,12 @@ const enabled = ref(false)
 <script setup>
 import { ref } from 'vue'
 
+// enabled: 开关绑定的值（布尔值）
 const enabled = ref(false)
 </script>
 
 <template>
+  <!-- v-model: 双向绑定，active-text: 开启时的文案，inactive-text: 关闭时的文案 -->
   <U1Switch v-model="enabled" active-text="开启" inactive-text="关闭" />
   <span>当前状态: {{ enabled ? '开启' : '关闭' }}</span>
 </template>
@@ -45,7 +47,12 @@ const enabled = ref(false)
     <summary>Show code</summary>
 
 ```vue
+<script setup>
+// disabled: 禁用状态，model-value: 默认选中状态
+</script>
+
 <template>
+  <!-- model-value: 默认选中，disabled: 禁用状态 -->
   <U1Switch model-value active-text="开启" inactive-text="关闭" />
   <U1Switch disabled inactive-text="禁用" />
 </template>

@@ -23,10 +23,12 @@ const passwordValue = ref('u1design')
 <script setup>
 import { ref } from 'vue'
 
+// basicValue: 输入框绑定的值
 const basicValue = ref('')
 </script>
 
 <template>
+  <!-- v-model: 双向绑定，placeholder: 占位提示文字，clearable: 显示清空按钮 -->
   <U1Input v-model="basicValue" placeholder="请输入内容" clearable />
   <span>当前值: {{ basicValue || '空' }}</span>
 </template>
@@ -49,10 +51,12 @@ const basicValue = ref('')
 <script setup>
 import { ref } from 'vue'
 
+// passwordValue: 密码框绑定的值
 const passwordValue = ref('u1design')
 </script>
 
 <template>
+  <!-- show-password: 显示密码切换按钮，clearable: 显示清空按钮，disabled: 禁用状态 -->
   <U1Input v-model="passwordValue" show-password clearable />
   <U1Input model-value="Disabled" disabled />
 </template>

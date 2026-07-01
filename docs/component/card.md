@@ -15,7 +15,12 @@
     <summary>Show code</summary>
 
 ```vue
+<script setup>
+// U1Card: 卡片组件，#header: 卡片头部插槽，shadow: 阴影显示时机(always/hover/never)
+</script>
+
 <template>
+  <!-- #header: 卡片头部插槽，style: 卡片最大宽度 -->
   <U1Card style="max-width: 360px">
     <template #header>卡片标题</template>
     U1Card 用于展示成组内容, 适合文档示例, 信息摘要和操作区域.
@@ -38,7 +43,12 @@
     <summary>Show code</summary>
 
 ```vue
+<script setup>
+// shadow: 阴影显示时机 (always 常驻/hover 悬停时/never 无阴影)
+</script>
+
 <template>
+  <!-- shadow: 阴影显示时机 -->
   <U1Card shadow="always" style="width: 220px">Always</U1Card>
   <U1Card shadow="hover" style="width: 220px">Hover</U1Card>
   <U1Card shadow="never" style="width: 220px">Never</U1Card>

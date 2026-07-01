@@ -43,6 +43,7 @@ const visible = ref(false)
 <script setup>
 import { ref } from 'vue'
 
+// visible: 对话框显示状态（必填）
 const visible = ref(false)
 </script>
 
@@ -51,6 +52,13 @@ const visible = ref(false)
     <U1Button type="primary" @click="visible = true">打开完整功能对话框</U1Button>
   </div>
 
+  <!--
+    v-model: 控制显示/隐藏
+    title: 对话框标题
+    width: 宽度，top: 距离顶部偏移量
+    show-close: 显示关闭按钮，lock-scroll: 锁定背景滚动
+    draggable: 可拖拽，close-on-click-modal: 点击遮罩关闭
+  -->
   <U1Dialog
     v-model="visible"
     title="完整功能"

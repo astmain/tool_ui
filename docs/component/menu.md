@@ -28,6 +28,7 @@ const items = [
 <script setup>
 import { ref } from 'vue'
 
+// active: 当前激活菜单项，items: 菜单项数组 { index: 唯一标识, label: 显示文字, disabled?: 是否禁用 }
 const active = ref('dashboard')
 const items = [
   { index: 'dashboard', label: '工作台' },
@@ -38,6 +39,7 @@ const items = [
 </script>
 
 <template>
+  <!-- v-model:active: 绑定当前激活项，items: 菜单项数组 -->
   <U1Menu v-model:active="active" :items="items" />
   <span>当前项: {{ active }}</span>
 </template>
@@ -59,6 +61,7 @@ const items = [
 <script setup>
 import { ref } from 'vue'
 
+// active: 当前激活菜单项，items: 菜单项数组，mode: 菜单模式(vertical 垂直/horizontal 水平)
 const active = ref('dashboard')
 const items = [
   { index: 'dashboard', label: '工作台' },
@@ -69,6 +72,7 @@ const items = [
 </script>
 
 <template>
+  <!-- mode="horizontal": 水平菜单模式（默认 vertical 垂直） -->
   <U1Menu v-model:active="active" :items="items" mode="horizontal" />
 </template>
 ```

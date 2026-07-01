@@ -54,7 +54,6 @@ function isActive(path: string) {
     color 0.15s ease;
 }
 
-/* 通过 font-size 控制 .icon-* 尺寸: 基类 [class^="icon-"] { width:1em; height:1em } */
 
 .menu_link_active {
   background-color: #2563eb;

@@ -23,10 +23,12 @@ const cities = ref(['shanghai'])
 <script setup>
 import { ref } from 'vue'
 
+// checked: 多选框绑定的值（布尔值）
 const checked = ref(false)
 </script>
 
 <template>
+  <!-- v-model: 双向绑定 -->
   <U1Checkbox v-model="checked">同意协议</U1Checkbox>
   <span>当前值: {{ checked }}</span>
 </template>
@@ -55,10 +57,12 @@ const checked = ref(false)
 <script setup>
 import { ref } from 'vue'
 
+// cities: 多选框组绑定的数组
 const cities = ref(['shanghai'])
 </script>
 
 <template>
+  <!-- U1CheckboxGroup: 多选框分组，v-model: 双向绑定，label: 选项的值 -->
   <U1CheckboxGroup v-model="cities">
     <U1Checkbox label="shanghai">上海</U1Checkbox>
     <U1Checkbox label="beijing">北京</U1Checkbox>
@@ -83,7 +87,12 @@ const cities = ref(['shanghai'])
     <summary>Show code</summary>
 
 ```vue
+<script setup>
+// disabled: 禁用状态，indeterminate: 半选状态，label: 选项的值
+</script>
+
 <template>
+  <!-- disabled: 禁用状态，indeterminate: 半选状态 -->
   <U1Checkbox model-value disabled>禁用</U1Checkbox>
   <U1Checkbox indeterminate>半选</U1Checkbox>
 </template>

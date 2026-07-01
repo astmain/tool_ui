@@ -45,7 +45,12 @@
     <summary>Show code</summary>
 
 ```vue
+<script setup>
+// 按钮组件无需额外配置，直接使用即可
+</script>
+
 <template>
+  <!-- type: 按钮类型，primary/success/warning/danger/info/default -->
   <U1Button>Default</U1Button>
   <U1Button type="primary">Primary</U1Button>
   <U1Button type="success">Success</U1Button>
@@ -54,12 +59,15 @@
   <U1Button type="danger">Danger</U1Button>
   <U1Button label="我的按钮"></U1Button>
 
+  <!-- plain: 朴素按钮样式 -->
   <U1Button plain>Plain</U1Button>
   <U1Button type="primary" plain>Primary</U1Button>
 
+  <!-- round: 圆角按钮 -->
   <U1Button round>Round</U1Button>
   <U1Button type="primary" round>Primary</U1Button>
 
+  <!-- circle: 圆形按钮 -->
   <U1Button circle>+</U1Button>
   <U1Button type="primary" circle>+</U1Button>
 </template>
@@ -95,7 +103,12 @@
     <summary>Show code</summary>
 
 ```vue
+<script setup>
+// disabled: 是否禁用按钮，true 为禁用状态
+</script>
+
 <template>
+  <!-- disabled: 禁用状态按钮 -->
   <U1Button disabled>Disabled</U1Button>
   <U1Button type="primary" disabled>Primary</U1Button>
   <U1Button plain disabled>Plain</U1Button>
@@ -119,7 +132,12 @@
     <summary>Show code</summary>
 
 ```vue
+<script setup>
+// text: 文字按钮样式，bg: 是否带背景，disabled: 是否禁用
+</script>
+
 <template>
+  <!-- text: 文字按钮，bg: 带背景的文字按钮 -->
   <U1Button text>Text button</U1Button>
   <U1Button text bg>Text with background</U1Button>
   <U1Button text disabled>Disabled text</U1Button>
@@ -143,7 +161,12 @@
     <summary>Show code</summary>
 
 ```vue
+<script setup>
+// link: 链接按钮样式
+</script>
+
 <template>
+  <!-- link: 链接按钮 -->
   <U1Button link type="primary">Primary link</U1Button>
   <U1Button link type="success">Success link</U1Button>
   <U1Button link type="danger">Danger link</U1Button>
@@ -169,11 +192,22 @@
     <summary>Show code</summary>
 
 ```vue
+<script setup>
+// icon: 左侧图标，iconRight: 右侧图标，circle: 圆形按钮，label: 按钮文字
+</script>
+
 <template>
+  <!-- icon: 左侧图标，label: 按钮文字 -->
   <U1Button type="primary" icon="add" label="Create"></U1Button>
   <U1Button icon="search" label="Search"></U1Button>
+
+  <!-- iconRight: 右侧图标 -->
   <U1Button iconRight="check" label="Confirm"></U1Button>
+
+  <!-- icon: 图标名称不存在时显示兜底图标 -->
   <U1Button type="danger" icon="not-exists" label="Fallback"></U1Button>
+
+  <!-- circle: 圆形按钮 + aria-label 无障碍标签 -->
   <U1Button type="danger" icon="close" circle aria-label="Close"></U1Button>
 </template>
 ```
@@ -194,7 +228,12 @@
     <summary>Show code</summary>
 
 ```vue
+<script setup>
+// loading: 加载中状态
+</script>
+
 <template>
+  <!-- loading: 加载中状态按钮 -->
   <U1Button type="primary" loading>Loading</U1Button>
   <U1Button loading>Loading</U1Button>
 </template>
@@ -218,7 +257,12 @@
     <summary>Show code</summary>
 
 ```vue
+<script setup>
+// size: 按钮尺寸，large/默认/small/mini
+</script>
+
 <template>
+  <!-- size: 按钮尺寸 -->
   <U1Button size="large">Large</U1Button>
   <U1Button>Default</U1Button>
   <U1Button size="small">Small</U1Button>

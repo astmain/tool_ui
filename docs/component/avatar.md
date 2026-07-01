@@ -14,12 +14,19 @@
     <summary>Show code</summary>
 
 ```vue
+<script setup>
+// src: 图片地址，alt: 替代文本，shape: 形状(circle 圆形/square 方形)
+</script>
+
 <template>
-  <div class="u1-demo-row">
-    <U1Avatar src="https://cube.elemecdn.com/e/fd/0fc7d20532fdaf769a25683617711png.png" alt="User avatar" />
-    <U1Avatar>U1</U1Avatar>
-    <U1Avatar shape="square">U1</U1Avatar>
-  </div>
+  <!-- src: 头像图片地址，alt: 图片加载失败时显示的替代文本 -->
+  <U1Avatar src="https://cube.elemecdn.com/e/fd/0fc7d20532fdaf769a25683617711png.png" alt="User avatar" />
+
+  <!-- 纯文字头像（无 src 时显示插槽内容） -->
+  <U1Avatar>U1</U1Avatar>
+
+  <!-- shape="square": 方形头像 -->
+  <U1Avatar shape="square">U1</U1Avatar>
 </template>
 ```
 
@@ -39,13 +46,16 @@
     <summary>Show code</summary>
 
 ```vue
+<script setup>
+// size: 头像尺寸 (mini 小/small 中/default 默认/large 大)
+</script>
+
 <template>
-  <div class="u1-demo-row">
-    <U1Avatar size="mini">XS</U1Avatar>
-    <U1Avatar size="small">S</U1Avatar>
-    <U1Avatar>M</U1Avatar>
-    <U1Avatar size="large">L</U1Avatar>
-  </div>
+  <!-- size: 头像尺寸 -->
+  <U1Avatar size="mini">XS</U1Avatar>
+  <U1Avatar size="small">S</U1Avatar>
+  <U1Avatar>M</U1Avatar>
+  <U1Avatar size="large">L</U1Avatar>
 </template>
 ```
 
@@ -62,10 +72,13 @@
     <summary>Show code</summary>
 
 ```vue
+<script setup>
+// src: 图片地址（可以是无效地址），alt: 替代文本
+</script>
+
 <template>
-  <div class="u1-demo-row">
-    <U1Avatar src="/not-found-avatar.png" alt="Missing avatar">NA</U1Avatar>
-  </div>
+  <!-- 图片加载失败时，显示插槽内容作为回退 -->
+  <U1Avatar src="/not-found-avatar.png" alt="Missing avatar">NA</U1Avatar>
 </template>
 ```
 

@@ -30,10 +30,12 @@ const city = ref('shanghai')
 <script setup>
 import { ref } from 'vue'
 
+// city: 单选框绑定的值，默认为 'shanghai'
 const city = ref('shanghai')
 </script>
 
 <template>
+  <!-- U1RadioGroup: 单选框分组，v-model: 双向绑定，label: 选项的值 -->
   <U1RadioGroup v-model="city">
     <U1Radio label="shanghai">上海</U1Radio>
     <U1Radio label="beijing">北京</U1Radio>
@@ -57,7 +59,12 @@ const city = ref('shanghai')
     <summary>Show code</summary>
 
 ```vue
+<script setup>
+// disabled: 禁用状态，label: 选项的值（与 model-value 相同时为选中状态）
+</script>
+
 <template>
+  <!-- disabled: 禁用状态 -->
   <U1Radio model-value="a" label="a" disabled>禁用已选</U1Radio>
   <U1Radio model-value="a" label="b" disabled>禁用未选</U1Radio>
 </template>

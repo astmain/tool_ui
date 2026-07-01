@@ -23,8 +23,13 @@
     <summary>Show code</summary>
 
 ```vue
+<script setup>
+// U1Affix: 内容吸附组件，position: 吸附方向(top 顶部/bottom 底部)，offset: 偏移量
+</script>
+
 <template>
   <div class="scroll-area">
+    <!-- position="top": 吸附到顶部，滚动时保持可见 -->
     <U1Affix>
       <U1Card>默认吸附到顶部</U1Card>
     </U1Affix>
@@ -59,7 +64,12 @@
     <summary>Show code</summary>
 
 ```vue
+<script setup>
+// position: 吸附方向(bottom 底部)，offset: 距离边缘的偏移量
+</script>
+
 <template>
+  <!-- position="bottom": 吸附到底部 -->
   <U1Affix position="bottom" :offset="12">
     <U1Card>底部吸附</U1Card>
   </U1Affix>
@@ -81,7 +91,12 @@
     <summary>Show code</summary>
 
 ```vue
+<script setup>
+// disabled: 是否禁用吸附功能
+</script>
+
 <template>
+  <!-- disabled: 禁用吸附，内容保持普通文档流 -->
   <U1Affix :disabled="true">
     <U1Card>普通文档流</U1Card>
   </U1Affix>

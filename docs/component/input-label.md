@@ -24,10 +24,12 @@ const secretValue = ref('u1design')
 <script setup>
 import { ref } from 'vue'
 
+// textValue: 输入框绑定的值
 const textValue = ref('')
 </script>
 
 <template>
+  <!-- v-model: 双向绑定，label: 标签文字，placeholder: 占位提示文字 -->
   <U1InputLabel v-model="textValue" label="名称" placeholder="请输入名称" />
 </template>
 ```
@@ -52,7 +54,15 @@ const textValue = ref('')
     <summary>Show code</summary>
 
 ```vue
+<script setup>
+import { ref } from 'vue'
+
+// textValue: 输入框绑定的值
+const textValue = ref('')
+</script>
+
 <template>
+  <!-- label-width: 标签宽度，label-position: 标签对齐方式(left/right)，input-width: 输入框宽度 -->
   <U1InputLabel
     v-model="textValue"
     label="用户名称"
@@ -81,10 +91,12 @@ const textValue = ref('')
 <script setup>
 import { ref } from 'vue'
 
+// numberValue: 输入框绑定的值
 const numberValue = ref('')
 </script>
 
 <template>
+  <!-- type="number": 只允许输入数字 -->
   <U1InputLabel v-model="numberValue" label="数量" type="number" placeholder="只记录数字" />
 </template>
 ```
@@ -107,10 +119,12 @@ const numberValue = ref('')
 <script setup>
 import { ref } from 'vue'
 
+// secretValue: 输入框绑定的值
 const secretValue = ref('u1design')
 </script>
 
 <template>
+  <!-- show: 显示明文切换按钮，readonly: 只读状态，disabled: 禁用状态 -->
   <U1InputLabel v-model="secretValue" label="密钥" show />
   <U1InputLabel model-value="Readonly" label="只读" readonly />
   <U1InputLabel model-value="Disabled" label="禁用" disabled />

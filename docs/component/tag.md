@@ -16,7 +16,12 @@
     <summary>Show code</summary>
 
 ```vue
+<script setup>
+// type: 标签类型 (primary/success/warning/danger/info)
+</script>
+
 <template>
+  <!-- type: 标签类型 -->
   <U1Tag>Primary</U1Tag>
   <U1Tag type="success">Success</U1Tag>
   <U1Tag type="warning">Warning</U1Tag>
@@ -40,9 +45,16 @@
     <summary>Show code</summary>
 
 ```vue
+<script setup>
+// effect: 主题样式 (light 浅色/dark 深色/plain 朴素)，closable: 是否显示关闭按钮
+</script>
+
 <template>
+  <!-- effect: 主题样式 -->
   <U1Tag effect="dark">Dark</U1Tag>
   <U1Tag effect="plain">Plain</U1Tag>
+
+  <!-- closable: 显示关闭按钮，点击后触发 close 事件并隐藏 -->
   <U1Tag closable>Closable, click x</U1Tag>
 </template>
 ```

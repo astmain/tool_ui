@@ -5,7 +5,7 @@
 ## 功能特点
 - Vue 3 组件库 - 支持全量插件安装, 单组件导入和样式文件导入.
 - 基础组件 - 已覆盖 Affix, Button, Icon, Input, InputLabel, Radio, RadioGroup, Checkbox, CheckboxGroup, Select, Switch, Avatar, Tag, Message.
-- 高级组件 - 已覆盖 Card, Dialog, Table, Menu.
+- 高级组件 - 已覆盖 Card, Dialog, Table, Menu, Layout.
 - Button 图标能力 - `U1Button` 支持 `label`, `icon`, `icon-left`, `icon-right` 和 `class="icon-name"` 图标写法.
 - SVG 图标能力 - `U1Icon` 统一渲染 SVG 图标, 图标源码按单个 `.vue` 文件维护在 `src/icon/icons`, 同时通过 `scripts/build-icon-css.mjs` 自动生成 41 个 CSS class (`icon-xxx`), 支持 `<U1Icon name="xxx" />` 和 `<div class="icon-xxx" />` 两种使用方式.
 - 主题能力 - 提供主题 token, CSS 变量应用, 主题重置和主题代码生成.
@@ -103,6 +103,7 @@ C-AAA-tool_ui
 |   |   |-- dialog.md               # U1Dialog 文档
 |   |   |-- table.md                # U1Table 文档
 |   |   |-- menu.md                 # U1Menu 文档
+|   |-- layout1.md              # U1Layout1 文档
 |   |   `-- design/                 # 颜色, 图标和主题编辑器文档
 |   `-- package.json               # docs 包脚本和 workspace 依赖
 |-- packages/
@@ -124,6 +125,7 @@ C-AAA-tool_ui
 |           |-- input/              # U1Input
 |           |-- input-label/        # U1InputLabel
 |           |-- menu/               # U1Menu
+|           |-- layout/              # U1Layout1
 |           |-- message/            # U1Message
 |           |-- radio/              # U1Radio 和 U1RadioGroup
 |           |-- select/             # U1Select

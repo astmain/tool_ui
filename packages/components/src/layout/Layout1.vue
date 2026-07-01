@@ -1,8 +1,8 @@
 <template>
-  <div class="u1-layout1">
+  <div class="u1-layout1" :class="{ 'u1-layout1--collapsed': collapsed }">
     <aside
       class="u1-layout1__sidebar"
-      :style="{ width: mergedConfig.sidebarWidth, backgroundColor: mergedConfig.sidebarBgColor }"
+      :style="{ width: sidebarWidth, backgroundColor: mergedConfig.sidebarBgColor }"
     >
       <slot name="header" />
       <nav class="u1-layout1__menu">
@@ -19,11 +19,12 @@
                 '--u1-item-color': mergedConfig.itemColor,
                 '--u1-item-hover-color': mergedConfig.itemHoverColor
               }"
+              :title="collapsed ? item.title : undefined"
               :disabled="item.disabled"
               @click="handleSelect(item)"
             >
               <span v-if="item.icon" class="u1-layout1__icon" :class="item.icon"></span>
-              <span>{{ item.title }}</span>
+              <span class="u1-layout1__title">{{ item.title }}</span>
             </button>
           </li>
         </ul>
@@ -49,6 +50,7 @@ export interface Layout1MenuItem {
 
 export interface Layout1Config {
   sidebarWidth?: string
+  collapsedWidth?: string
   sidebarBgColor?: string
   activeBgColor?: string
   activeColor?: string
@@ -61,16 +63,19 @@ const props = withDefaults(
   defineProps<{
     menus: Layout1MenuItem[]
     activePath?: string
+    collapsed?: boolean
     config?: Layout1Config
   }>(),
   {
     activePath: '',
+    collapsed: false,
     config: () => ({})
   }
 )
 
 const defaultConfig: Required<Layout1Config> = {
   sidebarWidth: '170px',
+  collapsedWidth: '64px',
   sidebarBgColor: '#1f2937',
   activeBgColor: '#2563eb',
   activeColor: '#fff',
@@ -81,8 +86,15 @@ const defaultConfig: Required<Layout1Config> = {
 
 const mergedConfig = computed(() => ({ ...defaultConfig, ...props.config }))
 
+// 折叠时使用 collapsedWidth 收窄侧边栏, 否则使用常规 sidebarWidth
+const sidebarWidth = computed(() =>
+  props.collapsed ? mergedConfig.value.collapsedWidth : mergedConfig.value.sidebarWidth
+)
+
 const emit = defineEmits<{
   select: [path: string]
+  // 折叠状态双向绑定 v-model:collapsed, 由父组件驱动切换
+  'update:collapsed': [value: boolean]
 }>()
 
 function handleSelect(item: Layout1MenuItem) {
@@ -104,6 +116,8 @@ function handleSelect(item: Layout1MenuItem) {
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
+  overflow: hidden;
+  transition: width 0.2s ease;
 }
 
 .u1-layout1__menu {
@@ -160,6 +174,20 @@ function handleSelect(item: Layout1MenuItem) {
 .u1-layout1__link:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+.u1-layout1__title {
+  white-space: nowrap;
+}
+
+.u1-layout1--collapsed .u1-layout1__link {
+  justify-content: center;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.u1-layout1--collapsed .u1-layout1__title {
+  display: none;
 }
 
 .u1-layout1__icon {

@@ -36,6 +36,14 @@ const demo4Menus = [             // 菜单数据数组
   { path: '/profile', title: '个人中心' },
 ]
 const demo4Active = ref('/home')
+
+const collapseMenus = [          // 折叠演示菜单数据
+  { path: '/home', title: '首页', icon: 'icon-home' },
+  { path: '/users', title: '用户管理', icon: 'icon-users' },
+  { path: '/settings', title: '设置', icon: 'icon-settings' },
+]
+const collapseActive = ref('/home')
+const collapsed = ref(false)
 </script>
 
 ## 基础用法
@@ -261,6 +269,53 @@ const activePath = ref('/home') // 当前选中菜单的路径（需要与 menus
   </details>
 </div>
 
+## 折叠侧边栏
+
+通过 `collapsed` 属性控制侧边栏折叠, 支持 `v-model:collapsed`. 折叠后仅显示图标, 鼠标悬停显示完整标题, 折叠宽度可用 `config.collapsedWidth` 自定义.
+
+<div class="u1-demo">
+  <div class="u1-demo__body">
+    <div class="u1-demo-row" style="flex-direction: column; align-items: flex-start; gap: 12px;">
+      <button type="button" @click="collapsed = !collapsed" style="padding: 6px 14px; cursor: pointer;">{{ collapsed ? '展开' : '折叠' }}</button>
+      <U1Layout1 :menus="collapseMenus" :active-path="collapseActive" v-model:collapsed="collapsed" @select="collapseActive = $event" style="height: 220px; border: 1px solid #ddd;">
+        <div style="padding: 16px;">Content Area</div>
+      </U1Layout1>
+    </div>
+  </div>
+  <details class="u1-demo__footer">
+    <summary>Show code</summary>
+
+```vue
+<script setup>
+import { ref } from 'vue'
+
+const menus = [
+  { path: '/home', title: '首页', icon: 'icon-home' },
+  { path: '/users', title: '用户管理', icon: 'icon-users' },
+  { path: '/settings', title: '设置', icon: 'icon-settings' },
+]
+const activePath = ref('/home')
+const collapsed = ref(false)      // 折叠状态 由父组件控制
+</script>
+
+<template>
+  <button type="button" @click="collapsed = !collapsed">
+    {{ collapsed ? '展开' : '折叠' }}
+  </button>
+  <U1Layout1
+    :menus="menus"
+    :active-path="activePath"
+    v-model:collapsed="collapsed"
+    @select="activePath = $event"
+  >
+    <div>Content Area</div>
+  </U1Layout1>
+</template>
+```
+
+  </details>
+</div>
+
 ## Slots
 
 <table class="u1-api-table">
@@ -278,6 +333,7 @@ const activePath = ref('/home') // 当前选中菜单的路径（需要与 menus
   <thead><tr><th>事件名</th><th>说明</th><th>参数</th></tr></thead>
   <tbody>
     <tr><td>select</td><td>菜单项点击时触发</td><td>(path: string) 当前菜单项的路径</td></tr>
+    <tr><td>update:collapsed</td><td>折叠状态变化时触发 配合 v-model:collapsed 使用</td><td>(value: boolean) 是否折叠</td></tr>
   </tbody>
 </table>
 
@@ -288,6 +344,7 @@ const activePath = ref('/home') // 当前选中菜单的路径（需要与 menus
   <tbody>
     <tr><td>menus</td><td>菜单列表（必填）</td><td>Layout1MenuItem[]</td><td>-</td></tr>
     <tr><td>activePath</td><td>当前激活的菜单路径</td><td>string</td><td>''</td></tr>
+    <tr><td>collapsed</td><td>是否折叠侧边栏 支持 v-model</td><td>boolean</td><td>false</td></tr>
     <tr><td>config</td><td>样式配置对象（详见 Layout1Config）</td><td>Layout1Config</td><td>{}</td></tr>
   </tbody>
 </table>
@@ -297,6 +354,7 @@ const activePath = ref('/home') // 当前选中菜单的路径（需要与 menus
 ```typescript
 interface Layout1Config {
   sidebarWidth?: string       // 侧边栏宽度，默认 '170px'
+  collapsedWidth?: string    // 折叠时侧边栏宽度，默认 '64px'
   sidebarBgColor?: string    // 侧边栏背景色，默认 '#1f2937'
   activeBgColor?: string     // 当前选中菜单的背景色，默认 '#2563eb'
   activeColor?: string       // 当前选中菜单的文字颜色，默认 '#fff'

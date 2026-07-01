@@ -3,9 +3,14 @@ import { resolve } from 'node:path'
 import { describe, expect, it } from 'vitest'
 
 const root = resolve(__dirname, '..', '..', '..', '..')
+const docsRoot = resolve(root, 'packages', 'docs')
 
 function readProjectFile(path: string) {
   return readFileSync(resolve(root, path), 'utf8')
+}
+
+function readDocsFile(path: string) {
+  return readFileSync(resolve(docsRoot, path), 'utf8')
 }
 
 function listMarkdownFiles(dir: string): string[] {
@@ -26,7 +31,7 @@ function countMatches(source: string, pattern: RegExp) {
 
 describe('docs layout regressions', () => {
   it('does not override VitePress shell layout primitives', () => {
-    const css = readProjectFile('docs/.vitepress/theme/style.css')
+    const css = readDocsFile('.vitepress/theme/style.css')
 
     expect(css).toContain('--vp-layout-max-width: 1680px')
     expect(css).toMatch(/\.VPDoc\.has-aside\s+\.content-container\s*{[^}]*max-width:\s*920px\s*!important/s)
@@ -36,15 +41,15 @@ describe('docs layout regressions', () => {
   })
 
   it('does not show VitePress heading anchor marks in component docs', () => {
-    const css = readProjectFile('docs/.vitepress/theme/style.css')
+    const css = readDocsFile('.vitepress/theme/style.css')
 
     expect(css).toMatch(/\.vp-doc\s+\.header-anchor\s*{[^}]*display:\s*none/s)
   })
 
   it('keeps documented svg icon usage available', () => {
     const componentCss = readProjectFile('packages/components/src/styles/index.css')
-    const docsCss = readProjectFile('docs/.vitepress/theme/style.css')
-    const icons = readProjectFile('docs/component/design/icons.md')
+    const docsCss = readDocsFile('.vitepress/theme/style.css')
+    const icons = readDocsFile('component/design/icons.md')
 
     expect(icons).toContain('<table class="u1-icon-table">')
     expect(icons).toContain('<div class="u1-demo__body u1-icon-table-demo__body">')
@@ -82,14 +87,14 @@ describe('docs layout regressions', () => {
   })
 
   it('does not render a dialog open on page load', () => {
-    const markdown = readProjectFile('docs/component/dialog.md')
+    const markdown = readDocsFile('component/dialog.md')
 
     expect(markdown).not.toContain('<U1Dialog model-value')
     expect(markdown).not.toContain('<U1Dialog :model-value="true"')
   })
 
   it('uses markdown headings for demo sections so outlines stay accurate', () => {
-    const componentDir = resolve(root, 'docs/component')
+    const componentDir = resolve(docsRoot, 'component')
     const files = readdirSync(componentDir).filter((file) => file.endsWith('.md'))
 
     for (const file of files) {
@@ -100,7 +105,7 @@ describe('docs layout regressions', () => {
   })
 
   it('renders a Show code footer for every component demo block', () => {
-    const componentDir = resolve(root, 'docs/component')
+    const componentDir = resolve(docsRoot, 'component')
     const files = listMarkdownFiles(componentDir)
 
     for (const file of files) {
@@ -117,7 +122,7 @@ describe('docs layout regressions', () => {
   })
 
   it('wraps component demos with padded content containers', () => {
-    const componentDir = resolve(root, 'docs/component')
+    const componentDir = resolve(docsRoot, 'component')
     const files = listMarkdownFiles(componentDir)
     const directComponentPattern = /<div class="u1-demo">\s*<(?!div class="u1-demo(?:__body|-row)"|details class="u1-demo__footer"|\/div)(U1|span|table|script)/g
 
@@ -129,9 +134,9 @@ describe('docs layout regressions', () => {
   })
 
   it('keeps component navigation limited to developed components and design pages', () => {
-    const config = readProjectFile('docs/.vitepress/config.ts')
-    const overview = readProjectFile('docs/component/overview.md')
-    const index = readProjectFile('docs/index.md')
+    const config = readDocsFile('.vitepress/config.ts')
+    const overview = readDocsFile('component/overview.md')
+    const index = readDocsFile('index.md')
 
     expect(config).toContain("text: '基础组件'")
     expect(config).toContain("text: '高级组件'")

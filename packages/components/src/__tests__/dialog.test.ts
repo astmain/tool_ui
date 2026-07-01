@@ -120,7 +120,7 @@ describe('U1Dialog', () => {
 
     expect(wrapper.get('.u1-dialog').classes()).toContain('is-dragging')
 
-    ;(wrapper.vm as Record<string, unknown>).endDrag?.()
+    ;(wrapper.vm as unknown as { endDrag?: () => void }).endDrag?.()
 
     await wrapper.vm.$nextTick()
     expect(wrapper.get('.u1-dialog').classes()).not.toContain('is-dragging')

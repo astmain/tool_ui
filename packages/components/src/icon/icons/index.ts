@@ -101,6 +101,23 @@ export function resolveIconName(name: string): IconName {
   return 'close'
 }
 
+const warnedIconNames = new Set<string>()
+
+function warnUnknownIcon(name: string): void {
+  const isDev = typeof process !== 'undefined' && process.env?.NODE_ENV !== 'production'
+
+  if (!isDev || warnedIconNames.has(name)) {
+    return
+  }
+
+  warnedIconNames.add(name)
+  console.warn(`[U1Icon] 未知图标名 "${name}"，已回退为 "close"。请检查 name 是否拼写正确。`)
+}
+
 export function getIconComponent(name: string): Component {
+  if (name && !(name in iconMap) && !(name in iconAliases)) {
+    warnUnknownIcon(name)
+  }
+
   return iconMap[resolveIconName(name)]
 }

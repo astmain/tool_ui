@@ -27,6 +27,12 @@
 <script setup lang="ts">
 import { computed, onBeforeUnmount, reactive, ref, watch } from 'vue'
 
+// 跨 Dialog 实例共享的滚动锁引用计数：多个 Dialog 叠加时，
+// 只有最后一个关闭的实例才恢复 body 原始 overflow，避免提前解锁。
+let bodyScrollLockCount = 0
+let savedBodyOverflow = ''
+
+
 const props = withDefaults(
   defineProps<{
     modelValue?: boolean
@@ -60,7 +66,6 @@ const emit = defineEmits<{
 const position = reactive({ x: 0, y: 0 })
 const lastPointer = reactive({ x: 0, y: 0 })
 const isDragging = ref(false)
-const originalBodyOverflow = ref('')
 const hasLockedBodyScroll = ref(false)
 const canUseDocument = typeof document !== 'undefined'
 
@@ -104,12 +109,16 @@ function resetPosition() {
 }
 
 function lockBodyScroll() {
-  if (!props.lockScroll || !canUseDocument || document.body.style.overflow === 'hidden') {
+  if (!props.lockScroll || !canUseDocument || hasLockedBodyScroll.value) {
     return
   }
 
-  originalBodyOverflow.value = document.body.style.overflow
-  document.body.style.overflow = 'hidden'
+  if (bodyScrollLockCount === 0) {
+    savedBodyOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+  }
+
+  bodyScrollLockCount += 1
   hasLockedBodyScroll.value = true
 }
 
@@ -118,8 +127,12 @@ function unlockBodyScroll() {
     return
   }
 
-  document.body.style.overflow = originalBodyOverflow.value
   hasLockedBodyScroll.value = false
+  bodyScrollLockCount = Math.max(0, bodyScrollLockCount - 1)
+
+  if (bodyScrollLockCount === 0) {
+    document.body.style.overflow = savedBodyOverflow
+  }
 }
 
 function startDrag(event: MouseEvent) {

@@ -14,10 +14,11 @@ defineOptions({
 
 const props = withDefaults(
   defineProps<{
-    modelValue: U1CheckboxValue[]
+    modelValue?: U1CheckboxValue[]
     disabled?: boolean
   }>(),
   {
+    modelValue: () => [],
     disabled: false
   }
 )
@@ -27,10 +28,11 @@ const emit = defineEmits<{
   change: [value: U1CheckboxValue[]]
 }>()
 
-const modelValue = computed(() => props.modelValue)
+const modelValue = computed(() => (Array.isArray(props.modelValue) ? props.modelValue : []))
 
 function change(value: U1CheckboxValue, checked: boolean) {
-  const nextValue = checked ? [...props.modelValue, value] : props.modelValue.filter((item) => item !== value)
+  const current = modelValue.value
+  const nextValue = checked ? [...current, value] : current.filter((item) => item !== value)
 
   emit('update:modelValue', nextValue)
   emit('change', nextValue)

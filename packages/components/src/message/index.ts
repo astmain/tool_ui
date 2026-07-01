@@ -42,6 +42,7 @@ interface MessageInstance {
   close: () => void
   onClose?: () => void
   closed: boolean
+  timer?: number
 }
 
 type MessageState = MessageInstance['props']
@@ -109,6 +110,12 @@ function closeInstance(instance: MessageInstance) {
   }
 
   instance.closed = true
+
+  if (instance.timer !== undefined) {
+    window.clearTimeout(instance.timer)
+    instance.timer = undefined
+  }
+
   const index = instances.findIndex((item) => item.id === instance.id)
 
   if (index !== -1) {
@@ -167,7 +174,7 @@ function createMessage(options: string | U1MessageOptions, type?: U1MessageType)
   instances.push(instance)
 
   if (props.duration > 0) {
-    window.setTimeout(instance.close, props.duration)
+    instance.timer = window.setTimeout(instance.close, props.duration)
   }
 
   return {

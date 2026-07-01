@@ -62,7 +62,8 @@ const inputRef = ref<HTMLInputElement>()
 
 const checked = computed(() => {
   if (group) {
-    return group.modelValue.value.includes(props.label)
+    const groupValue = group.modelValue.value
+    return Array.isArray(groupValue) && groupValue.includes(props.label)
   }
 
   return props.modelValue === props.trueValue

@@ -17,6 +17,7 @@ import { U1Table } from './table'
 import { U1Tag } from './tag'
 import { U1ThemeEditor, U1ThemeEditorDialog } from './theme-editor'
 import './styles/index.css'
+import './styles/icons.css'
 
 const components = [
   U1Affix,

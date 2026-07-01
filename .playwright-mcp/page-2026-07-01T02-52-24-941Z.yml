@@ -1,0 +1,15 @@
+- generic [ref=f4e3]:
+  - navigation [ref=f4e4]:
+    - list [ref=f4e5]:
+      - listitem [ref=f4e6]:
+        - link "首页" [ref=f4e7] [cursor=pointer]:
+          - /url: /home
+          - generic [ref=f4e9]: 首页
+      - listitem [ref=f4e10]:
+        - link "关于" [ref=f4e11] [cursor=pointer]:
+          - /url: /about
+          - generic [ref=f4e13]: 关于
+  - main [ref=f4e14]:
+    - generic [ref=f4e15]:
+      - heading "首页" [level=1] [ref=f4e16]
+      - paragraph [ref=f4e17]: tool_ui1 组件库的演示首页。

@@ -7,7 +7,7 @@
 - 基础组件 - 已覆盖 Affix, Button, Icon, Input, InputLabel, Radio, RadioGroup, Checkbox, CheckboxGroup, Select, Switch, Avatar, Tag, Message.
 - 高级组件 - 已覆盖 Card, Dialog, Table, Menu.
 - Button 图标能力 - `U1Button` 支持 `label`, `icon`, `icon-left`, `icon-right` 和 `class="icon-name"` 图标写法.
-- SVG 图标能力 - `U1Icon` 统一渲染 SVG 图标, 图标源码按单个 `.vue` 文件维护在 `src/icon/icons`.
+- SVG 图标能力 - `U1Icon` 统一渲染 SVG 图标, 图标源码按单个 `.vue` 文件维护在 `src/icon/icons`, 同时通过 `scripts/build-icon-css.mjs` 自动生成 41 个 CSS class (`icon-xxx`), 支持 `<U1Icon name="xxx" />` 和 `<div class="icon-xxx" />` 两种使用方式.
 - 主题能力 - 提供主题 token, CSS 变量应用, 主题重置和主题代码生成.
 - 主题编辑器 - 提供 `U1ThemeEditor` 和 `U1ThemeEditorDialog`, 文档站右下角可打开主题编辑器浮窗.
 - 文档站 - 基于 VitePress, 当前组件文档按基础组件, 高级组件和设计分组组织.
@@ -109,8 +109,10 @@ C-AAA-tool_ui
 |   `-- components/                 # tool_ui1 组件包
 |       |-- package.json            # 包入口, exports 和 peerDependencies
 |       |-- vite.config.ts          # 组件库构建配置
+|       |-- scripts/                 # 构建脚本
+|       |   `-- build-icon-css.mjs  # 从 src/icon/icons/*.vue 自动生成 icons.css
 |       `-- src/
-|           |-- index.ts            # 组件导出和插件安装入口
+|           |-- index.ts            # 组件导出和插件安装入口, 自动导入 icons.css
 |           |-- affix/              # U1Affix
 |           |-- avatar/             # U1Avatar
 |           |-- button/             # U1Button
@@ -130,7 +132,8 @@ C-AAA-tool_ui
 |           |-- tag/                # U1Tag
 |           |-- theme/              # 主题 token, 应用, 重置和代码生成
 |           |-- theme-editor/       # U1ThemeEditor 和 U1ThemeEditorDialog
-|           |-- styles/             # 全局样式和组件样式
+|           |-- styles/             # 全局样式, 组件样式和图标 CSS
+|           |   `-- icons.css       # 自动生成, 包含 41 个 icon-xxx CSS class
 |           `-- __tests__/          # 组件, 主题, 图标和文档布局测试
 |-- package.json                    # 根 workspace 脚本和公共开发依赖
 |-- pnpm-workspace.yaml             # pnpm workspace 配置

@@ -1,0 +1,24 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "sys_nuxt1",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["--filter", "sys_nuxt1", "dev"],
+      "port": 5005,
+      "autoPort": false
+    },
+    {
+      "name": "vue3",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["--filter", "vue3", "dev"],
+      "port": 3003
+    },
+    {
+      "name": "docs",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["--filter", "docs", "dev"],
+      "port": 5173
+    }
+  ]
+}

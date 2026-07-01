@@ -1,5 +1,7 @@
 packages:
   - "packages/*"
   - "vue3"
+  - "sys_nuxt1"
 allowBuilds:
+  '@parcel/watcher': true
   esbuild: true

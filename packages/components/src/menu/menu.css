@@ -1,0 +1,49 @@
+/* menu 样式 (由 refactor-split-css.mjs 从 styles/index.css 拆出) */
+.u1-menu {
+  display: inline-flex;
+  border-right: 1px solid var(--u1-color-border-light);
+  color: var(--u1-color-text);
+}
+
+.u1-menu--vertical {
+  width: 220px;
+  flex-direction: column;
+}
+
+.u1-menu--horizontal {
+  width: auto;
+  border-right: 0;
+  border-bottom: 1px solid var(--u1-color-border-light);
+}
+
+.u1-menu__item {
+  display: flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 0 20px;
+  border: 0;
+  color: var(--u1-color-text);
+  background: transparent;
+  font-size: 14px;
+  text-align: left;
+  cursor: pointer;
+  transition: color var(--u1-transition), background var(--u1-transition);
+}
+
+.u1-menu__item:hover {
+  color: var(--u1-color-primary);
+}
+
+.u1-menu__item.is-active {
+  color: var(--u1-color-primary);
+  background: #ecf5ff;
+}
+
+.dark .u1-menu__item.is-active {
+  background: #18222c;
+}
+
+.u1-menu__item.is-disabled {
+  color: var(--u1-disabled-text);
+  cursor: not-allowed;
+}

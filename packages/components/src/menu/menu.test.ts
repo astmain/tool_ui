@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
 import { describe, expect, it } from 'vitest'
-import { U1Menu } from '../menu'
+import { U1Menu } from './index'
 
 describe('U1Menu', () => {
   const items = [

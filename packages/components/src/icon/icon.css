@@ -1,0 +1,23 @@
+/* icon 样式 (由 refactor-split-css.mjs 从 styles/index.css 拆出) */
+.u1-icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  flex: none;
+  color: currentcolor;
+  stroke: currentcolor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vertical-align: -0.125em;
+}
+
+.u1-icon-card .u1-icon {
+  width: 36px;
+  height: 36px;
+  box-sizing: border-box;
+  padding: 8px;
+  border: 1px solid color-mix(in srgb, currentcolor 30%, transparent);
+  border-radius: 8px;
+  background: color-mix(in srgb, currentcolor 10%, transparent);
+}

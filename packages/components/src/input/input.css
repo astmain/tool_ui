@@ -1,0 +1,91 @@
+/* input 样式 (由 refactor-split-css.mjs 从 styles/index.css 拆出) */
+.u1-input {
+  position: relative;
+  display: inline-flex;
+  width: 220px;
+  vertical-align: middle;
+}
+
+.u1-input__inner {
+  width: 100%;
+  height: 32px;
+  box-sizing: border-box;
+  padding: 1px 11px;
+  border: 1px solid var(--u1-color-border);
+  border-radius: var(--u1-radius-base);
+  color: var(--u1-color-text);
+  background: var(--u1-color-bg);
+  font-size: 14px;
+  outline: none;
+  transition: border-color var(--u1-transition), box-shadow var(--u1-transition);
+}
+
+.u1-input:has(.u1-input__clear) .u1-input__inner,
+.u1-input:has(.u1-input__password) .u1-input__inner {
+  padding-right: 52px;
+}
+
+.u1-input:has(.u1-input__clear):has(.u1-input__password) .u1-input__inner {
+  padding-right: 86px;
+}
+
+.u1-input__inner:focus {
+  border-color: var(--u1-color-primary);
+  box-shadow: var(--u1-shadow-focus);
+}
+
+.u1-input.is-disabled .u1-input__inner {
+  color: #a8abb2;
+  background: #f5f7fa;
+  cursor: not-allowed;
+}
+
+.dark .u1-input.is-disabled .u1-input__inner {
+  color: #6c6e72;
+  background: #262727;
+}
+
+.u1-input__clear {
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  width: 18px;
+  height: 18px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  color: #909399;
+  background: transparent;
+  line-height: 18px;
+  cursor: pointer;
+  transform: translateY(-50%);
+}
+
+.u1-input:has(.u1-input__password) .u1-input__clear {
+  right: 50px;
+}
+
+.u1-input__password {
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  height: 22px;
+  padding: 0 6px;
+  border: 0;
+  border-radius: var(--u1-radius-base);
+  color: var(--u1-color-info);
+  background: transparent;
+  font-size: 12px;
+  line-height: 22px;
+  cursor: pointer;
+  transform: translateY(-50%);
+}
+
+.u1-input__password:hover {
+  color: var(--u1-color-primary);
+  background: #ecf5ff;
+}
+
+.dark .u1-input__password:hover {
+  background: #18222c;
+}

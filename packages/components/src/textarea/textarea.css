@@ -1,0 +1,54 @@
+/* textarea 样式 (由 refactor-split-css.mjs 从 styles/index.css 拆出) */
+.u1-textarea {
+  position: relative;
+  display: inline-flex;
+  width: 220px;
+  vertical-align: middle;
+}
+
+.u1-textarea__inner {
+  width: 100%;
+  min-height: 32px;
+  box-sizing: border-box;
+  padding: 5px 11px;
+  border: 1px solid var(--u1-color-border);
+  border-radius: var(--u1-radius-base);
+  color: var(--u1-color-text);
+  background: var(--u1-color-bg);
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.5;
+  outline: none;
+  transition: border-color var(--u1-transition), box-shadow var(--u1-transition);
+}
+
+.u1-textarea.has-word-limit .u1-textarea__inner {
+  padding-bottom: 20px;
+}
+
+.u1-textarea__inner:focus {
+  border-color: var(--u1-color-primary);
+  box-shadow: var(--u1-shadow-focus);
+}
+
+.u1-textarea.is-disabled .u1-textarea__inner {
+  color: #a8abb2;
+  background: #f5f7fa;
+  cursor: not-allowed;
+  resize: none;
+}
+
+.dark .u1-textarea.is-disabled .u1-textarea__inner {
+  color: #6c6e72;
+  background: #262727;
+}
+
+.u1-textarea__count {
+  position: absolute;
+  right: 10px;
+  bottom: 5px;
+  color: var(--u1-color-info);
+  font-size: 12px;
+  line-height: 1;
+  pointer-events: none;
+}

@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
 import { describe, expect, it } from 'vitest'
-import { U1InputLabel } from '../input-label'
+import { U1InputLabel } from './index'
 
 describe('U1InputLabel', () => {
   it('renders label, placeholder, default widths, and emits model updates', async () => {
@@ -55,7 +55,7 @@ describe('U1InputLabel', () => {
     await input.setValue('a12b3')
 
     expect((input.element as HTMLInputElement).value).toBe('123')
-    expect(wrapper.emitted('update:modelValue')?.[0]).toEqual(['123'])
+    expect(wrapper.emitted('update:modelValue')?.[0]).toEqual([123])
   })
 
   it('keeps any content when type is text', async () => {
@@ -85,7 +85,7 @@ describe('U1InputLabel', () => {
     await input.setValue('9x8')
     await input.trigger('change')
 
-    expect(wrapper.emitted('change')?.[0]).toEqual(['98'])
+    expect(wrapper.emitted('change')?.[0]).toEqual([98])
   })
 
   it('supports disabled and readonly states', () => {

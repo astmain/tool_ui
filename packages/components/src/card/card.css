@@ -1,0 +1,36 @@
+/* card 样式 (由 refactor-split-css.mjs 从 styles/index.css 拆出) */
+.u1-card {
+  overflow: hidden;
+  border: 1px solid var(--u1-color-border-light);
+  border-radius: var(--u1-radius-base);
+  color: var(--u1-color-text);
+  background: var(--u1-color-bg);
+  transition: border-color var(--u1-transition), box-shadow var(--u1-transition);
+}
+
+.u1-card--shadow-always {
+  box-shadow: var(--u1-shadow-light);
+}
+
+.u1-card--shadow-hover {
+  transition: box-shadow var(--u1-transition);
+}
+
+.u1-card--shadow-hover:hover {
+  border-color: var(--u1-color-border);
+  box-shadow: var(--u1-shadow-light);
+}
+
+.u1-card--shadow-never {
+  box-shadow: none;
+}
+
+.u1-card__header {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--u1-color-border-light);
+  font-weight: 500;
+}
+
+.u1-card__body {
+  padding: 16px;
+}

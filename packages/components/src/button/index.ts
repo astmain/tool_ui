@@ -1,3 +1,4 @@
+import './button.css'
 import Button from './Button.vue'
 
 export const U1Button = Button

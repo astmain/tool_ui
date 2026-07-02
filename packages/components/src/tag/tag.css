@@ -1,0 +1,53 @@
+/* tag 样式 (由 refactor-split-css.mjs 从 styles/index.css 拆出) */
+.u1-tag {
+  --u1-tag-color: var(--u1-color-primary);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 24px;
+  box-sizing: border-box;
+  padding: 0 9px;
+  border: 1px solid color-mix(in srgb, var(--u1-tag-color) 35%, white);
+  border-radius: var(--u1-radius-base);
+  color: var(--u1-tag-color);
+  background: color-mix(in srgb, var(--u1-tag-color) 10%, white);
+  font-size: 12px;
+  line-height: 22px;
+  vertical-align: middle;
+}
+
+.u1-tag--success {
+  --u1-tag-color: var(--u1-color-success);
+}
+
+.u1-tag--warning {
+  --u1-tag-color: var(--u1-color-warning);
+}
+
+.u1-tag--danger {
+  --u1-tag-color: var(--u1-color-danger);
+}
+
+.u1-tag--info {
+  --u1-tag-color: var(--u1-color-info);
+}
+
+.u1-tag--dark {
+  border-color: var(--u1-tag-color);
+  color: #ffffff;
+  background: var(--u1-tag-color);
+}
+
+.u1-tag--plain {
+  background: transparent;
+}
+
+.dark .u1-tag {
+  border-color: color-mix(in srgb, var(--u1-tag-color) 45%, black);
+  background: color-mix(in srgb, var(--u1-tag-color) 20%, black);
+}
+
+.dark .u1-tag--dark {
+  border-color: var(--u1-tag-color);
+  background: var(--u1-tag-color);
+}

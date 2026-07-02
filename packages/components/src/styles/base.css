@@ -1,0 +1,61 @@
+/* 全局: 主题变量 / dark / 动画 / 跨组件共享 样式 (由 refactor-split-css.mjs 从 styles/index.css 拆出) */
+:root {
+  --u1-color-primary: #409eff;
+  --u1-color-success: #67c23a;
+  --u1-color-warning: #e6a23c;
+  --u1-color-danger: #f56c6c;
+  --u1-color-info: #909399;
+  --u1-color-text: #303133;
+  --u1-color-text-regular: #606266;
+  --u1-color-border: #dcdfe6;
+  --u1-color-border-light: #e4e7ed;
+  --u1-color-bg: #ffffff;
+  --u1-radius-base: 4px;
+  --u1-shadow-light: 0 4px 12px rgb(31 45 61 / 8%);
+  --u1-shadow-focus: 0 0 0 3px rgb(64 158 255 / 18%);
+  --u1-transition: 0.2s ease;
+  --u1-disabled-text: #a8abb2;
+  --u1-disabled-bg: #f5f7fa;
+  --u1-disabled-border: #e4e7ed;
+}
+
+.dark {
+  --u1-color-text: #e5eaf3;
+  --u1-color-text-regular: #cfd3dc;
+  --u1-color-border: #4c4d4f;
+  --u1-color-border-light: #414243;
+  --u1-color-bg: #1d1e1f;
+  --u1-disabled-text: #6c6e72;
+  --u1-disabled-bg: #262727;
+  --u1-disabled-border: #414243;
+}
+
+.u1-tag__close,
+.u1-message__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  color: inherit;
+  background: transparent;
+  cursor: pointer;
+}
+
+.u1-tag__close:hover,
+.u1-message__close:hover {
+  background: rgb(0 0 0 / 10%);
+}
+
+@keyframes u1-rotate {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}

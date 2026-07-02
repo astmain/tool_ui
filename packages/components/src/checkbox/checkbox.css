@@ -1,0 +1,84 @@
+/* checkbox 样式 (由 refactor-split-css.mjs 从 styles/index.css 拆出) */
+.u1-checkbox,
+.u1-checkbox-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.u1-checkbox {
+  gap: 8px;
+  margin-right: 16px;
+  color: var(--u1-color-text);
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.u1-checkbox__input {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.u1-checkbox__original {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  opacity: 0;
+}
+
+.u1-checkbox__inner {
+  position: relative;
+  width: 14px;
+  height: 14px;
+  box-sizing: border-box;
+  border: 1px solid var(--u1-color-border);
+  border-radius: 2px;
+  background: var(--u1-color-bg);
+  transition: border-color var(--u1-transition), background var(--u1-transition);
+}
+
+.u1-checkbox__original:focus-visible + .u1-checkbox__inner {
+  border-color: var(--u1-color-primary);
+  box-shadow: var(--u1-shadow-focus);
+}
+
+.u1-checkbox.is-checked .u1-checkbox__inner,
+.u1-checkbox.is-indeterminate .u1-checkbox__inner {
+  border-color: var(--u1-color-primary);
+  background: var(--u1-color-primary);
+}
+
+.u1-checkbox.is-checked .u1-checkbox__inner::after {
+  position: absolute;
+  top: 1px;
+  left: 4px;
+  width: 3px;
+  height: 7px;
+  border: 2px solid #ffffff;
+  border-top: 0;
+  border-left: 0;
+  content: "";
+  transform: rotate(45deg);
+}
+
+.u1-checkbox.is-indeterminate .u1-checkbox__inner::after {
+  position: absolute;
+  top: 5px;
+  left: 3px;
+  width: 6px;
+  height: 2px;
+  background: #ffffff;
+  content: "";
+}
+
+.u1-checkbox.is-disabled {
+  color: var(--u1-disabled-text);
+  cursor: not-allowed;
+}
+
+.u1-checkbox.is-disabled .u1-checkbox__inner {
+  border-color: var(--u1-disabled-border);
+  background: var(--u1-disabled-bg);
+}

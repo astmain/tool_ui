@@ -1,3 +1,4 @@
+import './select.css'
 import Select from './Select.vue'
 
 export const U1Select = Select

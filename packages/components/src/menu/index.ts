@@ -1,3 +1,4 @@
+import './menu.css'
 import Menu from './Menu.vue'
 
 export const U1Menu = Menu

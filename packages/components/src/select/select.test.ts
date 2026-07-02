@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
 import { describe, expect, it } from 'vitest'
-import { U1Select } from '../select'
+import { U1Select } from './index'
 
 describe('U1Select', () => {
   const options = [

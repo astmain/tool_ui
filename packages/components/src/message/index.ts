@@ -1,3 +1,4 @@
+import './message.css'
 import { createVNode, defineComponent, h, reactive, render } from 'vue'
 import type { Component, PropType } from 'vue'
 import MessageComponent from './Message.vue'

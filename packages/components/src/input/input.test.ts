@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
 import { describe, expect, it } from 'vitest'
-import { U1Input } from '../input'
+import { U1Input } from './index'
 
 describe('U1Input', () => {
   it('renders placeholder and emits model updates', async () => {

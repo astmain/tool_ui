@@ -1,3 +1,4 @@
+import './textarea.css'
 import Textarea from './Textarea.vue'
 
 export const U1Textarea = Textarea

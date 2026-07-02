@@ -1,9 +1,9 @@
 <template>
-  <span v-if="visible" class="u1-tag-component" :class="[`u1-tag-component--${type}`, `u1-tag-component--${effect}`]">
-    <span class="u1-tag-component__content">
+  <span v-if="visible" class="u1-tag" :class="[`u1-tag--${type}`, `u1-tag--${effect}`]">
+    <span class="u1-tag__content">
       <slot />
     </span>
-    <button v-if="closable" class="u1-tag-component__close" type="button" aria-label="close" @click="close">x</button>
+    <button v-if="closable" class="u1-tag__close" type="button" aria-label="close" @click="close">x</button>
   </span>
 </template>
 

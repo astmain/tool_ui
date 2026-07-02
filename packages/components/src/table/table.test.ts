@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
 import { describe, expect, it } from 'vitest'
-import { U1Table } from '../table'
+import { U1Table } from './index'
 
 describe('U1Table', () => {
   const columns = [

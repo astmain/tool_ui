@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { nextTick } from 'vue'
-import { U1Message, U1MessageComponent } from '../message'
+import { U1Message, U1MessageComponent } from './index'
 
 describe('U1Message', () => {
   it('renders message type and content', () => {

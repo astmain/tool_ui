@@ -1,0 +1,85 @@
+/* message 样式 (由 refactor-split-css.mjs 从 styles/index.css 拆出) */
+.u1-message {
+  --u1-message-color: var(--u1-color-info);
+  position: fixed;
+  left: 50%;
+  z-index: 3000;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 300px;
+  max-width: min(560px, calc(100vw - 32px));
+  box-sizing: border-box;
+  padding: 10px 15px;
+  border: 1px solid color-mix(in srgb, var(--u1-message-color) 30%, white);
+  border-radius: 6px;
+  color: var(--u1-message-color);
+  background: color-mix(in srgb, var(--u1-message-color) 10%, white);
+  font-size: 14px;
+  line-height: 1.5;
+  box-shadow: var(--u1-shadow-light);
+  transform: translateX(-50%);
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+}
+
+.u1-message--top-left,
+.u1-message--bottom-left {
+  right: auto;
+  left: 20px;
+  transform: none;
+}
+
+.u1-message--top-right,
+.u1-message--bottom-right {
+  right: 20px;
+  left: auto;
+  transform: none;
+}
+
+.u1-message__icon {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  color: var(--u1-color-white);
+  background: var(--u1-message-color);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.u1-message__content {
+  flex: 1 1 auto;
+  color: var(--u1-text-primary);
+}
+
+.u1-message__repeat {
+  flex: 0 0 auto;
+  padding: 1px 7px;
+  border-radius: 999px;
+  color: var(--u1-message-color);
+  background: color-mix(in srgb, var(--u1-message-color) 15%, white);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.u1-message--success {
+  --u1-message-color: var(--u1-color-success);
+}
+
+.u1-message--warning {
+  --u1-message-color: var(--u1-color-warning);
+}
+
+.u1-message--error {
+  --u1-message-color: var(--u1-color-danger);
+}
+
+.dark .u1-message {
+  border-color: color-mix(in srgb, var(--u1-message-color) 45%, black);
+  background: color-mix(in srgb, var(--u1-message-color) 18%, black);
+}

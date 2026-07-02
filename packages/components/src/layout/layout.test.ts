@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
 import { describe, expect, it } from 'vitest'
-import { U1Layout1 } from '../layout'
+import { U1Layout1 } from './index'
 
 const menus = [
   { path: '/home', title: '首页', icon: 'icon-home' },

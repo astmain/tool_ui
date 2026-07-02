@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
 import { describe, expect, it } from 'vitest'
-import { U1Card } from '../card'
+import { U1Card } from './index'
 
 describe('U1Card', () => {
   it('renders header and default slots only', () => {

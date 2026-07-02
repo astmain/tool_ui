@@ -9,6 +9,23 @@ function readProjectFile(path: string) {
   return readFileSync(resolve(root, path), 'utf8')
 }
 
+// 样式已拆分到各组件目录 (base.css + src/<comp>/<comp>.css)。
+// 这里聚合读取, 使断言仍针对"整体组件样式表"内容, 语义与原 index.css 一致。
+function readComponentCss(): string {
+  const srcDir = resolve(root, 'packages', 'components', 'src')
+  const parts: string[] = [readFileSync(resolve(srcDir, 'styles', 'base.css'), 'utf8')]
+  for (const entry of readdirSync(srcDir, { withFileTypes: true })) {
+    if (!entry.isDirectory() || entry.name === 'styles') continue
+    const cssPath = resolve(srcDir, entry.name, `${entry.name}.css`)
+    try {
+      parts.push(readFileSync(cssPath, 'utf8'))
+    } catch {
+      // 该组件无独立 css (如 confirm/layout/theme-editor 使用 .vue scoped style)
+    }
+  }
+  return parts.join('\n')
+}
+
 function readDocsFile(path: string) {
   return readFileSync(resolve(docsRoot, path), 'utf8')
 }
@@ -47,7 +64,7 @@ describe('docs layout regressions', () => {
   })
 
   it('keeps documented svg icon usage available', () => {
-    const componentCss = readProjectFile('packages/components/src/styles/index.css')
+    const componentCss = readComponentCss()
     const docsCss = readDocsFile('.vitepress/theme/style.css')
     const icons = readDocsFile('component/design/icons.md')
 
@@ -81,7 +98,7 @@ describe('docs layout regressions', () => {
   })
 
   it('disables dialog transform transitions while dragging', () => {
-    const css = readProjectFile('packages/components/src/styles/index.css')
+    const css = readComponentCss()
 
     expect(css).toMatch(/\.u1-dialog\.is-dragging\s*{[^}]*transition:\s*none/s)
   })
@@ -150,7 +167,7 @@ describe('docs layout regressions', () => {
   })
 
   it('keeps visible keyboard focus for custom radio and checkbox controls', () => {
-    const css = readProjectFile('packages/components/src/styles/index.css')
+    const css = readComponentCss()
 
     expect(css).toContain('.u1-radio__original:focus-visible + .u1-radio__inner')
     expect(css).toContain('.u1-checkbox__original:focus-visible + .u1-checkbox__inner')

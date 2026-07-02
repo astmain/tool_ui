@@ -1,0 +1,60 @@
+/* radio 样式 (由 refactor-split-css.mjs 从 styles/index.css 拆出) */
+.u1-radio,
+.u1-radio-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.u1-radio {
+  gap: 8px;
+  margin-right: 16px;
+  color: var(--u1-color-text);
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.u1-radio__input {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.u1-radio__original {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  opacity: 0;
+}
+
+.u1-radio__inner {
+  width: 14px;
+  height: 14px;
+  box-sizing: border-box;
+  border: 1px solid var(--u1-color-border);
+  border-radius: 50%;
+  background: var(--u1-color-bg);
+}
+
+.u1-radio__original:focus-visible + .u1-radio__inner {
+  border-color: var(--u1-color-primary);
+  box-shadow: var(--u1-shadow-focus);
+}
+
+.u1-radio.is-checked .u1-radio__inner {
+  border: 5px solid var(--u1-color-primary);
+}
+
+.u1-radio.is-disabled {
+  color: #a8abb2;
+  cursor: not-allowed;
+}
+
+.u1-radio.is-disabled .u1-radio__inner {
+  background: #f5f7fa;
+}
+
+.dark .u1-radio.is-disabled .u1-radio__inner {
+  background: #262727;
+}

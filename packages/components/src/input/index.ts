@@ -1,3 +1,4 @@
+import './input.css'
 import Input from './Input.vue'
 
 export const U1Input = Input

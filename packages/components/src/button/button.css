@@ -1,0 +1,254 @@
+/* button 样式 (由 refactor-split-css.mjs 从 styles/index.css 拆出) */
+.u1-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 32px;
+  padding: 8px 15px;
+  border: 1px solid var(--u1-color-border);
+  border-radius: var(--u1-radius-base);
+  color: var(--u1-color-text);
+  background: var(--u1-color-bg);
+  font-size: 14px;
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color var(--u1-transition), border-color var(--u1-transition), background var(--u1-transition), box-shadow var(--u1-transition), transform var(--u1-transition);
+}
+
+.u1-button:hover {
+  color: var(--u1-color-primary);
+  border-color: #c6e2ff;
+  background: #ecf5ff;
+  transform: translateY(-1px);
+}
+
+.dark .u1-button:hover {
+  border-color: #2a598a;
+  background: #18222c;
+}
+
+.u1-button--primary,
+.u1-button--success,
+.u1-button--warning,
+.u1-button--danger,
+.u1-button--info {
+  color: #ffffff;
+  border-color: var(--u1-button-color);
+  background: var(--u1-button-color);
+}
+
+.u1-button--primary {
+  --u1-button-color: var(--u1-color-primary);
+}
+
+.u1-button--success {
+  --u1-button-color: var(--u1-color-success);
+}
+
+.u1-button--warning {
+  --u1-button-color: var(--u1-color-warning);
+}
+
+.u1-button--danger {
+  --u1-button-color: var(--u1-color-danger);
+}
+
+.u1-button--info {
+  --u1-button-color: var(--u1-color-info);
+}
+
+.u1-button--large {
+  height: 40px;
+  padding: 12px 19px;
+}
+
+.u1-button--small {
+  height: 24px;
+  padding: 5px 11px;
+  font-size: 12px;
+}
+
+.u1-button--mini {
+  height: 22px;
+  padding: 3px 9px;
+  font-size: 11px;
+}
+
+.u1-button.is-plain {
+  color: var(--u1-button-color, var(--u1-color-text));
+  background: var(--u1-color-bg);
+}
+
+.u1-button.is-round {
+  border-radius: 20px;
+}
+
+.u1-button.is-circle {
+  width: 32px;
+  padding: 8px;
+  border-radius: 50%;
+}
+
+.u1-button.is-text,
+.u1-button.is-link {
+  border-color: transparent;
+  color: var(--u1-button-color, var(--u1-color-primary));
+  background: transparent;
+}
+
+.u1-button.is-text.is-has-bg {
+  background: #f5f7fa;
+}
+
+.dark .u1-button.is-text.is-has-bg {
+  background: #262727;
+}
+
+.u1-button.is-text:hover,
+.u1-button.is-link:hover {
+  color: #79bbff;
+  border-color: transparent;
+  background: transparent;
+}
+
+.u1-button.is-text.is-has-bg:hover {
+  background: #ecf5ff;
+}
+
+.dark .u1-button.is-text.is-has-bg:hover {
+  background: #18222c;
+}
+
+.u1-button.is-disabled,
+.u1-button:disabled {
+  color: var(--u1-disabled-text);
+  border-color: var(--u1-disabled-border);
+  background: var(--u1-disabled-bg);
+  cursor: not-allowed;
+  transform: none;
+}
+
+.u1-button--primary.is-disabled,
+.u1-button--primary:disabled {
+  color: #ffffff;
+  border-color: #a0cfff;
+  background: #a0cfff;
+}
+
+.u1-button--success.is-disabled,
+.u1-button--success:disabled {
+  color: #ffffff;
+  border-color: #b3e19d;
+  background: #b3e19d;
+}
+
+.u1-button--info.is-disabled,
+.u1-button--info:disabled {
+  color: #ffffff;
+  border-color: #c8c9cc;
+  background: #c8c9cc;
+}
+
+.u1-button--warning.is-disabled,
+.u1-button--warning:disabled {
+  color: #ffffff;
+  border-color: #f3d19e;
+  background: #f3d19e;
+}
+
+.u1-button--danger.is-disabled,
+.u1-button--danger:disabled {
+  color: #ffffff;
+  border-color: #fab6b6;
+  background: #fab6b6;
+}
+
+.u1-button.is-plain.is-disabled,
+.u1-button.is-plain:disabled {
+  color: var(--u1-disabled-text);
+  border-color: var(--u1-disabled-border);
+  background: var(--u1-disabled-bg);
+}
+
+.u1-button--primary.is-plain.is-disabled,
+.u1-button--primary.is-plain:disabled {
+  color: #a0cfff;
+  border-color: #d9ecff;
+  background: #ecf5ff;
+}
+
+.u1-button--success.is-plain.is-disabled,
+.u1-button--success.is-plain:disabled {
+  color: #b3e19d;
+  border-color: #e1f3d8;
+  background: #f0f9eb;
+}
+
+.u1-button--info.is-plain.is-disabled,
+.u1-button--info.is-plain:disabled {
+  color: #c8c9cc;
+  border-color: #e9e9eb;
+  background: #f4f4f5;
+}
+
+.u1-button--warning.is-plain.is-disabled,
+.u1-button--warning.is-plain:disabled {
+  color: #f3d19e;
+  border-color: #faecd8;
+  background: #fdf6ec;
+}
+
+.u1-button--danger.is-plain.is-disabled,
+.u1-button--danger.is-plain:disabled {
+  color: #fab6b6;
+  border-color: #fde2e2;
+  background: #fef0f0;
+}
+
+.dark .u1-button--primary.is-plain.is-disabled,
+.dark .u1-button--primary.is-plain:disabled {
+  border-color: #2a598a;
+  background: #18222c;
+}
+
+.dark .u1-button--success.is-plain.is-disabled,
+.dark .u1-button--success.is-plain:disabled {
+  border-color: #25371c;
+  background: #1c2518;
+}
+
+.dark .u1-button--info.is-plain.is-disabled,
+.dark .u1-button--info.is-plain:disabled {
+  border-color: #393a3c;
+  background: #202121;
+}
+
+.dark .u1-button--warning.is-plain.is-disabled,
+.dark .u1-button--warning.is-plain:disabled {
+  border-color: #573a1a;
+  background: #292218;
+}
+
+.dark .u1-button--danger.is-plain.is-disabled,
+.dark .u1-button--danger.is-plain:disabled {
+  border-color: #5f2525;
+  background: #2b1d1d;
+}
+
+.u1-button__loading {
+  width: 12px;
+  height: 12px;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: u1-rotate 0.8s linear infinite;
+}
+
+.u1-button__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+}

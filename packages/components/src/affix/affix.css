@@ -1,0 +1,8 @@
+/* affix 样式 (由 refactor-split-css.mjs 从 styles/index.css 拆出) */
+.u1-affix {
+  display: block;
+}
+
+.u1-affix.is-disabled {
+  position: static !important;
+}

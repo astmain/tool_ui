@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
 import { describe, expect, it } from 'vitest'
-import { U1Switch } from '../switch'
+import { U1Switch } from './index'
 
 describe('U1Switch', () => {
   it('emits model updates when toggled', async () => {

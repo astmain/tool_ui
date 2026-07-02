@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils'
 import { defineComponent, ref } from 'vue'
 import { describe, expect, it } from 'vitest'
-import { U1Radio, U1RadioGroup } from '../radio'
+import { U1Radio, U1RadioGroup } from './index'
 
 describe('U1Radio', () => {
   it('emits label value when selected standalone', async () => {

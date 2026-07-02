@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
 import { describe, expect, it } from 'vitest'
-import { U1Textarea } from '../textarea'
+import { U1Textarea } from './index'
 
 describe('U1Textarea', () => {
   it('renders placeholder and emits model updates', async () => {

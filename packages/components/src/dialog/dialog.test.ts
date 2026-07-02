@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
 import { afterEach, describe, expect, it } from 'vitest'
-import { U1Dialog } from '../dialog'
+import { U1Dialog } from './index'
 
 describe('U1Dialog', () => {
   afterEach(() => {

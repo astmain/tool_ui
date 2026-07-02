@@ -1,0 +1,174 @@
+/* table 样式 (由 refactor-split-css.mjs 从 styles/index.css 拆出) */
+.u1-table {
+  --u1-table-font-size: 14px;
+  --u1-table-cell-padding: 10px 14px;
+  --u1-table-empty-padding: 28px 14px;
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: var(--u1-radius-base);
+  color: var(--u1-color-text);
+  background: var(--u1-color-bg);
+  font-size: var(--u1-table-font-size);
+}
+
+.u1-table--mini {
+  --u1-table-font-size: 11px;
+  --u1-table-cell-padding: 4px 8px;
+  --u1-table-empty-padding: 18px 8px;
+}
+
+.u1-table--small {
+  --u1-table-font-size: 12px;
+  --u1-table-cell-padding: 7px 10px;
+  --u1-table-empty-padding: 22px 10px;
+}
+
+.u1-table--default {
+  --u1-table-font-size: 14px;
+  --u1-table-cell-padding: 10px 14px;
+  --u1-table-empty-padding: 28px 14px;
+}
+
+.u1-table--large {
+  --u1-table-font-size: 15px;
+  --u1-table-cell-padding: 13px 18px;
+  --u1-table-empty-padding: 34px 18px;
+}
+
+.u1-table__wrapper {
+  position: relative;
+  overflow: auto;
+  border-radius: inherit;
+}
+
+.u1-table__inner {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: inherit;
+  table-layout: fixed;
+}
+
+.u1-table__cell,
+.u1-table__empty {
+  box-sizing: border-box;
+  padding: var(--u1-table-cell-padding);
+  border-bottom: 1px solid var(--u1-color-border-light);
+  color: var(--u1-color-text);
+  line-height: 1.45;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.u1-table th.u1-table__cell {
+  color: var(--u1-color-text-regular);
+  background: #f5f7fa;
+  font-weight: 600;
+}
+
+.u1-table tbody tr {
+  background: var(--u1-color-bg);
+  transition: background var(--u1-transition);
+}
+
+.u1-table tbody tr:hover {
+  background: #f5f7fa;
+}
+
+.dark .u1-table th.u1-table__cell,
+.dark .u1-table tbody tr:hover {
+  background: #262727;
+}
+
+.u1-table.is-border {
+  border: 1px solid var(--u1-color-border-light);
+}
+
+.u1-table.is-border .u1-table__cell,
+.u1-table.is-border .u1-table__empty {
+  border-right: 1px solid var(--u1-color-border-light);
+}
+
+.u1-table.is-border .u1-table__cell:last-child,
+.u1-table.is-border .u1-table__empty:last-child {
+  border-right: 0;
+}
+
+.u1-table.is-stripe tbody tr:nth-child(even) {
+  background: #fafafa;
+}
+
+.u1-table.is-stripe tbody tr:nth-child(even):hover {
+  background: #f0f2f5;
+}
+
+.dark .u1-table.is-stripe tbody tr:nth-child(even) {
+  background: #202121;
+}
+
+.dark .u1-table.is-stripe tbody tr:nth-child(even):hover {
+  background: #262727;
+}
+
+.u1-table__cell.is-center {
+  text-align: center;
+}
+
+.u1-table__cell.is-right {
+  text-align: right;
+}
+
+.u1-table__cell.is-left {
+  text-align: left;
+}
+
+.u1-table__cell-content {
+  display: block;
+  min-width: 0;
+}
+
+.u1-table__cell.is-overflow .u1-table__cell-content {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.u1-table__actions {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+.u1-table__cell.is-center .u1-table__actions {
+  justify-content: center;
+}
+
+.u1-table__cell.is-right .u1-table__actions {
+  justify-content: flex-end;
+}
+
+.u1-table__empty {
+  padding: var(--u1-table-empty-padding);
+  color: var(--u1-color-info);
+  text-align: center;
+}
+
+.u1-table__loading {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--u1-color-primary);
+  background: rgb(255 255 255 / 68%);
+  font-size: var(--u1-table-font-size);
+  pointer-events: auto;
+}
+
+.dark .u1-table__loading {
+  background: rgb(29 30 31 / 72%);
+}

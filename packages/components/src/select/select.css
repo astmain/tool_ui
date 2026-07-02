@@ -1,0 +1,31 @@
+/* select 样式 (由 refactor-split-css.mjs 从 styles/index.css 拆出) */
+.u1-select {
+  display: inline-flex;
+  width: 220px;
+  vertical-align: middle;
+}
+
+.u1-select__inner {
+  width: 100%;
+  height: 32px;
+  box-sizing: border-box;
+  padding: 1px 28px 1px 11px;
+  border: 1px solid var(--u1-color-border);
+  border-radius: var(--u1-radius-base);
+  color: var(--u1-color-text);
+  background: var(--u1-color-bg);
+  font-size: 14px;
+  outline: none;
+  transition: border-color var(--u1-transition), box-shadow var(--u1-transition);
+}
+
+.u1-select__inner:focus {
+  border-color: var(--u1-color-primary);
+  box-shadow: var(--u1-shadow-focus);
+}
+
+.u1-select.is-disabled .u1-select__inner {
+  color: var(--u1-disabled-text);
+  background: var(--u1-disabled-bg);
+  cursor: not-allowed;
+}

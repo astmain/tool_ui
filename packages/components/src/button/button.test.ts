@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
 import { describe, expect, it } from 'vitest'
-import { U1Button } from '../button'
+import { U1Button } from './index'
 
 describe('U1Button', () => {
   it('renders default slot and variant class', () => {

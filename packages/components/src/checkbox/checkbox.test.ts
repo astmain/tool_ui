@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
 import { describe, expect, it } from 'vitest'
-import { U1Checkbox, U1CheckboxGroup } from '../checkbox'
+import { U1Checkbox, U1CheckboxGroup } from './index'
 
 describe('U1Checkbox', () => {
   it('emits boolean model updates when used alone', async () => {

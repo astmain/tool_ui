@@ -1,3 +1,4 @@
+import './icon.css'
 import Icon from './Icon.vue'
 
 export { getIconComponent, iconAliases, iconMap, resolveIconName } from './icons'

@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
 import { describe, expect, it } from 'vitest'
-import { U1Affix } from '../affix'
+import { U1Affix } from './index'
 
 describe('U1Affix', () => {
   it('renders default slot content', () => {

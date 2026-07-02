@@ -1,3 +1,4 @@
+import './dialog.css'
 import Dialog from './Dialog.vue'
 
 export const U1Dialog = Dialog

@@ -19,7 +19,7 @@ import { U1Table } from './table'
 import { U1Tag } from './tag'
 import { U1Textarea } from './textarea'
 import { U1ThemeEditor, U1ThemeEditorDialog } from './theme-editor'
-import './styles/index.css'
+import './styles/base.css'
 import './styles/icons.css'
 
 const components = [
@@ -86,4 +86,8 @@ export {
   U1ThemeEditor,
   U1ThemeEditorDialog
 }
+
+// 组件公共类型 (供消费方直接从包根导入, 无需本地手抄)
+export type { Layout1MenuItem, Layout1Config } from './layout'
+
 export default U1Design

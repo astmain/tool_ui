@@ -446,7 +446,7 @@ onMounted(() => {
         <!-- Role Checkboxes -->
         <div class="flex items-start gap-2">
           <span class="w-[72px] text-right pt-1 text-sm text-gray-600 shrink-0">角色</span>
-          <div class="flex-1 flex flex-wrap gap-3">
+          <div class="flex-1 flex flex-col gap-2">
             <U1Checkbox
               v-for="role in roles"
               :key="role.id"
@@ -480,7 +480,7 @@ onMounted(() => {
         <!-- Role Checkboxes -->
         <div class="flex items-start gap-2">
           <span class="w-[72px] text-right pt-1 text-sm text-gray-600 shrink-0">角色</span>
-          <div class="flex-1 flex flex-wrap gap-3">
+          <div class="flex-1 flex flex-col gap-2">
             <U1Checkbox
               v-for="role in roles"
               :key="role.id"

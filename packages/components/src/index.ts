@@ -17,6 +17,7 @@ import { U1Select } from './select'
 import { U1Switch } from './switch'
 import { U1Table } from './table'
 import { U1Tag } from './tag'
+import { U1Textarea } from './textarea'
 import { U1ThemeEditor, U1ThemeEditorDialog } from './theme-editor'
 import './styles/index.css'
 import './styles/icons.css'
@@ -37,6 +38,7 @@ const components = [
   U1Switch,
   U1Avatar,
   U1Tag,
+  U1Textarea,
   U1Message,
   U1Dialog,
   U1Table,
@@ -74,6 +76,7 @@ export {
   U1Switch,
   U1Avatar,
   U1Tag,
+  U1Textarea,
   U1Message,
   U1MessageComponent,
   U1Confirm,

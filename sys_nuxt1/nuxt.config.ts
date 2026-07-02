@@ -8,7 +8,7 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
   devServer: {
-    port: 5005,
+    port: 5006,
   },
   modules: ['@pinia/nuxt', '@nuxtjs/tailwindcss'],
   alias: {

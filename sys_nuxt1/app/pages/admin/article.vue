@@ -340,9 +340,10 @@ onMounted(() => {
         <U1InputLabel v-model="artForm.sort" type="number" label="排序值" label-width="80px" input-width="480px" />
         <label class="flex items-start gap-2">
           <span class="w-20 text-right text-sm text-gray-600 shrink-0 pt-2">内容</span>
-          <textarea
+          <U1Textarea
             v-model="artForm.content"
-            class="flex-1 min-h-[120px] rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            class="flex-1"
+            :rows="5"
             placeholder="请输入文章内容"
           />
         </label>

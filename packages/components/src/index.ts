@@ -4,6 +4,7 @@ import { U1Avatar } from './avatar'
 import { U1Button } from './button'
 import { U1Card } from './card'
 import { U1Checkbox, U1CheckboxGroup } from './checkbox'
+import { U1Confirm } from './confirm'
 import { U1Dialog } from './dialog'
 import { U1Icon } from './icon'
 import { U1Input } from './input'
@@ -75,6 +76,7 @@ export {
   U1Tag,
   U1Message,
   U1MessageComponent,
+  U1Confirm,
   U1Dialog,
   U1Table,
   U1Menu,

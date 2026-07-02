@@ -1,58 +1,60 @@
 <template>
   <div class="p-4 flex flex-col gap-4">
-    <Com1Message ref="msgRef" />
-
-    <Com1Card
-      :config="{ left: '<h1 class=\'text-base font-bold\'>网站设置</h1>' }"
-    />
+    <U1Card>
+      <template #header>
+        <h1 class="text-base font-bold">网站设置</h1>
+      </template>
+    </U1Card>
 
     <div v-if="loading" class="flex justify-center py-12">
       <div class="w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full animate-spin" />
     </div>
 
     <template v-else>
-      <Com1Card>
+      <U1Card>
         <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <Com1Input
-            :value="siteName"
-            :config="{ text: '网站名称', width: 'w-24' }"
+          <U1InputLabel
+            v-model="siteName"
+            label="网站名称"
+            label-width="96px"
+            input-width="500px"
             placeholder="请输入网站名称"
-            input-class-name="!max-w-[500px]"
-            :max-length="50"
             :disabled="savingSiteName"
-            @change="(val: string) => siteName = val"
           />
-          <Com1Button
-            text="保存-网站名称"
+          <U1Button
+            type="primary"
             class="sm:!w-[140px]"
             :loading="savingSiteName"
             @click="handleSave"
-          />
+          >保存-网站名称</U1Button>
         </div>
-      </Com1Card>
+      </U1Card>
 
-      <Com1Card>
+      <U1Card>
         <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <Com1Input
-            :value="dbUrl"
-            :config="{ text: '数据库', width: 'w-24' }"
-            input-class-name="!max-w-[500px]"
+          <U1InputLabel
+            :model-value="dbUrl"
+            label="数据库"
+            label-width="96px"
+            input-width="500px"
+            readonly
             disabled
-            @change="() => undefined"
           />
-          <Com1Button
-            text="下载-数据库备份"
+          <U1Button
+            type="primary"
             class="sm:!w-[140px]"
             :loading="downloadingBackup"
             @click="handleBackup"
-          />
+          >下载-数据库备份</U1Button>
         </div>
-      </Com1Card>
+      </U1Card>
     </template>
   </div>
 </template>
 
 <script setup lang="ts">
+import { U1Message } from 'tool_ui1'
+
 definePageMeta({ layout: 'admin' })
 
 const siteName = ref('')
@@ -60,7 +62,6 @@ const dbUrl = ref('')
 const loading = ref(true)
 const savingSiteName = ref(false)
 const downloadingBackup = ref(false)
-const msgRef = ref<{ success: (m: string) => void; error: (m: string) => void; warning: (m: string) => void } | null>(null)
 
 interface SaveFilePickerWindow extends Window {
   showSaveFilePicker?: (options: {
@@ -90,7 +91,7 @@ async function fetchSettings() {
       dbUrl.value = dbResp.data.url
     }
   } catch {
-    msgRef.value?.error('加载设置失败，请刷新重试')
+    U1Message.error('加载设置失败，请刷新重试')
   } finally {
     loading.value = false
   }
@@ -105,12 +106,12 @@ async function handleSave() {
       body: { key: 'site_name', value: siteName.value },
     })
     if (resp.ok) {
-      msgRef.value?.success('成功:保存-网站名称')
+      U1Message.success('成功:保存-网站名称')
     } else {
-      msgRef.value?.error(resp.message ?? '失败:保存-网站名称')
+      U1Message.error(resp.message ?? '失败:保存-网站名称')
     }
   } catch {
-    msgRef.value?.error('失败:网络异常，保存-网站名称')
+    U1Message.error('失败:网络异常，保存-网站名称')
   } finally {
     savingSiteName.value = false
   }
@@ -156,15 +157,15 @@ async function handleBackup() {
     const pickerWindow = window as SaveFilePickerWindow
     if (!pickerWindow.showSaveFilePicker) {
       fallbackDownloadBackup()
-      msgRef.value?.warning('当前浏览器不支持选择保存位置，已使用默认下载')
-      msgRef.value?.success('成功:下载-数据库备份')
+      U1Message.warning('当前浏览器不支持选择保存位置，已使用默认下载')
+      U1Message.success('成功:下载-数据库备份')
       return
     }
 
     const resp = await fetch('/api/admin/setting?resource=backup')
     if (!resp.ok) {
       const data = await resp.json().catch(() => ({ message: '' }))
-      msgRef.value?.error(data.message ?? '失败:下载-数据库备份')
+      U1Message.error(data.message ?? '失败:下载-数据库备份')
       return
     }
 
@@ -173,18 +174,18 @@ async function handleBackup() {
     try {
       const savedWithPicker = await saveBackupWithPicker(blob, filename)
       if (savedWithPicker) {
-        msgRef.value?.success('成功:下载-数据库备份')
+        U1Message.success('成功:下载-数据库备份')
         return
       }
     } catch (err) {
       if (err instanceof DOMException && err.name === 'AbortError') {
-        msgRef.value?.warning('已取消保存')
+        U1Message.warning('已取消保存')
         return
       }
       throw err
     }
   } catch {
-    msgRef.value?.error('失败:网络异常，下载-数据库备份')
+    U1Message.error('失败:网络异常，下载-数据库备份')
   } finally {
     downloadingBackup.value = false
   }

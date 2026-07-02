@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { U1Message, U1Confirm } from 'tool_ui1'
+
 definePageMeta({ layout: 'admin' })
 
 interface Role {
@@ -20,9 +22,22 @@ const showForm = ref(false)
 const editId = ref<number | null>(null)
 const form = ref({ name: '', key: '', description: '', status: true, orderNum: 0 })
 const formError = ref('')
-const confirmOpen = ref(false)
-const confirmTarget = ref<Role | null>(null)
-const msgRef = ref<{ success: (m: string) => void; error: (m: string) => void } | null>(null)
+
+const statusOptions = [
+  { value: 'true', label: '启用' },
+  { value: 'false', label: '禁用' },
+]
+
+const columns = [
+  { type: 'index', label: '序号', width: 70, align: 'center' },
+  { prop: 'name', label: '角色名称', minWidth: 160 },
+  { prop: 'key', label: '角色标识', minWidth: 140 },
+  { prop: 'description', label: '描述', minWidth: 180 },
+  { prop: 'userCount', label: '用户数', width: 90, align: 'center' },
+  { prop: 'status', label: '状态', width: 100, align: 'center' },
+  { prop: 'orderNum', label: '排序', width: 80, align: 'center' },
+  { type: 'action', label: '操作', width: 170, align: 'center' },
+]
 
 async function fetchRoles() {
   loading.value = true
@@ -32,7 +47,7 @@ async function fetchRoles() {
       roles.value = resp.data
     }
   } catch {
-    msgRef.value?.error('加载角色失败')
+    U1Message.error('加载角色失败')
   } finally {
     loading.value = false
   }
@@ -97,7 +112,7 @@ async function handleSubmit() {
     if (resp.ok) {
       closeForm()
       fetchRoles()
-      msgRef.value?.success(isEditing ? '保存成功' : '添加成功')
+      U1Message.success(isEditing ? '保存成功' : '添加成功')
     } else {
       formError.value = resp.message ?? '操作失败'
     }
@@ -108,39 +123,38 @@ async function handleSubmit() {
   }
 }
 
-function askDelete(role: Role) {
+async function askDelete(role: Role) {
   if (PRESET_ROLE_KEYS.includes(role.key)) {
-    msgRef.value?.error('预设角色禁止删除')
+    U1Message.error('预设角色禁止删除')
     return
   }
-  confirmTarget.value = role
-  confirmOpen.value = true
-}
 
-async function handleDelete() {
-  if (!confirmTarget.value) return
-  const id = confirmTarget.value.id
-  confirmOpen.value = false
-  confirmTarget.value = null
+  const ok = await U1Confirm({
+    title: '删除确认',
+    message: `确定删除角色「${role.name}」吗?`,
+    type: 'danger',
+    confirmText: '删除',
+  })
+  if (!ok) return
 
   try {
-    const resp = await $fetch<{ code: number; message?: string }>(`/api/admin/role?id=${id}`, {
+    const resp = await $fetch<{ code: number; message?: string }>(`/api/admin/role?id=${role.id}`, {
       method: 'DELETE',
     })
     if (resp.ok) {
       fetchRoles()
-      msgRef.value?.success('删除成功')
+      U1Message.success('删除成功')
     } else {
-      msgRef.value?.error(resp.message ?? '删除失败')
+      U1Message.error(resp.message ?? '删除失败')
     }
   } catch (err: any) {
-    msgRef.value?.error(err?.data?.message ?? '删除失败')
+    U1Message.error(err?.data?.message ?? '删除失败')
   }
 }
 
 async function handleToggleStatus(role: Role) {
   if (PRESET_ROLE_KEYS.includes(role.key)) {
-    msgRef.value?.error('预设角色禁止禁用')
+    U1Message.error('预设角色禁止禁用')
     return
   }
 
@@ -152,12 +166,12 @@ async function handleToggleStatus(role: Role) {
     })
     if (resp.ok) {
       fetchRoles()
-      msgRef.value?.success(!role.status ? '已启用' : '已禁用')
+      U1Message.success(!role.status ? '已启用' : '已禁用')
     } else {
-      msgRef.value?.error(resp.message ?? '操作失败')
+      U1Message.error(resp.message ?? '操作失败')
     }
   } catch (err: any) {
-    msgRef.value?.error(err?.data?.message ?? '操作失败')
+    U1Message.error(err?.data?.message ?? '操作失败')
   }
 }
 
@@ -170,143 +184,77 @@ onMounted(fetchRoles)
 
 <template>
   <div class="p-4 max-w-5xl mx-auto space-y-4">
-    <Com1Card>
-      <template #header-left>
-        <span class="text-base font-semibold">角色管理</span>
-      </template>
-      <template #header-right>
-        <Com1Button text="添加角色" variant="primary" size="small" @click="openAdd" />
-      </template>
-
-      <div class="overflow-x-auto">
-        <table class="w-full">
-          <thead>
-            <tr class="border-b bg-gray-50">
-              <th class="px-4 py-3 text-left text-sm font-medium text-gray-600">序号</th>
-              <th class="px-4 py-3 text-left text-sm font-medium text-gray-600">角色名称</th>
-              <th class="px-4 py-3 text-left text-sm font-medium text-gray-600">角色标识</th>
-              <th class="px-4 py-3 text-left text-sm font-medium text-gray-600">描述</th>
-              <th class="px-4 py-3 text-center text-sm font-medium text-gray-600">用户数</th>
-              <th class="px-4 py-3 text-center text-sm font-medium text-gray-600">状态</th>
-              <th class="px-4 py-3 text-center text-sm font-medium text-gray-600">排序</th>
-              <th class="px-4 py-3 text-left text-sm font-medium text-gray-600">操作</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-if="loading">
-              <td colspan="8" class="px-4 py-12 text-center text-gray-400">
-                <div class="flex items-center justify-center gap-2">
-                  <div class="w-5 h-5 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" />
-                  加载中...
-                </div>
-              </td>
-            </tr>
-            <tr v-else-if="roles.length === 0">
-              <td colspan="8" class="px-4 py-12 text-center text-gray-400">暂无角色</td>
-            </tr>
-            <template v-else>
-              <tr
-                v-for="(role, i) in roles"
-                :key="role.id"
-                class="border-b hover:bg-gray-50 transition"
-              >
-                <td class="px-4 py-3 text-sm text-gray-500">{{ i + 1 }}</td>
-                <td class="px-4 py-3 text-sm">
-                  <span class="font-medium text-gray-800">{{ role.name }}</span>
-                  <span
-                    v-if="isPreset(role.key)"
-                    class="ml-2 text-xs bg-yellow-100 text-yellow-700 px-2 py-0.5 rounded"
-                  >预设</span>
-                </td>
-                <td class="px-4 py-3 text-sm font-mono text-gray-600 bg-gray-50">{{ role.key }}</td>
-                <td class="px-4 py-3 text-sm text-gray-500">{{ role.description ?? '—' }}</td>
-                <td class="px-4 py-3 text-sm text-center">{{ role._count?.users ?? 0 }}</td>
-                <td class="px-4 py-3 text-center">
-                  <Com1Button
-                    :text="role.status ? '启用' : '禁用'"
-                    :variant="role.status ? 'success' : 'secondary'"
-                    size="mini"
-                    :disabled="isPreset(role.key)"
-                    @click="handleToggleStatus(role)"
-                  />
-                </td>
-                <td class="px-4 py-3 text-sm text-center text-gray-500">{{ role.orderNum }}</td>
-                <td class="px-4 py-3 text-sm">
-                  <Com1Button text="编辑" variant="primary" size="mini" @click="openEdit(role)" />
-                  <Com1Button
-                    text="删除"
-                    variant="danger"
-                    size="mini"
-                    :disabled="isPreset(role.key)"
-                    class="ml-2"
-                    @click="askDelete(role)"
-                  />
-                </td>
-              </tr>
-            </template>
-          </tbody>
-        </table>
-      </div>
-    </Com1Card>
-
-    <Com1Dialog
-      :open="showForm"
-      :title="editId ? '编辑角色' : '添加角色'"
-      :confirm-text="editId ? '保存' : '添加'"
-      width="max-w-xl"
-      :confirm-loading="submitting"
-      :confirm-disabled="!form.name.trim() || !form.key.trim()"
-      :on-confirm="handleSubmit"
-      @cancel="closeForm"
-      @close="closeForm"
-    >
-      <div class="flex flex-col gap-4">
-        <div class="grid grid-cols-2 gap-4">
-          <Com1Input
-            :value="form.name"
-            :config="{ text: '角色名称', width: 'w-20' }"
-            placeholder="例如：内容编辑"
-            @change="(val) => (form.name = val)"
-          />
-          <Com1Input
-            :value="form.key"
-            :config="{ text: '角色标识', width: 'w-20' }"
-            placeholder="例如：EDITOR"
-            :disabled="!!editId"
-            @change="(val) => (form.key = val.toUpperCase())"
-          />
-          <Com1Input
-            :value="String(form.orderNum)"
-            :config="{ text: '排序值', width: 'w-20' }"
-            type="number"
-            @change="(val) => (form.orderNum = Number(val))"
-          />
-          <Com1Select
-            :value="form.status"
-            :options="[{ value: true, label: '启用' }, { value: false, label: '禁用' }]"
-            :config="{ text: '状态', width: 'w-20' }"
-            @change="(val: string) => (form.status = val === 'true')"
-          />
+    <U1Card>
+      <template #header>
+        <div class="flex items-center justify-between">
+          <span class="text-base font-semibold">角色管理</span>
+          <U1Button type="primary" size="small" @click="openAdd">添加角色</U1Button>
         </div>
-        <Com1Input
-          :value="form.description"
-          :config="{ text: '描述', width: 'w-20' }"
-          placeholder="角色的简要描述"
-          @change="(val) => (form.description = val)"
+      </template>
+
+      <U1Table :columns="columns" :data="roles" row-key="id" :loading="loading" empty-text="暂无角色">
+        <template #cell-name="{ row }">
+          <span class="font-medium text-gray-800">{{ row.name }}</span>
+          <U1Tag v-if="isPreset(row.key)" type="warning" class="ml-2">预设</U1Tag>
+        </template>
+        <template #cell-key="{ row }">
+          <span class="font-mono text-gray-600">{{ row.key }}</span>
+        </template>
+        <template #cell-description="{ row }">{{ row.description ?? '—' }}</template>
+        <template #cell-userCount="{ row }">{{ row._count?.users ?? 0 }}</template>
+        <template #cell-status="{ row }">
+          <U1Button
+            :type="row.status ? 'success' : 'info'"
+            size="mini"
+            :disabled="isPreset(row.key)"
+            @click="handleToggleStatus(row)"
+          >{{ row.status ? '启用' : '禁用' }}</U1Button>
+        </template>
+        <template #action="{ row }">
+          <U1Button type="primary" size="mini" @click="openEdit(row)">编辑</U1Button>
+          <U1Button
+            type="danger"
+            size="mini"
+            :disabled="isPreset(row.key)"
+            class="ml-2"
+            @click="askDelete(row)"
+          >删除</U1Button>
+        </template>
+      </U1Table>
+    </U1Card>
+
+    <U1Dialog v-model="showForm" :title="editId ? '编辑角色' : '添加角色'" width="580px" @close="closeForm">
+      <div class="flex flex-col gap-4">
+        <U1InputLabel v-model="form.name" label="角色名称" label-width="80px" input-width="360px" placeholder="例如：内容编辑" />
+        <U1InputLabel
+          :model-value="form.key"
+          label="角色标识"
+          label-width="80px"
+          input-width="360px"
+          placeholder="例如：EDITOR"
+          :disabled="!!editId"
+          @update:model-value="(v) => (form.key = String(v).toUpperCase())"
         />
+        <U1InputLabel v-model="form.orderNum" type="number" label="排序值" label-width="80px" input-width="360px" />
+        <label class="flex items-center gap-2">
+          <span class="w-20 text-right text-sm text-gray-600 shrink-0">状态</span>
+          <U1Select :model-value="String(form.status)" :options="statusOptions" @change="(v) => (form.status = v === 'true')" />
+        </label>
+        <U1InputLabel v-model="form.description" label="描述" label-width="80px" input-width="360px" placeholder="角色的简要描述" />
+
         <p v-if="formError" class="text-red-500 text-sm">{{ formError }}</p>
+
+        <div class="flex justify-end gap-2 pt-2 border-t border-gray-100">
+          <U1Button size="small" @click="closeForm">取消</U1Button>
+          <U1Button
+            type="primary"
+            size="small"
+            :loading="submitting"
+            :disabled="!form.name.trim() || !form.key.trim()"
+            @click="handleSubmit"
+          >{{ editId ? '保存' : '添加' }}</U1Button>
+        </div>
       </div>
-    </Com1Dialog>
-
-    <Com1Confirm
-      v-model:open="confirmOpen"
-      message="确定删除该角色？"
-      title="删除确认"
-      confirm-text="删除"
-      @confirm="handleDelete"
-      @cancel="confirmTarget = null"
-    />
-
-    <Com1Message ref="msgRef" />
+    </U1Dialog>
   </div>
 </template>

@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { U1Message, U1Confirm } from 'tool_ui1'
+
 definePageMeta({ layout: 'admin' })
 
 // ─── Inline SVG Icons (Lucide-style, no extra package) ───────────────────────
@@ -52,8 +54,6 @@ const pendingRoleToggles = ref<Set<string>>(new Set())
 
 const showAddDialog = ref(false)
 const showEditDialog = ref(false)
-const showConfirmDelete = ref(false)
-const deleteTargetId = ref<number | null>(null)
 
 const form = ref<UserForm>({
   nickname: '',
@@ -70,7 +70,21 @@ const editForm = ref<EditUserForm>({
   roleIds: [],
 })
 const formError = ref('')
-const msgRef = ref<{ success: (m: string) => void; error: (m: string) => void } | null>(null)
+
+// 用户表格列
+const columns = [
+  { type: 'index', label: '序号', width: 70, align: 'center' },
+  { prop: 'nickname', label: '用户名', minWidth: 120 },
+  { prop: 'email', label: '邮箱', minWidth: 160 },
+  { prop: 'roles', label: '角色', minWidth: 260 },
+  { prop: 'remark', label: '描述', minWidth: 120 },
+  { type: 'action', label: '操作', width: 150, align: 'center' },
+]
+
+const roleFilterOptions = computed(() => [
+  { value: 'all', label: '全部角色' },
+  ...roles.value.map((role) => ({ value: String(role.id), label: role.name })),
+])
 
 const filteredUsers = computed(() => {
   const keyword = searchKeyword.value.trim().toLowerCase()
@@ -89,6 +103,8 @@ const filteredUsers = computed(() => {
     return matchKeyword && matchRole
   })
 })
+
+const emptyText = computed(() => (users.value.length === 0 ? '暂无用户数据' : '没有匹配的用户'))
 
 function getApiErrorMessage(err: unknown, fallback: string): string {
   if (!err || typeof err !== 'object') return fallback
@@ -117,7 +133,7 @@ async function fetchUsers() {
       users.value = resp.data ?? []
     }
   } catch (err) {
-    msgRef.value?.error(getApiErrorMessage(err, '加载用户列表失败'))
+    U1Message.error(getApiErrorMessage(err, '加载用户列表失败'))
   } finally {
     loading.value = false
   }
@@ -134,7 +150,7 @@ async function fetchRoles() {
       }
     }
   } catch (err) {
-    msgRef.value?.error(getApiErrorMessage(err, '加载角色列表失败'))
+    U1Message.error(getApiErrorMessage(err, '加载角色列表失败'))
   }
 }
 
@@ -191,7 +207,7 @@ async function handleAdd() {
       body: JSON.stringify(payload),
     })
     if (resp.ok) {
-      msgRef.value?.success('添加成功')
+      U1Message.success('添加成功')
       showAddDialog.value = false
       fetchUsers()
     } else {
@@ -250,7 +266,7 @@ async function handleUpdate() {
     })
 
     if (resp.ok) {
-      msgRef.value?.success('保存成功')
+      U1Message.success('保存成功')
       showEditDialog.value = false
       fetchUsers()
     } else {
@@ -263,37 +279,31 @@ async function handleUpdate() {
   }
 }
 
-function confirmDelete(id: number) {
-  deleteTargetId.value = id
-  showConfirmDelete.value = true
-}
-
-async function handleDelete() {
-  if (deleteTargetId.value === null) return
-  const id = deleteTargetId.value
-  showConfirmDelete.value = false
-  deleteTargetId.value = null
+async function askDelete(id: number) {
+  const ok = await U1Confirm({
+    title: '确认删除',
+    message: '确定删除该用户？删除后无法恢复。',
+    type: 'danger',
+    confirmText: '删除',
+  })
+  if (!ok) return
 
   try {
     const resp = await $fetch<ApiResponse<null>>(`/api/admin/user?id=${id}`, { method: 'DELETE' })
     if (resp.ok) {
-      msgRef.value?.success('删除成功')
+      U1Message.success('删除成功')
       fetchUsers()
     } else {
-      msgRef.value?.error(resp.message || '删除失败')
+      U1Message.error(resp.message || '删除失败')
     }
   } catch (err) {
-    msgRef.value?.error(getApiErrorMessage(err, '删除失败，请重试'))
+    U1Message.error(getApiErrorMessage(err, '删除失败，请重试'))
   }
 }
 
 // ─── Role Checkbox Helpers ────────────────────────────────────────────────────
 function isRoleChecked(user: User, roleId: number): boolean {
   return user.roles?.some(r => r.id === roleId) ?? false
-}
-
-function getRoleNameById(roleId: number): string {
-  return roles.value.find(r => r.id === roleId)?.name ?? ''
 }
 
 function getRolePendingKey(userId: number, roleId: number): string {
@@ -334,11 +344,11 @@ function toggleUserRole(userId: number, roleId: number, checked: boolean) {
       if (resp.code !== 200) {
         // Rollback
         fetchUsers()
-        msgRef.value?.error(resp.message || '修改角色失败')
+        U1Message.error(resp.message || '修改角色失败')
       }
     } catch (err) {
       fetchUsers()
-      msgRef.value?.error(getApiErrorMessage(err, '修改角色失败，请重试'))
+      U1Message.error(getApiErrorMessage(err, '修改角色失败，请重试'))
     } finally {
       pendingRoleToggles.value.delete(pendingKey)
     }
@@ -376,296 +386,122 @@ onMounted(() => {
 <template>
   <div class="p-4 max-w-6xl mx-auto space-y-4">
     <!-- Header Card -->
-    <Com1Card>
-      <template #header-left>
-        <span class="text-base font-semibold">用户列表</span>
-      </template>
-      <template #header-right>
-        <Com1Button text="添加用户" variant="primary" size="small" @click="openAddDialog" />
+    <U1Card>
+      <template #header>
+        <div class="flex items-center justify-between">
+          <span class="text-base font-semibold">用户列表</span>
+          <U1Button type="primary" size="small" @click="openAddDialog">添加用户</U1Button>
+        </div>
       </template>
 
       <div class="mb-4 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
         <div class="flex flex-1 flex-col gap-3 md:flex-row md:items-center">
-          <div class="relative w-full md:max-w-xs">
-            <input
-              v-model="searchKeyword"
-              type="text"
-              placeholder="搜索用户名、邮箱、描述或角色"
-              class="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
-          <select
-            v-model="roleFilter"
-            class="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 md:w-44"
-          >
-            <option value="all">全部角色</option>
-            <option
-              v-for="role in roles"
-              :key="role.id"
-              :value="String(role.id)"
-            >
-              {{ role.name }}
-            </option>
-          </select>
+          <U1Input v-model="searchKeyword" placeholder="搜索用户名、邮箱、描述或角色" clearable />
+          <U1Select v-model="roleFilter" :options="roleFilterOptions" />
         </div>
         <p class="text-sm text-gray-500">
           共 {{ filteredUsers.length }} / {{ users.length }} 个用户
         </p>
       </div>
 
-      <!-- Loading State -->
-      <div v-if="loading" class="py-16 flex flex-col items-center justify-center gap-3">
-        <div class="w-8 h-8 border-3 border-blue-600 border-t-transparent rounded-full animate-spin" />
-        <p class="text-sm text-gray-500">加载中...</p>
-      </div>
-
-      <!-- Table -->
-      <div v-else class="overflow-x-auto">
-        <table class="w-full text-sm">
-          <thead>
-            <tr class="border-b border-gray-100 bg-gray-50">
-              <th class="px-4 py-3 text-left font-medium text-gray-600 whitespace-nowrap">序号</th>
-              <th class="px-4 py-3 text-left font-medium text-gray-600 whitespace-nowrap">用户名</th>
-              <th class="px-4 py-3 text-left font-medium text-gray-600 whitespace-nowrap">邮箱</th>
-              <th class="px-4 py-3 text-left font-medium text-gray-600 whitespace-nowrap">角色</th>
-              <th class="px-4 py-3 text-left font-medium text-gray-600 whitespace-nowrap">描述</th>
-              <th class="px-4 py-3 text-left font-medium text-gray-600 whitespace-nowrap">操作</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr
-              v-for="(user, index) in filteredUsers"
-              :key="user.id"
-              class="border-b border-gray-50 hover:bg-gray-50 transition"
+      <U1Table :columns="columns" :data="filteredUsers" row-key="id" :loading="loading" :empty-text="emptyText">
+        <!-- 角色: 行内多选 -->
+        <template #cell-roles="{ row }">
+          <div class="flex flex-wrap gap-2">
+            <U1Checkbox
+              v-for="role in roles"
+              :key="role.id"
+              :model-value="isRoleChecked(row, role.id)"
+              :disabled="pendingRoleToggles.has(getRolePendingKey(row.id, role.id))"
+              @change="(v) => toggleUserRole(row.id, role.id, v === true)"
             >
-              <!-- 序号 -->
-              <td class="px-4 py-3 text-gray-500 whitespace-nowrap">{{ index + 1 }}</td>
+              <span :class="isRoleChecked(row, role.id) ? 'font-medium text-blue-700' : 'text-gray-500'">
+                <component :is="getRoleIcon(role.key)" class="inline w-3.5 h-3.5 mr-0.5" aria-hidden="true" />
+                {{ role.name }}
+              </span>
+            </U1Checkbox>
+          </div>
+        </template>
 
-              <!-- 用户名 -->
-              <td class="px-4 py-3 text-gray-800 whitespace-nowrap">{{ user.nickname }}</td>
+        <template #cell-remark="{ row }">{{ row.remark ?? '-' }}</template>
 
-              <!-- 邮箱 -->
-              <td class="px-4 py-3 text-gray-500 whitespace-nowrap">{{ user.email }}</td>
-
-              <!-- 角色 (inline checkbox) -->
-              <td class="px-4 py-3">
-                <div class="flex flex-wrap gap-2">
-                  <label
-                    v-for="role in roles"
-                    :key="role.id"
-                    :class="['inline-flex items-center gap-1.5 text-xs', pendingRoleToggles.has(getRolePendingKey(user.id, role.id)) ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer']"
-                  >
-                    <input
-                      type="checkbox"
-                      class="w-3.5 h-3.5 rounded border-gray-300 text-blue-600 accent-blue-600 cursor-pointer"
-                      :checked="isRoleChecked(user, role.id)"
-                      :disabled="pendingRoleToggles.has(getRolePendingKey(user.id, role.id))"
-                      @change="toggleUserRole(user.id, role.id, ($event.target as HTMLInputElement).checked)"
-                    />
-                    <span :class="{
-                      'font-medium text-blue-700': isRoleChecked(user, role.id),
-                      'text-gray-500': !isRoleChecked(user, role.id),
-                    }">
-                      <component :is="getRoleIcon(role.key)" class="inline w-3.5 h-3.5 mr-0.5" aria-hidden="true" />
-                      {{ role.name }}
-                    </span>
-                  </label>
-                </div>
-              </td>
-
-              <!-- 描述 -->
-              <td class="px-4 py-3 text-gray-500 whitespace-nowrap">
-                {{ user.remark ?? '-' }}
-              </td>
-
-              <!-- 操作 -->
-              <td class="px-4 py-3 whitespace-nowrap">
-                <div class="flex items-center gap-2">
-                  <Com1Button
-                    text="编辑"
-                    variant="secondary"
-                    size="mini"
-                    @click="openEditDialog(user)"
-                  />
-                  <Com1Button
-                    text="删除"
-                    variant="danger"
-                    size="mini"
-                    @click="confirmDelete(user.id)"
-                  />
-                </div>
-              </td>
-            </tr>
-
-            <!-- Empty State -->
-            <tr v-if="filteredUsers.length === 0">
-              <td colspan="6" class="px-4 py-16 text-center">
-                <div class="flex flex-col items-center gap-2 text-gray-400">
-                  <svg class="w-12 h-12 opacity-40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                  </svg>
-                  <p class="text-sm">{{ users.length === 0 ? '暂无用户数据' : '没有匹配的用户' }}</p>
-                  <Com1Button
-                    v-if="users.length === 0"
-                    text="添加用户"
-                    variant="secondary"
-                    size="mini"
-                    @click="openAddDialog"
-                  />
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </Com1Card>
+        <template #action="{ row }">
+          <U1Button type="info" size="mini" @click="openEditDialog(row)">编辑</U1Button>
+          <U1Button type="danger" size="mini" class="ml-2" @click="askDelete(row.id)">删除</U1Button>
+        </template>
+      </U1Table>
+    </U1Card>
 
     <!-- Add Dialog -->
-    <Com1Dialog
-      :open="showAddDialog"
-      title="添加用户"
-      confirm-text="提交"
-      width="max-w-md"
-      :confirm-loading="saving"
-      :on-confirm="handleAdd"
-      @cancel="showAddDialog = false"
-      @close="showAddDialog = false"
-    >
-      <div class="space-y-4">
-        <Com1Input
-          :value="form.nickname"
-          :config="{ text: '用户名' }"
-          placeholder="请输入用户名"
-          required
-          @change="(val: string) => { form.nickname = val }"
-        />
-        <Com1Input
-          :value="form.email"
-          :config="{ text: '邮箱' }"
-          type="email"
-          placeholder="请输入邮箱"
-          required
-          @change="(val: string) => { form.email = val }"
-        />
-        <Com1Input
-          :value="form.password"
-          :config="{ text: '密码' }"
-          type="password"
-          placeholder="请输入密码"
-          required
-          @change="(val: string) => { form.password = val }"
-        />
-        <Com1Input
-          :value="form.remark"
-          :config="{ text: '描述' }"
-          placeholder="可选"
-          @change="(val: string) => { form.remark = val }"
-        />
+    <U1Dialog v-model="showAddDialog" title="添加用户" width="460px" @close="showAddDialog = false">
+      <div class="flex flex-col gap-4">
+        <U1InputLabel v-model="form.nickname" label="用户名" label-width="72px" input-width="320px" placeholder="请输入用户名" />
+        <U1InputLabel v-model="form.email" label="邮箱" label-width="72px" input-width="320px" placeholder="请输入邮箱" />
+        <label class="flex items-center gap-2">
+          <span class="w-[72px] text-right text-sm text-gray-600 shrink-0">密码</span>
+          <U1Input v-model="form.password" show-password placeholder="请输入密码" />
+        </label>
+        <U1InputLabel v-model="form.remark" label="描述" label-width="72px" input-width="320px" placeholder="可选" />
 
         <!-- Role Checkboxes -->
-        <div class="flex items-start gap-3">
-          <label class="w-20 text-right pt-2 text-sm font-medium text-gray-700 shrink-0">
-            角色
-          </label>
-          <div class="flex-1 flex flex-wrap gap-3 pt-1">
-            <label
+        <div class="flex items-start gap-2">
+          <span class="w-[72px] text-right pt-1 text-sm text-gray-600 shrink-0">角色</span>
+          <div class="flex-1 flex flex-wrap gap-3">
+            <U1Checkbox
               v-for="role in roles"
               :key="role.id"
-              class="inline-flex items-center gap-1.5 text-sm cursor-pointer"
+              :model-value="form.roleIds.includes(role.id)"
+              @change="(v) => toggleFormRole(role.id, v === true)"
             >
-              <input
-                type="checkbox"
-                class="w-4 h-4 rounded border-gray-300 text-blue-600 accent-blue-600 cursor-pointer"
-                :checked="form.roleIds.includes(role.id)"
-                @change="toggleFormRole(role.id, ($event.target as HTMLInputElement).checked)"
-              />
               <span class="text-gray-700">
                 <component :is="getRoleIcon(role.key)" class="inline w-3.5 h-3.5 mr-0.5" aria-hidden="true" />
                 {{ role.name }}
               </span>
-            </label>
+            </U1Checkbox>
           </div>
         </div>
 
-        <p v-if="formError" class="text-red-500 text-sm pl-[96px]">{{ formError }}</p>
+        <p v-if="formError" class="text-red-500 text-sm">{{ formError }}</p>
+
+        <div class="flex justify-end gap-2 pt-2 border-t border-gray-100">
+          <U1Button size="small" @click="showAddDialog = false">取消</U1Button>
+          <U1Button type="primary" size="small" :loading="saving" @click="handleAdd">提交</U1Button>
+        </div>
       </div>
-    </Com1Dialog>
+    </U1Dialog>
 
     <!-- Edit Dialog -->
-    <Com1Dialog
-      :open="showEditDialog"
-      title="编辑用户"
-      confirm-text="保存"
-      width="max-w-md"
-      :confirm-loading="saving"
-      :on-confirm="handleUpdate"
-      @cancel="showEditDialog = false"
-      @close="showEditDialog = false"
-    >
-      <div class="space-y-4">
-        <Com1Input
-          :value="editForm.nickname"
-          :config="{ text: '用户名' }"
-          placeholder="请输入用户名"
-          required
-          @change="(val: string) => { editForm.nickname = val }"
-        />
-        <Com1Input
-          :value="editForm.email"
-          :config="{ text: '邮箱' }"
-          type="email"
-          placeholder="请输入邮箱"
-          required
-          @change="(val: string) => { editForm.email = val }"
-        />
-        <Com1Input
-          :value="editForm.remark"
-          :config="{ text: '描述' }"
-          placeholder="可选"
-          @change="(val: string) => { editForm.remark = val }"
-        />
+    <U1Dialog v-model="showEditDialog" title="编辑用户" width="460px" @close="showEditDialog = false">
+      <div class="flex flex-col gap-4">
+        <U1InputLabel v-model="editForm.nickname" label="用户名" label-width="72px" input-width="320px" placeholder="请输入用户名" />
+        <U1InputLabel v-model="editForm.email" label="邮箱" label-width="72px" input-width="320px" placeholder="请输入邮箱" />
+        <U1InputLabel v-model="editForm.remark" label="描述" label-width="72px" input-width="320px" placeholder="可选" />
 
         <!-- Role Checkboxes -->
-        <div class="flex items-start gap-3">
-          <label class="w-20 text-right pt-2 text-sm font-medium text-gray-700 shrink-0">
-            角色
-          </label>
-          <div class="flex-1 flex flex-wrap gap-3 pt-1">
-            <label
+        <div class="flex items-start gap-2">
+          <span class="w-[72px] text-right pt-1 text-sm text-gray-600 shrink-0">角色</span>
+          <div class="flex-1 flex flex-wrap gap-3">
+            <U1Checkbox
               v-for="role in roles"
               :key="role.id"
-              class="inline-flex items-center gap-1.5 text-sm cursor-pointer"
+              :model-value="editForm.roleIds.includes(role.id)"
+              @change="(v) => toggleEditFormRole(role.id, v === true)"
             >
-              <input
-                type="checkbox"
-                class="w-4 h-4 rounded border-gray-300 text-blue-600 accent-blue-600 cursor-pointer"
-                :checked="editForm.roleIds.includes(role.id)"
-                @change="toggleEditFormRole(role.id, ($event.target as HTMLInputElement).checked)"
-              />
               <span class="text-gray-700">
                 <component :is="getRoleIcon(role.key)" class="inline w-3.5 h-3.5 mr-0.5" aria-hidden="true" />
                 {{ role.name }}
               </span>
-            </label>
+            </U1Checkbox>
           </div>
         </div>
 
-        <p v-if="formError" class="text-red-500 text-sm pl-[96px]">{{ formError }}</p>
+        <p v-if="formError" class="text-red-500 text-sm">{{ formError }}</p>
+
+        <div class="flex justify-end gap-2 pt-2 border-t border-gray-100">
+          <U1Button size="small" @click="showEditDialog = false">取消</U1Button>
+          <U1Button type="primary" size="small" :loading="saving" @click="handleUpdate">保存</U1Button>
+        </div>
       </div>
-    </Com1Dialog>
-
-    <!-- Delete Confirm -->
-    <Com1Confirm
-      v-model:open="showConfirmDelete"
-      message="确定删除该用户？删除后无法恢复。"
-      title="确认删除"
-      confirm-text="删除"
-      cancel-text="取消"
-      @confirm="handleDelete"
-      @cancel="deleteTargetId = null"
-    />
-
-    <!-- Message Toast -->
-    <Com1Message ref="msgRef" />
+    </U1Dialog>
   </div>
 </template>

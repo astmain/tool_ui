@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { U1Message, U1Confirm } from 'tool_ui1'
+
 definePageMeta({ layout: 'admin' })
 
 // ─── Types ───────────────────────────────────────────────────────────────────
@@ -40,11 +42,36 @@ const editArtId = ref<number | null>(null)
 const artForm = ref({ title: '', content: '', categoryId: '', sort: 0 })
 const artFormError = ref('')
 
-// Delete confirm
-const showDeleteConfirm = ref(false)
-const deleteTarget = ref<{ id: number; type: 'category' | 'article' } | null>(null)
+// 分类表格列
+const catColumns = [
+  { type: 'index', label: '序号', width: 70, align: 'center' },
+  { prop: 'name', label: '分类名称', minWidth: 140 },
+  { prop: 'sort', label: '排序', width: 90, align: 'center' },
+  { prop: 'remark', label: '备注', minWidth: 160 },
+  { prop: 'articleCount', label: '文章数', width: 90, align: 'center' },
+  { type: 'action', label: '操作', width: 170, align: 'center' },
+]
 
-const msgRef = ref<{ success: (m: string) => void; error: (m: string) => void } | null>(null)
+// 文章表格列
+const artColumns = [
+  { type: 'index', label: '序号', width: 70, align: 'center' },
+  { prop: 'title', label: '标题', minWidth: 180 },
+  { prop: 'category', label: '分类', width: 120 },
+  { prop: 'sort', label: '排序', width: 90, align: 'center' },
+  { prop: 'publishTime', label: '发布时间', width: 130 },
+  { type: 'action', label: '操作', width: 170, align: 'center' },
+]
+
+// 文章分类下拉选项
+const categoryOptions = computed(() => [
+  { value: '', label: '请选择分类' },
+  ...categories.value.map((c) => ({ value: String(c.id), label: c.name })),
+])
+
+function formatDate(art: Article) {
+  const raw = art.updatedAt || art.createdAt
+  return raw ? new Date(raw).toLocaleDateString('zh-CN') : '—'
+}
 
 // ─── Fetch ───────────────────────────────────────────────────────────────────
 async function fetchCategories() {
@@ -55,7 +82,7 @@ async function fetchCategories() {
       categories.value = resp.data
     }
   } catch {
-    msgRef.value?.error('加载分类失败')
+    U1Message.error('加载分类失败')
   } finally {
     loadingCategories.value = false
   }
@@ -69,7 +96,7 @@ async function fetchArticles() {
       articles.value = resp.data
     }
   } catch {
-    msgRef.value?.error('加载文章列表失败')
+    U1Message.error('加载文章列表失败')
   } finally {
     loadingArticles.value = false
   }
@@ -115,22 +142,19 @@ async function handleCategorySubmit() {
       body.remark = catForm.value.remark.trim()
     }
 
-    const url = editCatId.value
-      ? '/api/admin/article'
-      : '/api/admin/article'
     const method = editCatId.value ? 'PUT' : 'POST'
     if (editCatId.value) {
       body.id = editCatId.value
     }
 
-    const resp = await $fetch<{ code: number; message?: string }>(url, {
+    const resp = await $fetch<{ code: number; message?: string }>('/api/admin/article', {
       method,
       headers: { 'Content-Type': 'application/json' },
       body,
     })
 
     if (resp.ok) {
-      msgRef.value?.success(editCatId.value ? '修改成功' : '添加成功')
+      U1Message.success(editCatId.value ? '修改成功' : '添加成功')
       closeCatDialog()
       fetchCategories()
     } else {
@@ -190,20 +214,19 @@ async function handleArticleSubmit() {
       sort: artForm.value.sort,
     }
 
-    const url = '/api/admin/article'
     const method = editArtId.value ? 'PUT' : 'POST'
     if (editArtId.value) {
       body.id = editArtId.value
     }
 
-    const resp = await $fetch<{ code: number; message?: string }>(url, {
+    const resp = await $fetch<{ code: number; message?: string }>('/api/admin/article', {
       method,
       headers: { 'Content-Type': 'application/json' },
       body,
     })
 
     if (resp.ok) {
-      msgRef.value?.success(editArtId.value ? '修改成功' : '发布成功')
+      U1Message.success(editArtId.value ? '修改成功' : '发布成功')
       closeArtDialog()
       fetchArticles()
     } else {
@@ -217,16 +240,14 @@ async function handleArticleSubmit() {
 }
 
 // ─── Delete ─────────────────────────────────────────────────────────────────
-function askDelete(id: number, type: 'category' | 'article') {
-  deleteTarget.value = { id, type }
-  showDeleteConfirm.value = true
-}
-
-async function handleDelete() {
-  if (!deleteTarget.value) return
-  const { id, type } = deleteTarget.value
-  showDeleteConfirm.value = false
-  deleteTarget.value = null
+async function askDelete(id: number, type: 'category' | 'article') {
+  const ok = await U1Confirm({
+    title: '确认删除',
+    message: `确定删除该${type === 'category' ? '分类' : '文章'}吗?`,
+    type: 'danger',
+    confirmText: '删除',
+  })
+  if (!ok) return
 
   try {
     const suffix = type === 'category' ? '&resource=category' : ''
@@ -234,14 +255,14 @@ async function handleDelete() {
       method: 'DELETE',
     })
     if (resp.ok) {
-      msgRef.value?.success('删除成功')
+      U1Message.success('删除成功')
       if (type === 'category') fetchCategories()
       else fetchArticles()
     } else {
-      msgRef.value?.error(resp.message ?? '删除失败')
+      U1Message.error(resp.message ?? '删除失败')
     }
   } catch (err: any) {
-    msgRef.value?.error(err?.data?.message ?? '删除失败')
+    U1Message.error(err?.data?.message ?? '删除失败')
   }
 }
 
@@ -254,230 +275,84 @@ onMounted(() => {
 <template>
   <div class="p-4 max-w-6xl mx-auto space-y-4">
     <!-- 分类管理 Card -->
-    <Com1Card>
-      <template #header-left>
-        <span class="text-base font-semibold">分类管理</span>
+    <U1Card>
+      <template #header>
+        <div class="flex items-center justify-between">
+          <span class="text-base font-semibold">分类管理</span>
+          <U1Button type="primary" size="small" @click="openCatAdd">添加分类</U1Button>
+        </div>
       </template>
-      <template #header-right>
-        <Com1Button text="添加分类" variant="primary" size="small" @click="openCatAdd" />
-      </template>
 
-      <div class="overflow-x-auto">
-        <table class="w-full text-sm">
-          <thead>
-            <tr class="border-b bg-gray-50">
-              <th class="px-4 py-3 text-left font-medium text-gray-600 whitespace-nowrap">序号</th>
-              <th class="px-4 py-3 text-left font-medium text-gray-600 whitespace-nowrap">分类名称</th>
-              <th class="px-4 py-3 text-left font-medium text-gray-600 whitespace-nowrap">排序</th>
-              <th class="px-4 py-3 text-left font-medium text-gray-600 whitespace-nowrap">备注</th>
-              <th class="px-4 py-3 text-left font-medium text-gray-600 whitespace-nowrap">文章数</th>
-              <th class="px-4 py-3 text-left font-medium text-gray-600 whitespace-nowrap">操作</th>
-            </tr>
-          </thead>
-          <tbody>
-            <!-- Loading -->
-            <tr v-if="loadingCategories">
-              <td colspan="6" class="px-4 py-12 text-center text-gray-400">
-                <div class="flex items-center justify-center gap-2">
-                  <div class="w-5 h-5 border-2 border-blue-600 border-t-transparent rounded-full animate-spin" />
-                  加载中...
-                </div>
-              </td>
-            </tr>
-
-            <!-- Empty -->
-            <tr v-else-if="categories.length === 0">
-              <td colspan="6" class="px-4 py-12 text-center">
-                <div class="flex flex-col items-center gap-2 text-gray-400">
-                  <svg class="w-10 h-10 opacity-40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A2 2 0 013 12V7a4 4 0 014-4z" />
-                  </svg>
-                  <p class="text-sm">暂无数据</p>
-                  <Com1Button text="添加分类" variant="secondary" size="mini" @click="openCatAdd" />
-                </div>
-              </td>
-            </tr>
-
-            <!-- Data rows -->
-            <tr
-              v-for="(cat, i) in categories"
-              v-else
-              :key="cat.id"
-              class="border-b hover:bg-gray-50 transition"
-            >
-              <td class="px-4 py-3 text-gray-500 whitespace-nowrap">{{ i + 1 }}</td>
-              <td class="px-4 py-3 text-gray-800 whitespace-nowrap font-medium">{{ cat.name }}</td>
-              <td class="px-4 py-3 text-gray-500 whitespace-nowrap">{{ cat.sort }}</td>
-              <td class="px-4 py-3 text-gray-500 whitespace-nowrap">{{ cat.remark ?? '—' }}</td>
-              <td class="px-4 py-3 text-gray-500 whitespace-nowrap">{{ cat.articleCount ?? 0 }}</td>
-              <td class="px-4 py-3 whitespace-nowrap">
-                <Com1Button text="编辑" variant="primary" size="mini" @click="openCatEdit(cat)" />
-                <Com1Button text="删除" variant="danger" size="mini" class="ml-2" @click="askDelete(cat.id, 'category')" />
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </Com1Card>
+      <U1Table :columns="catColumns" :data="categories" row-key="id" :loading="loadingCategories" empty-text="暂无数据">
+        <template #cell-remark="{ row }">{{ row.remark ?? '—' }}</template>
+        <template #cell-articleCount="{ row }">{{ row.articleCount ?? 0 }}</template>
+        <template #action="{ row }">
+          <U1Button type="primary" size="mini" @click="openCatEdit(row)">编辑</U1Button>
+          <U1Button type="danger" size="mini" class="ml-2" @click="askDelete(row.id, 'category')">删除</U1Button>
+        </template>
+      </U1Table>
+    </U1Card>
 
     <!-- 文章管理 Card -->
-    <Com1Card>
-      <template #header-left>
-        <span class="text-base font-semibold">文章管理</span>
+    <U1Card>
+      <template #header>
+        <div class="flex items-center justify-between">
+          <span class="text-base font-semibold">文章管理</span>
+          <U1Button type="primary" size="small" @click="openArtAdd">发布文章</U1Button>
+        </div>
       </template>
-      <template #header-right>
-        <Com1Button text="发布文章" variant="primary" size="small" @click="openArtAdd" />
-      </template>
 
-      <div class="overflow-x-auto">
-        <table class="w-full text-sm">
-          <thead>
-            <tr class="border-b bg-gray-50">
-              <th class="px-4 py-3 text-left font-medium text-gray-600 whitespace-nowrap">序号</th>
-              <th class="px-4 py-3 text-left font-medium text-gray-600 whitespace-nowrap">标题</th>
-              <th class="px-4 py-3 text-left font-medium text-gray-600 whitespace-nowrap">分类</th>
-              <th class="px-4 py-3 text-left font-medium text-gray-600 whitespace-nowrap">排序</th>
-              <th class="px-4 py-3 text-left font-medium text-gray-600 whitespace-nowrap">发布时间</th>
-              <th class="px-4 py-3 text-left font-medium text-gray-600 whitespace-nowrap">操作</th>
-            </tr>
-          </thead>
-          <tbody>
-            <!-- Loading -->
-            <tr v-if="loadingArticles">
-              <td colspan="6" class="px-4 py-12 text-center text-gray-400">
-                <div class="flex items-center justify-center gap-2">
-                  <div class="w-5 h-5 border-2 border-blue-600 border-t-transparent rounded-full animate-spin" />
-                  加载中...
-                </div>
-              </td>
-            </tr>
-
-            <!-- Empty -->
-            <tr v-else-if="articles.length === 0">
-              <td colspan="6" class="px-4 py-12 text-center">
-                <div class="flex flex-col items-center gap-2 text-gray-400">
-                  <svg class="w-10 h-10 opacity-40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                  </svg>
-                  <p class="text-sm">暂无数据</p>
-                  <Com1Button text="发布文章" variant="secondary" size="mini" @click="openArtAdd" />
-                </div>
-              </td>
-            </tr>
-
-            <!-- Data rows -->
-            <tr
-              v-for="(art, i) in articles"
-              v-else
-              :key="art.id"
-              class="border-b hover:bg-gray-50 transition"
-            >
-              <td class="px-4 py-3 text-gray-500 whitespace-nowrap">{{ i + 1 }}</td>
-              <td class="px-4 py-3 text-gray-800 whitespace-nowrap">{{ art.title }}</td>
-              <td class="px-4 py-3 whitespace-nowrap">
-                <span class="inline-block bg-blue-50 text-blue-700 text-xs px-2 py-0.5 rounded">{{ art.category?.name ?? '—' }}</span>
-              </td>
-              <td class="px-4 py-3 text-gray-500 whitespace-nowrap">{{ art.sort }}</td>
-              <td class="px-4 py-3 text-gray-500 whitespace-nowrap">{{ art.updatedAt ? new Date(art.updatedAt).toLocaleDateString('zh-CN') : (art.createdAt ? new Date(art.createdAt).toLocaleDateString('zh-CN') : '—') }}</td>
-              <td class="px-4 py-3 whitespace-nowrap">
-                <Com1Button text="编辑" variant="primary" size="mini" @click="openArtEdit(art)" />
-                <Com1Button text="删除" variant="danger" size="mini" class="ml-2" @click="askDelete(art.id, 'article')" />
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </Com1Card>
+      <U1Table :columns="artColumns" :data="articles" row-key="id" :loading="loadingArticles" empty-text="暂无数据">
+        <template #cell-category="{ row }">
+          <U1Tag type="primary" effect="light">{{ row.category?.name ?? '—' }}</U1Tag>
+        </template>
+        <template #cell-publishTime="{ row }">{{ formatDate(row) }}</template>
+        <template #action="{ row }">
+          <U1Button type="primary" size="mini" @click="openArtEdit(row)">编辑</U1Button>
+          <U1Button type="danger" size="mini" class="ml-2" @click="askDelete(row.id, 'article')">删除</U1Button>
+        </template>
+      </U1Table>
+    </U1Card>
 
     <!-- 分类表单 Dialog -->
-    <Com1Dialog
-      :open="showCatDialog"
-      :title="editCatId ? '编辑分类' : '添加分类'"
-      confirm-text="保存"
-      width="max-w-md"
-      @confirm="handleCategorySubmit"
-      @cancel="closeCatDialog"
-      @close="closeCatDialog"
-    >
+    <U1Dialog v-model="showCatDialog" :title="editCatId ? '编辑分类' : '添加分类'" width="460px" @close="closeCatDialog">
       <div class="flex flex-col gap-4">
-        <div class="grid grid-cols-2 gap-4">
-          <Com1Input
-            :value="catForm.name"
-            :config="{ text: '分类名称', width: 'w-20' }"
-            placeholder="请输入分类名称"
-            @change="(val) => (catForm.name = val)"
-          />
-          <Com1Input
-            :value="String(catForm.sort)"
-            :config="{ text: '排序值', width: 'w-20' }"
-            type="number"
-            @change="(val) => (catForm.sort = Number(val))"
-          />
-        </div>
-        <Com1Input
-          :value="catForm.remark"
-          :config="{ text: '备注', width: 'w-20' }"
-          placeholder="可选"
-          @change="(val) => (catForm.remark = val)"
-        />
+        <U1InputLabel v-model="catForm.name" label="分类名称" label-width="80px" input-width="300px" placeholder="请输入分类名称" />
+        <U1InputLabel v-model="catForm.sort" type="number" label="排序值" label-width="80px" input-width="300px" />
+        <U1InputLabel v-model="catForm.remark" label="备注" label-width="80px" input-width="300px" placeholder="可选" />
         <p v-if="catFormError" class="text-red-500 text-sm">{{ catFormError }}</p>
+
+        <div class="flex justify-end gap-2 pt-2 border-t border-gray-100">
+          <U1Button size="small" @click="closeCatDialog">取消</U1Button>
+          <U1Button type="primary" size="small" :loading="submitting" @click="handleCategorySubmit">保存</U1Button>
+        </div>
       </div>
-    </Com1Dialog>
+    </U1Dialog>
 
     <!-- 文章表单 Dialog -->
-    <Com1Dialog
-      :open="showArtDialog"
-      :title="editArtId ? '编辑文章' : '发布文章'"
-      confirm-text="保存"
-      width="max-w-2xl"
-      @confirm="handleArticleSubmit"
-      @cancel="closeArtDialog"
-      @close="closeArtDialog"
-    >
+    <U1Dialog v-model="showArtDialog" :title="editArtId ? '编辑文章' : '发布文章'" width="680px" @close="closeArtDialog">
       <div class="flex flex-col gap-4">
-        <div class="grid grid-cols-2 gap-4">
-          <Com1Input
-            :value="artForm.title"
-            :config="{ text: '标题', width: 'w-20' }"
-            placeholder="请输入文章标题"
-            @change="(val) => (artForm.title = val)"
+        <U1InputLabel v-model="artForm.title" label="标题" label-width="80px" input-width="480px" placeholder="请输入文章标题" />
+        <label class="flex items-center gap-2">
+          <span class="w-20 text-right text-sm text-gray-600 shrink-0">分类</span>
+          <U1Select v-model="artForm.categoryId" :options="categoryOptions" placeholder="请选择分类" />
+        </label>
+        <U1InputLabel v-model="artForm.sort" type="number" label="排序值" label-width="80px" input-width="480px" />
+        <label class="flex items-start gap-2">
+          <span class="w-20 text-right text-sm text-gray-600 shrink-0 pt-2">内容</span>
+          <textarea
+            v-model="artForm.content"
+            class="flex-1 min-h-[120px] rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="请输入文章内容"
           />
-          <Com1Select
-            :value="artForm.categoryId"
-            :options="[{ value: '', label: '请选择分类' }, ...categories.map(c => ({ value: String(c.id), label: c.name }))]"
-            :config="{ text: '分类', width: 'w-20' }"
-            @change="(val: string) => (artForm.categoryId = val)"
-          />
-          <Com1Input
-            :value="String(artForm.sort)"
-            :config="{ text: '排序值', width: 'w-20' }"
-            type="number"
-            @change="(val) => (artForm.sort = Number(val))"
-          />
-        </div>
-        <Com1Input
-          :value="artForm.content"
-          :config="{ text: '内容', width: 'w-20' }"
-          type="textarea"
-          placeholder="请输入文章内容"
-          :input-class="'min-h-[120px]'"
-          @change="(val) => (artForm.content = val)"
-        />
+        </label>
         <p v-if="artFormError" class="text-red-500 text-sm">{{ artFormError }}</p>
+
+        <div class="flex justify-end gap-2 pt-2 border-t border-gray-100">
+          <U1Button size="small" @click="closeArtDialog">取消</U1Button>
+          <U1Button type="primary" size="small" :loading="submitting" @click="handleArticleSubmit">保存</U1Button>
+        </div>
       </div>
-    </Com1Dialog>
-
-    <!-- 删除确认 -->
-    <Com1Confirm
-      v-model:open="showDeleteConfirm"
-      :message="`确定删除该${deleteTarget?.type === 'category' ? '分类' : '文章'}吗？`"
-      title="确认删除"
-      confirm-text="删除"
-      @confirm="handleDelete"
-      @cancel="deleteTarget = null"
-    />
-
-    <!-- 消息提示 -->
-    <Com1Message ref="msgRef" />
+    </U1Dialog>
   </div>
 </template>

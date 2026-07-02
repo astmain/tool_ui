@@ -69,8 +69,8 @@ const props = withDefaults(
 )
 
 const emit = defineEmits<{
-  'update:modelValue': [value: string]
-  change: [value: string]
+  'update:modelValue': [value: string | number]
+  change: [value: string | number]
 }>()
 
 const visible = ref(false)
@@ -110,6 +110,15 @@ function normalizeValue(value: string) {
   return value.replace(/\D/g, '')
 }
 
+// type=number 时对外发出 number(空值发 0), 其余保持字符串
+function emitValue(digits: string): string | number {
+  if (props.type === 'number') {
+    return digits === '' ? 0 : Number(digits)
+  }
+
+  return digits
+}
+
 function getNextDisplayValue(value: string) {
   if (!props.show || visible.value) {
     return value
@@ -122,14 +131,14 @@ function handleInput(event: Event) {
   const input = event.target as HTMLInputElement
   const value = normalizeValue(input.value)
   input.value = getNextDisplayValue(value)
-  emit('update:modelValue', value)
+  emit('update:modelValue', emitValue(value))
 }
 
 function handleChange(event: Event) {
   const input = event.target as HTMLInputElement
   const value = props.show && !visible.value ? rawValue.value : normalizeValue(input.value)
   input.value = getNextDisplayValue(value)
-  emit('change', value)
+  emit('change', emitValue(value))
 }
 
 function toggleVisible() {
